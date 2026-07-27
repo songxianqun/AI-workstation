@@ -218,7 +218,7 @@
     <!-- 多人会话消息区 -->
     <section class="messages" id="messages">
       <!-- §1 系统提示 -->
-      <div class="system"><span>会话已进入多人协作模式 · 可通过输入框AI开关或 @AI 让AI参与</span></div>
+      <div class="system"><span>会话已进入多人协作模式 · 可通过输入框AI开关或 @工作秘书 让AI参与</span></div>
 
       <!-- 陈斌消息 -->
       <div class="msg"><span class="avatar a1">陈斌</span><div><div class="meta">陈斌 10:12</div><div class="bubble">Rclaw技术方案初稿已经完成，接下来需要确认接入方式和演示范围。</div></div>
@@ -239,7 +239,7 @@
       <div class="ai-card-wrap">
         <div class="ai-card">
           <div class="ai-head"><span class="ai-icon">✦</span>工作秘书 · 由宋贤群发起</div>
-          <div class="ai-quote quote-clickable" onclick="scrollToMsg('shiZhanMsg')"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：@AI 请比较接口方案A和B的风险与实施成本。</span></div>
+          <div class="ai-quote quote-clickable" onclick="scrollToMsg('shiZhanMsg')"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：@工作秘书 请比较接口方案A和B的风险与实施成本。</span></div>
           <div class="ai-context">基于施展提出的：“需要先确认接口权限和测试环境……”</div>
           <div class="ai-text">方案A实施路径更短，适合本期演示；主要风险在于接口权限与环境准备。建议先锁定方案A，同时保留方案B作为后续扩展路径。</div>
         </div>
@@ -321,7 +321,7 @@
         <div class="context" id="context"><span id="contextText"></span><button onclick="clearContext()">×</button></div>
         <!-- 附件上传预览区 -->
         <div class="uploads" id="uploads"></div>
-        <div class="textline"><textarea id="input" placeholder="与成员讨论，开启AI或输入 @AI 让AI参与" oninput="onInput()"></textarea></div>
+        <div class="textline"><textarea id="input" placeholder="与成员讨论，开启AI或输入 @工作秘书 让AI参与" oninput="onInput()"></textarea></div>
         <div class="toolbar-sep"></div>
         <div class="tools">
           <div class="tool-left">
@@ -767,7 +767,7 @@ function switchSession(el) {
     toggle.classList.remove('on');
     composer.classList.remove('ai-on');
     toggleText.textContent = 'AI关闭';
-    input.placeholder = '与成员讨论，开启AI或输入 @AI 让AI参与';
+    input.placeholder = '与成员讨论，开启AI或输入 @工作秘书 让AI参与';
   }
   sendBtn.classList.toggle('ai', aiOn);
   composer.classList.toggle('ai-on', aiOn);
@@ -804,15 +804,21 @@ function updatePlaceholder() {
   } else {
     input.placeholder = aiOn
       ? '向AI提问，每条消息均由AI处理'
-      : '与成员讨论，开启AI或输入 @AI 让AI参与';
+      : '与成员讨论，开启AI或输入 @工作秘书 让AI参与';
   }
+}
+
+/* ========== 检测文本是否提及任何智能体 ========== */
+function hasAgentMention(text) {
+  const agents = ['工作秘书','客户经理','财富管家','创意助手','薯 expert','原子模型测试'];
+  return agents.some(name => text.includes('@' + name));
 }
 
 /* ========== 发送按钮状态 ========== */
 function updateSendBtn() {
   const isSolo = sessionMode === 'solo';
   const hasFiles = uploadedFiles.length > 0;
-  const willAI = isSolo || aiOn || input.value.includes('@AI') || quoteData?.aiProcess;
+  const willAI = isSolo || aiOn || hasAgentMention(input.value) || quoteData?.aiProcess;
   sendBtn.classList.toggle('ai', willAI);
   sendBtn.disabled = !input.value.trim() && !quoteData && !hasFiles;
   sendBtn.style.opacity = sendBtn.disabled ? '.4' : '1';
@@ -988,7 +994,7 @@ function quoteMsg(who, text) {
 /* ========== §6 AI处理（立即执行） ========== */
 function aiProcess(who, text) {
   // 显示自动执行状态
-  autoStatus.textContent = '当前消息已作为 @AI 请求发送，「' + selectedAgent + '」正在处理' + who + '的消息……';
+  autoStatus.textContent = '当前消息已作为 @' + selectedAgent + ' 请求发送，「' + selectedAgent + '」正在处理' + who + '的消息……';
   autoStatus.classList.add('show');
   // 清除引用状态
   clearContext();
@@ -996,7 +1002,7 @@ function aiProcess(who, text) {
   // 立即发送AI处理消息
   const short = text.length > 40 ? text.slice(0, 40) + '…' : text;
   const displayQuote = '<div class="reply-ref"><b>引用 ' + who + '</b><br>"' + short + '"</div>';
-  const msgBody = displayQuote + '@AI 请处理这条信息。';
+  const msgBody = displayQuote + '@' + selectedAgent + ' 请处理这条信息。';
 
   appendHuman(msgBody);
 
@@ -1004,7 +1010,7 @@ function aiProcess(who, text) {
     autoStatus.classList.remove('show');
     // §7 AI回复（带上级上下文）
     const contextBlock = '<div class="ai-context">基于' + who + '提出的：“' + short + '”</div>';
-    appendAI('@AI 请处理这条信息。', contextBlock);
+    appendAI('@' + selectedAgent + ' 请处理这条信息。', contextBlock);
     messages.scrollTop = messages.scrollHeight;
   }, 800);
 }
@@ -1089,8 +1095,8 @@ function sendMessage() {
   if (!text && !quoteData && !uploadedFiles.length) return;
 
   const isSolo = sessionMode === 'solo';
-  const hasAtAI = text.includes('@AI');
-  const willAI = isSolo || aiOn || hasAtAI || (quoteData?.aiProcess);
+  const hasAtAgent = hasAgentMention(text);
+  const willAI = isSolo || aiOn || hasAtAgent || (quoteData?.aiProcess);
 
   // 选择正确的消息区
   const targetMsgs = isSolo ? soloMessages : messages;
