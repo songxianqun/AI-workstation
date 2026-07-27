@@ -344,7 +344,6 @@
         <span>会话目录</span>
       </div>
       <div style="display:flex;gap:4px;align-items:center">
-        <button class="right-header-btn" onclick="toggleNotifPanel()" title="消息通知" style="position:relative">🔔<span class="bell-badge" id="bellBadge2" style="position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;border-radius:10px;background:#e34;color:#fff;font-size:9px;font-weight:700;display:grid;place-items:center;padding:0 4px;border:2px solid #fff">4</span></button>
         <button class="right-header-btn" title="收起侧边栏">⤢</button>
       </div>
     </div>
@@ -1455,12 +1454,7 @@ function updateUnreadCount() {
     badge.textContent = total;
     badge.style.display = total > 0 ? '' : 'none';
   }
-  // 更新右侧面板头部角标
-  const badge2 = $('bellBadge2');
-  if (badge2) {
-    badge2.textContent = total;
-    badge2.style.display = total > 0 ? '' : 'none';
-  }
+  // 更新未读Tab计数
   const unreadTab = document.querySelector('.notif-tab[data-tab="unread"] .tab-count');
   if (unreadTab) unreadTab.textContent = total;
 }
