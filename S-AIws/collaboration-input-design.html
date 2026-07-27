@@ -188,9 +188,12 @@
     .notif-card:hover{background:#f8f9fd;border-color:#e7eaf1}
     .notif-card.unread{background:#f4f7ff;border-color:#dce6f8}
     .notif-card.unread::before{content:'';position:absolute;top:16px;left:4px;width:6px;height:6px;border-radius:50%;background:#3464e8}
+    .notif-card.accent{border-left:3px solid #3464e8;padding-left:14px}
+    .notif-card.accent.unread::before{display:none}
     .notif-avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
     .notif-body{flex:1;min-width:0}
     .notif-card-title{font-size:13px;font-weight:700;color:#1f2940;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+    .notif-card-title .notif-time{margin-left:auto;font-size:11px;color:#9aa2b5;font-weight:400;flex-shrink:0}
     .notif-type-tag{font-size:10px;padding:1px 6px;border-radius:6px;font-weight:600;flex-shrink:0}
     .notif-type-tag.task{background:#fef3e2;color:#e3875d}
     .notif-type-tag.invite{background:#eaf0ff;color:#3464e8}
@@ -199,24 +202,13 @@
     .notif-meta{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:11px;color:#9aa2b5}
     .notif-meta .sender{color:#5a6478;font-weight:600}
     .notif-time{margin-left:auto}
-    /* 协作邀请卡片 */
-    .invite-card{padding:14px;border-radius:12px;border:1px solid #dce6f8;background:#f8faff;margin-bottom:8px;transition:.15s}
-    .invite-card:hover{border-color:#a4b8f0;box-shadow:0 2px 12px rgba(42,61,109,.06)}
-    .invite-card-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-    .invite-card-avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
-    .invite-card-info{flex:1;min-width:0}
-    .invite-card-sender{font-size:13px;font-weight:700;color:#1f2940}
-    .invite-card-action{font-size:12px;color:#7c879e}
-    .invite-card-time{font-size:11px;color:#9aa2b5;flex-shrink:0}
-    .invite-card-fields{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;padding:10px 12px;border-radius:8px;background:#f0f3fa}
-    .invite-field{display:flex;align-items:baseline;gap:6px;font-size:12px}
-    .invite-field-label{color:#8a93a8;flex-shrink:0;min-width:64px}
-    .invite-field-value{color:#3a4560;font-weight:600}
-    .invite-card-brief{font-size:12px;color:#5a6478;line-height:1.6;padding:8px 12px;border-left:3px solid #a4b8f0;background:#eef2ff;border-radius:0 6px 6px 0;margin-bottom:12px}
-    .invite-card-footer{display:flex;justify-content:flex-end;gap:8px}
-    .invite-enter-btn{border:0;border-radius:8px;background:#3464e8;color:#fff;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;transition:.15s}.invite-enter-btn:hover{background:#2b56d4}
-    .invite-later-btn{border:1px solid #dce1e8;background:#fff;border-radius:8px;padding:7px 14px;font-size:12px;color:#5a6478;cursor:pointer;transition:.15s}.invite-later-btn:hover{background:#f5f7fa}
-    .invite-card.read{opacity:.7;border-color:#e7eaf1;background:#fff}
+    .notif-status{font-size:11px;color:#9aa2b5;margin-left:auto}
+    .notif-status.read{color:#bdc5d3}
+    /* 协作邀请卡片操作区 */
+    .invite-actions{display:flex;justify-content:flex-end;gap:6px;margin-top:8px}
+    .invite-enter-btn{border:0;border-radius:7px;background:#3464e8;color:#fff;padding:5px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:.15s}.invite-enter-btn:hover{background:#2b56d4}
+    .invite-enter-btn:disabled{background:#b0bdd8;cursor:not-allowed}
+    .invite-later-btn{border:1px solid #dce1e8;background:#fff;border-radius:7px;padding:5px 12px;font-size:11px;color:#5a6478;cursor:pointer;transition:.15s}.invite-later-btn:hover{background:#f5f7fa}
     /* 左侧铃铛 */
     .bell-btn{position:relative;border:0;background:transparent;color:#5a6478;font-size:18px;cursor:pointer;padding:4px;transition:.15s;border-radius:6px}.bell-btn:hover{color:#3464e8;background:#eaf0ff}
     .bell-badge{position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;border-radius:10px;background:#e34;color:#fff;font-size:9px;font-weight:700;display:grid;place-items:center;padding:0 4px;border:2px solid #fbfcff}
@@ -594,57 +586,39 @@
     <!-- 今天 -->
     <div class="notif-day-sep">今天 · 7月27日</div>
 
-    <!-- 协作邀请卡片 1 -->
-    <div class="invite-card" data-tab="invite" id="inviteCard1">
-      <div class="invite-card-head">
-        <span class="invite-card-avatar" style="background:#8b72e8">宋</span>
-        <div class="invite-card-info">
-          <div class="invite-card-sender">宋贤群</div>
-          <div class="invite-card-action">邀请你加入协作会话</div>
+    <!-- 协作邀请 1 -->
+    <div class="notif-card unread accent" data-tab="invite" id="inviteCard1">
+      <div class="notif-body">
+        <div class="notif-card-title">协作邀请 · 630版本迭代<span class="notif-time">15:42</span></div>
+        <div class="notif-desc">宋贤群邀请你加入协作会话：推进630版本工作台改造，当前需要共同确认 Rclaw 接入方案和演示范围。工作空间：50周年定制酒。</div>
+        <div class="notif-meta">
+          <span class="notif-avatar" style="background:#8b72e8;width:20px;height:20px;font-size:9px">宋</span>
+          <span class="sender">宋贤群</span>
+          <span class="notif-type-tag invite">协作邀请</span>
+          <span class="notif-status" id="inviteCard1Status">未读</span>
         </div>
-        <span class="invite-card-time">15:42</span>
-      </div>
-      <div class="invite-card-fields">
-        <div class="invite-field">
-          <span class="invite-field-label">会话名称</span>
-          <span class="invite-field-value">630版本迭代</span>
+        <div class="invite-actions">
+          <button class="invite-later-btn" onclick="event.stopPropagation()">稍后处理</button>
+          <button class="invite-enter-btn" onclick="enterInvite('inviteCard1')">进入会话</button>
         </div>
-        <div class="invite-field">
-          <span class="invite-field-label">工作空间</span>
-          <span class="invite-field-value">50周年定制酒</span>
-        </div>
-      </div>
-      <div class="invite-card-brief">推进630版本工作台改造，当前需要共同确认 Rclaw 接入方案和演示范围。</div>
-      <div class="invite-card-footer">
-        <button class="invite-later-btn" onclick="event.stopPropagation()">稍后处理</button>
-        <button class="invite-enter-btn" onclick="enterInvite('inviteCard1')">进入会话</button>
       </div>
     </div>
 
-    <!-- 协作邀请卡片 2 -->
-    <div class="invite-card" data-tab="invite" id="inviteCard2">
-      <div class="invite-card-head">
-        <span class="invite-card-avatar" style="background:#e3875d">施</span>
-        <div class="invite-card-info">
-          <div class="invite-card-sender">施展</div>
-          <div class="invite-card-action">邀请你加入协作会话</div>
+    <!-- 协作邀请 2 -->
+    <div class="notif-card unread accent" data-tab="invite" id="inviteCard2">
+      <div class="notif-body">
+        <div class="notif-card-title">协作邀请 · Q3营销方案评审<span class="notif-time">11:08</span></div>
+        <div class="notif-desc">施展邀请你加入协作会话：Q3营销方案初稿已完成，需要协同评审并确认推广策略。工作空间：50周年定制酒。</div>
+        <div class="notif-meta">
+          <span class="notif-avatar" style="background:#e3875d;width:20px;height:20px;font-size:9px">施</span>
+          <span class="sender">施展</span>
+          <span class="notif-type-tag invite">协作邀请</span>
+          <span class="notif-status" id="inviteCard2Status">未读</span>
         </div>
-        <span class="invite-card-time">11:08</span>
-      </div>
-      <div class="invite-card-fields">
-        <div class="invite-field">
-          <span class="invite-field-label">会话名称</span>
-          <span class="invite-field-value">Q3营销方案评审</span>
+        <div class="invite-actions">
+          <button class="invite-later-btn" onclick="event.stopPropagation()">稍后处理</button>
+          <button class="invite-enter-btn" onclick="enterInvite('inviteCard2')">进入会话</button>
         </div>
-        <div class="invite-field">
-          <span class="invite-field-label">工作空间</span>
-          <span class="invite-field-value">50周年定制酒</span>
-        </div>
-      </div>
-      <div class="invite-card-brief">Q3营销方案初稿已完成，需要协同评审并确认推广策略。</div>
-      <div class="invite-card-footer">
-        <button class="invite-later-btn" onclick="event.stopPropagation()">稍后处理</button>
-        <button class="invite-enter-btn" onclick="enterInvite('inviteCard2')">进入会话</button>
       </div>
     </div>
 
@@ -1431,22 +1405,12 @@ function switchNotifTab(el) {
 
 function filterNotifCards() {
   const tab = currentNotifTab;
-  // 普通通知卡片
   document.querySelectorAll('.notif-card').forEach(card => {
     const cardTab = card.dataset.tab;
     if (tab === 'all') { card.style.display = ''; return; }
     if (tab === 'unread') { card.style.display = card.classList.contains('unread') ? '' : 'none'; return; }
     card.style.display = cardTab === tab ? '' : 'none';
   });
-  // 邀请卡片
-  document.querySelectorAll('.invite-card').forEach(card => {
-    if (tab === 'all' || tab === 'invite' || tab === 'unread') {
-      card.style.display = '';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-  // 日期分隔符
   document.querySelectorAll('.notif-day-sep').forEach(sep => {
     sep.style.display = (tab === 'all' || tab === 'unread') ? '' : 'none';
   });
@@ -1454,16 +1418,19 @@ function filterNotifCards() {
 
 function markCardRead(card) {
   card.classList.remove('unread');
+  const status = card.querySelector('.notif-status');
+  if (status) { status.textContent = '已读'; status.classList.add('read'); }
   updateUnreadCount();
 }
 
 function enterInvite(cardId) {
   const card = document.getElementById(cardId);
   if (card) {
-    card.classList.add('read');
-    card.querySelector('.invite-enter-btn').textContent = '已进入';
-    card.querySelector('.invite-enter-btn').disabled = true;
-    card.querySelector('.invite-enter-btn').style.background = '#b0bdd8';
+    card.classList.remove('unread');
+    const status = card.querySelector('.notif-status');
+    if (status) { status.textContent = '已读'; status.classList.add('read'); }
+    const btn = card.querySelector('.invite-enter-btn');
+    if (btn) { btn.textContent = '已进入'; btn.disabled = true; }
     updateUnreadCount();
     showToast('已进入会话');
     setTimeout(() => closeNotifPanel(), 600);
@@ -1471,26 +1438,22 @@ function enterInvite(cardId) {
 }
 
 function markAllRead() {
-  document.querySelectorAll('.notif-card.unread').forEach(c => c.classList.remove('unread'));
-  document.querySelectorAll('.invite-card:not(.read)').forEach(c => {
-    c.classList.add('read');
-    const btn = c.querySelector('.invite-enter-btn');
-    if (btn && btn.textContent !== '已进入') { /* keep btn */ }
+  document.querySelectorAll('.notif-card.unread').forEach(c => {
+    c.classList.remove('unread');
+    const status = c.querySelector('.notif-status');
+    if (status) { status.textContent = '已读'; status.classList.add('read'); }
   });
   updateUnreadCount();
   showToast('已全部标记为已读');
 }
 
 function updateUnreadCount() {
-  const unreadCards = document.querySelectorAll('.notif-card.unread').length;
-  const unreadInvites = document.querySelectorAll('.invite-card:not(.read)').length;
-  const total = unreadCards + unreadInvites;
+  const total = document.querySelectorAll('.notif-card.unread').length;
   const badge = $('bellBadge');
   if (badge) {
     badge.textContent = total;
     badge.style.display = total > 0 ? '' : 'none';
   }
-  // 更新 tab 计数
   document.querySelector('.notif-tab[data-tab="unread"] .tab-count').textContent = total;
 }
 </script>
