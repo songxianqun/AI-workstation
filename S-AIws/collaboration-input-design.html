@@ -634,16 +634,37 @@ function toggleAtPanel(e, forceOpen) {
   resetAtFilter();
 }
 
+/* 检查输入框中是否已经 @ 了某个智能体（单条消息仅限一个智能体） */
+function getAgentMention() {
+  const agents = ['工作秘书','客户经理','财富管家','创意助手','薯 expert','原子模型测试'];
+  for (const a of agents) {
+    const escaped = a.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp('@' + escaped + '(?=\\s|$)');
+    if (regex.test(input.value)) return a;
+  }
+  return null;
+}
+
 function filterAtItems(query) {
+  const isSolo = sessionMode === 'solo';
   const items = atItems();
   let visibleCount = 0;
   let agentVisible = false, memberVisible = false;
+  const agentMention = getAgentMention();
   // 清除旧选中
   items.forEach(item => item.classList.remove('selected'));
 
   items.forEach(item => {
     const name = item.dataset.name.toLowerCase();
-    const match = !query || name.includes(query);
+    let match = !query || name.includes(query);
+    // 单人模式下始终隐藏成员项
+    if (isSolo && item.dataset.type === 'member') {
+      match = false;
+    }
+    // 已@智能体时，隐藏所有智能体项（单条消息只能@一个智能体）
+    if (item.dataset.type === 'agent' && agentMention) {
+      match = false;
+    }
     item.classList.toggle('hidden', !match);
     if (match) {
       visibleCount++;
@@ -659,13 +680,14 @@ function filterAtItems(query) {
 
   // 显示/隐藏分组
   atSections.agents.style.display = agentVisible ? '' : 'none';
-  atSections.members.style.display = memberVisible ? '' : 'none';
-  atSections.sep.style.display = (agentVisible && memberVisible) ? '' : 'none';
+  atSections.members.style.display = (memberVisible && !isSolo) ? '' : 'none';
+  atSections.sep.style.display = (agentVisible && memberVisible && !isSolo) ? '' : 'none';
   atEmpty.classList.toggle('show', visibleCount === 0);
 }
 
 function resetAtFilter() {
   const isSolo = sessionMode === 'solo';
+  const agentMention = getAgentMention();
   const items = atItems();
   items.forEach((item, i) => {
     // 单人模式下始终隐藏成员项
@@ -674,15 +696,21 @@ function resetAtFilter() {
     } else {
       item.classList.remove('hidden');
     }
+    // 已@智能体时，隐藏所有智能体项（单条消息只能@一个智能体）
+    if (item.dataset.type === 'agent' && agentMention) {
+      item.classList.add('hidden');
+    }
     item.classList.toggle('selected', i === 0 && !isSolo);
   });
   if (isSolo) {
-    atPanel.querySelector('.at-item[data-type="agent"]')?.classList.add('selected');
+    atPanel.querySelector('.at-item[data-type="agent"]:not(.hidden)')?.classList.add('selected');
   }
   atHighlightIdx = 0;
-  atSections.agents.style.display = '';
+  // 没有可见智能体时隐藏分组标签
+  const anyVisibleAgent = atPanel.querySelector('.at-item[data-type="agent"]:not(.hidden)');
+  atSections.agents.style.display = anyVisibleAgent ? '' : 'none';
   atSections.members.style.display = isSolo ? 'none' : '';
-  atSections.sep.style.display = isSolo ? 'none' : '';
+  atSections.sep.style.display = (anyVisibleAgent && !isSolo) ? '' : 'none';
   atEmpty.classList.remove('show');
 }
 
