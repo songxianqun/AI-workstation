@@ -72,6 +72,14 @@
     .deliverable-name{font-size:12px;font-weight:600;color:#1f2940;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .deliverable-date{font-size:11px;color:#8a93a8;margin-top:2px}
     .deliverable-download{width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:#8a93a8;cursor:pointer;display:grid;place-items:center;transition:.15s}.deliverable-download:hover{background:#e4e8ee;color:#5a6478}
+    /* 来源列表 */
+    .source-list{display:flex;flex-direction:column;gap:8px}
+    .source-card{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:#f8f9fd;cursor:pointer;transition:.15s}.source-card:hover{background:#f0f3fa}
+    .source-thumb{width:40px;height:40px;border-radius:8px;background:#eef1f6;display:grid;place-items:center;font-size:14px;flex-shrink:0;overflow:hidden;color:#8a93a8}.source-thumb img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+    .source-info{flex:1;min-width:0}
+    .source-name{font-size:12px;font-weight:600;color:#1f2940;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .source-meta{font-size:11px;color:#8a93a8;margin-top:2px}
+    .source-status{font-size:10px;color:#5a6478;background:#eef1f6;padding:1px 6px;border-radius:8px;margin-left:auto;flex-shrink:0}
     .quote-clickable{cursor:pointer}
     /* @提及下拉面板 */
     .at-panel{display:none;position:absolute;bottom:100%;left:10px;width:280px;background:#fff;border:1px solid #dce1e8;border-radius:12px;box-shadow:0 8px 28px rgba(30,45,80,.12);z-index:30;overflow:hidden;margin-bottom:6px}.at-panel.show{display:block}
@@ -311,8 +319,7 @@
             <div class="updated" id="summaryUpdated">更新于今天 10:20</div>
           </div>
           <div class="md-summary">
-            <h2>630版本迭代 · 会话摘要</h2>
-            <h3>一、这是什么工作</h3>
+            <h3>一、工作项</h3>
             <p>推进 <strong>630版本工作台改造</strong>，完成 <strong>Rclaw 接入方案</strong>及演示准备。</p>
             <h3>二、当前进展</h3>
             <ul>
@@ -332,6 +339,19 @@
             <h3>五、关键结论</h3>
             <p>本期优先使用方案A验证；主要风险在于接口权限与环境准备。建议先锁定方案A，同时保留方案B作为后续扩展路径。<span class="status">待确认</span></p>
           </div>
+        </div>
+      </div>
+      <!-- 当前任务 -->
+      <div class="dir-section" id="tasksSection">
+        <div class="dir-section-header" onclick="toggleSection('tasksSection')">
+          <div class="dir-section-title">
+            <span class="dir-section-line"></span>
+            <span>当前任务</span>
+          </div>
+          <span class="dir-chevron">▼</span>
+        </div>
+        <div class="dir-section-body">
+          <div style="font-size:12px;color:#8a93a8;padding:8px 0">暂无任务，可在会话中指派或转办任务。</div>
         </div>
       </div>
       <!-- 协作智能体 -->
@@ -386,16 +406,43 @@
           </div>
         </div>
       </div>
-      <!-- 当前任务 -->
-      <div class="dir-section collapsed" id="tasksSection">
-        <div class="dir-section-header" onclick="toggleSection('tasksSection')">
+      <!-- 来源 -->
+      <div class="dir-section collapsed" id="sourcesSection">
+        <div class="dir-section-header" onclick="toggleSection('sourcesSection')">
           <div class="dir-section-title">
             <span class="dir-section-line"></span>
-            <span>当前任务</span>
+            <span>来源</span>
           </div>
           <span class="dir-chevron">▼</span>
         </div>
-        <div class="dir-section-body"></div>
+        <div class="dir-section-body">
+          <div class="source-list">
+            <div class="source-card">
+              <div class="source-thumb">🖼</div>
+              <div class="source-info">
+                <div class="source-name">接口权限截图.png</div>
+                <div class="source-meta">宋贤群 · 07-16 15:42</div>
+              </div>
+              <span class="source-status">已附加到对话</span>
+            </div>
+            <div class="source-card">
+              <div class="source-thumb">📊</div>
+              <div class="source-info">
+                <div class="source-name">演示范围评估表.xlsx</div>
+                <div class="source-meta">宋贤群 · 07-16 15:40</div>
+              </div>
+              <span class="source-status">已附加到对话</span>
+            </div>
+            <div class="source-card">
+              <div class="source-thumb">📄</div>
+              <div class="source-info">
+                <div class="source-name">Rclaw技术方案v1.docx</div>
+                <div class="source-meta">宋贤群 · 07-15 10:18</div>
+              </div>
+              <span class="source-status">已附加到对话</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </aside>
@@ -1159,7 +1206,7 @@ function toggleSection(id) {
 }
 
 function initSectionStates() {
-  ['agentsSection', 'deliverablesSection', 'tasksSection'].forEach(id => {
+  ['agentsSection', 'deliverablesSection', 'tasksSection', 'sourcesSection'].forEach(id => {
     const section = document.getElementById(id);
     if (!section) return;
     const saved = localStorage.getItem('aiws_section_' + id);
