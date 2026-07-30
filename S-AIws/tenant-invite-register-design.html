@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>多人协作会话 · AI 输入交互设计</title>
+  <title>企业级工作台 · 用户注册与邀请机制原型</title>
   <style>
     :root{--blue:#4369f5;--ink:#1f2940;--muted:#7c879e;--line:#e7eaf1;--bg:#f7f8fc;--surface:#fff;--soft:#eef2ff;--accent:#3464e8;--accent-bg:#eaf0ff;--purple:#7654e8;--shadow:0 10px 26px rgba(42,61,109,.09)}
     *{box-sizing:border-box} body{margin:0;background:#edf0f7;color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}.app{width:1600px;max-width:100%;height:calc(100vh - 40px);max-height:960px;background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 18px 52px rgba(25,39,82,.16);display:grid;grid-template-columns:290px 1fr 330px;position:relative}
@@ -207,11 +207,193 @@
     .notif-meta .sender{color:#5a6478;font-weight:600}
     .notif-status{font-size:11px;color:#9aa2b5;margin-left:auto}
     .notif-status.read{color:#bdc5d3}
+    /* ===== 多租户：机构邀请入口（管理员） ===== */
+    .org-invite-entry{display:flex;align-items:center;gap:8px;margin:10px 0 4px;padding:10px 12px;border:1px dashed #b9c6ea;border-radius:10px;background:#f4f7ff;color:#3464e8;font-size:13px;font-weight:600;cursor:pointer;transition:.15s;flex-shrink:0}
+    .org-invite-entry:hover{background:#eaf0ff;border-color:#8ba4ec}
+    .org-invite-entry .oie-admin{margin-left:auto;font-size:10px;font-weight:600;color:#7c879e;background:#eef1f6;border-radius:8px;padding:2px 6px}
+    .admin-tag{font-size:10px;color:#3464e8;background:#eaf0ff;border-radius:8px;padding:2px 6px;font-weight:700;flex-shrink:0}
+    /* ===== 机构邀请弹窗 ===== */
+    .org-invite-modal{width:480px;padding:0}
+    .oi-header{padding:24px 24px 0;display:flex;align-items:center;gap:12px}
+    .oi-org-logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#4d70f5,#7654e8);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:800;flex-shrink:0}
+    .oi-org-info .oi-title{font-size:16px;font-weight:800;color:#1f2940}
+    .oi-org-info .oi-sub{font-size:12px;color:#8a93a8;margin-top:2px}
+    .oi-tabs{display:flex;margin:16px 24px 0;background:#f3f5f9;border-radius:10px;padding:3px}
+    .oi-tab{flex:1;text-align:center;padding:8px 0;font-size:13px;color:#5a6478;font-weight:600;border-radius:8px;cursor:pointer;transition:.15s}
+    .oi-tab.active{background:#fff;color:#3464e8;box-shadow:0 1px 4px rgba(30,45,80,.08)}
+    .oi-body{padding:16px 24px 0}
+    .oi-pane{display:none}.oi-pane.active{display:block}
+    .oi-link-box{display:flex;gap:8px}
+    .oi-link-input{flex:1;border:1px solid #dce1e8;border-radius:10px;padding:9px 12px;font-size:12px;color:#4a5c8a;background:#f8f9fa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:Consolas,monospace}
+    .oi-copy-btn{border:0;border-radius:10px;background:#3464e8;color:#fff;padding:0 16px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;flex-shrink:0}.oi-copy-btn:hover{background:#2b56d4}
+    .oi-link-tip{font-size:11px;color:#9aa2b5;margin-top:8px}
+    .oi-qr-wrap{text-align:center;padding:4px 0 2px}
+    .oi-qr{width:150px;height:150px;margin:0 auto;border:1px solid #e7eaf1;border-radius:12px;padding:10px;background:#fff}
+    .oi-qr svg{width:100%;height:100%;display:block}
+    .oi-qr-tip{font-size:11px;color:#9aa2b5;margin-top:8px}
+    .oi-qr-actions{display:flex;justify-content:center;gap:8px;margin-top:10px}
+    .oi-qr-btn{border:1px solid #dce1e8;background:#fff;border-radius:8px;padding:5px 12px;font-size:12px;color:#5a6478;cursor:pointer;transition:.15s}.oi-qr-btn:hover{background:#f0f3fa;color:#3464e8}
+    .oi-settings{margin:14px 24px 0;border-top:1px solid #eef0f5}
+    .oi-setting-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #f4f6fa;font-size:13px;color:#3a4560}
+    .oi-setting-label{display:flex;flex-direction:column;gap:2px;font-weight:600}
+    .oi-setting-label small{font-size:11px;color:#9aa2b5;font-weight:400}
+    .oi-select{border:1px solid #dce1e8;border-radius:8px;padding:5px 8px;font-size:12px;color:#3a4560;background:#fff;outline:0;cursor:pointer}
+    .oi-hint{margin:14px 24px 0;padding:10px 12px;border-radius:10px;background:#f0fdf6;border:1px solid #d3f2e2;font-size:12px;color:#14885a;line-height:1.6;display:flex;gap:8px}
+    .oi-hint .oi-hint-icon{flex-shrink:0}
+    .oi-footer{display:flex;justify-content:space-between;align-items:center;padding:16px 24px 18px}
+    .oi-reset{border:0;background:transparent;color:#8a93a8;font-size:12px;cursor:pointer;padding:4px}.oi-reset:hover{color:#e34}
+    .oi-demo-btn{border:0;border-radius:10px;background:#1f2940;color:#fff;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px}.oi-demo-btn:hover{background:#3464e8}
+    /* ===== 员工扫码注册流程（演示覆盖层） ===== */
+    #empFlow{position:fixed;inset:0;background:linear-gradient(135deg,#eef2fb,#e4ebfa 60%,#f2eefc);z-index:200;display:none;flex-direction:column;align-items:center;overflow-y:auto}
+    #empFlow.active{display:flex}
+    .ef-topbar{width:100%;max-width:960px;display:flex;align-items:center;justify-content:space-between;padding:22px 24px 0}
+    .ef-view-tag{font-size:12px;color:#5a6478;background:#fff;border:1px solid #dce1e8;border-radius:16px;padding:5px 12px;font-weight:600}
+    .ef-exit{border:1px solid #dce1e8;background:#fff;border-radius:16px;padding:5px 14px;font-size:12px;color:#5a6478;cursor:pointer;transition:.15s}.ef-exit:hover{color:#e34;border-color:#f2c5c5}
+    .ef-stepper{display:flex;align-items:center;margin:26px 0 22px}
+    .ef-step{display:flex;align-items:center;gap:8px}
+    .ef-step-dot{width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid #c8d2e8;color:#8a93a8;display:grid;place-items:center;font-size:12px;font-weight:700;transition:.2s}
+    .ef-step-name{font-size:12px;color:#8a93a8;font-weight:600}
+    .ef-step.active .ef-step-dot{background:#3464e8;border-color:#3464e8;color:#fff}
+    .ef-step.active .ef-step-name{color:#3464e8}
+    .ef-step.done .ef-step-dot{background:#14b269;border-color:#14b269;color:#fff}
+    .ef-step.done .ef-step-name{color:#14885a}
+    .ef-step-line{width:52px;height:2px;background:#d3dbec;margin:0 10px;transition:.2s}
+    .ef-step-line.done{background:#14b269}
+    .ef-card{width:400px;background:#fff;border-radius:16px;box-shadow:0 18px 52px rgba(25,39,82,.14);padding:28px;margin-bottom:40px}
+    .ef-screen{display:none}.ef-screen.active{display:block;animation:modalIn .25s ease}
+    .ef-org-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+    .ef-org-logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#4d70f5,#7654e8);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:800}
+    .ef-org-name{font-size:17px;font-weight:800;color:#1f2940}
+    .ef-org-sub{font-size:12px;color:#8a93a8;margin-top:2px}
+    .ef-invite-banner{margin:14px 0;padding:10px 12px;border-radius:10px;background:#f4f7ff;border:1px solid #dce6f8;font-size:12px;color:#4a5c8a;line-height:1.6}
+    .ef-invite-banner b{color:#3464e8}
+    .ef-field{margin-bottom:14px}
+    .ef-label{font-size:13px;color:#3a4560;font-weight:600;margin-bottom:6px}
+    .ef-input-row{display:flex;gap:8px}
+    .ef-input{width:100%;border:1px solid #dce1e8;border-radius:10px;padding:10px 12px;font-size:13px;outline:0;background:#fff;transition:.15s;color:#303b54;box-sizing:border-box}.ef-input:focus{border-color:#a4b8f0;box-shadow:0 0 0 3px #eaf0ff}
+    .ef-input[readonly]{background:#f6f7fa;color:#8a93a8}
+    .ef-code-btn{border:1px solid #a4b8f0;background:#eaf0ff;color:#3464e8;border-radius:10px;padding:0 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:.15s}.ef-code-btn:hover{background:#dbe6ff}.ef-code-btn:disabled{opacity:.55;cursor:not-allowed}
+    .ef-btn{width:100%;border:0;border-radius:10px;background:#3464e8;color:#fff;padding:12px 0;font-size:14px;font-weight:700;cursor:pointer;transition:.15s;margin-top:6px}.ef-btn:hover{background:#2b56d4}
+    .ef-safe-tip{font-size:11px;color:#9aa2b5;text-align:center;margin-top:12px;line-height:1.6}
+    /* 加入机构·分配资源 动画 */
+    .ef-join-title{font-size:17px;font-weight:800;color:#1f2940;text-align:center;margin-bottom:4px}
+    .ef-join-sub{font-size:12px;color:#8a93a8;text-align:center;margin-bottom:18px}
+    .ef-check-list{display:flex;flex-direction:column;gap:10px}
+    .ef-check{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;background:#f8f9fd;font-size:13px;color:#b0b8cc;transition:.3s}
+    .ef-check .ef-check-icon{width:22px;height:22px;border-radius:50%;background:#e4e8f2;color:#fff;display:grid;place-items:center;font-size:12px;flex-shrink:0;transition:.3s}
+    .ef-check.done{background:#f0fdf6;color:#1f2940}
+    .ef-check.done .ef-check-icon{background:#14b269}
+    .ef-check .ef-check-extra{margin-left:auto;font-size:11px;color:#9aa2b5;opacity:0;transition:.3s}
+    .ef-check.done .ef-check-extra{opacity:1;color:#14885a;font-weight:700}
+    .ef-token-card{margin-top:16px;border-radius:12px;padding:14px 16px;background:linear-gradient(135deg,#3464e8,#7654e8);color:#fff;display:none}
+    .ef-token-card.show{display:block;animation:modalIn .3s ease}
+    .ef-token-label{font-size:11px;opacity:.85}
+    .ef-token-num{font-size:24px;font-weight:800;margin-top:2px;letter-spacing:.5px}
+    .ef-token-meta{display:flex;gap:16px;margin-top:8px;font-size:11px;opacity:.9}
+    .ef-enter-btn{display:none}
+    .ef-enter-btn.show{display:block;animation:modalIn .3s ease}
+    /* ===== 【计费】用量迷你卡片（悬停浮窗） ===== */
+    .usage-pop-wrap{position:relative}
+    .usage-pop{position:absolute;bottom:100%;right:-72px;padding-bottom:10px;display:none;z-index:60}
+    .usage-pop-wrap:hover .usage-pop{display:block;animation:modalIn .18s ease}
+    .usage-mini{width:236px;padding:12px 14px;border:1px solid #e7eaf1;border-radius:12px;background:#fff;box-shadow:0 10px 28px rgba(30,45,80,.16)}
+    .usage-mini-head{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:700;color:#1f2940}
+    .usage-mini-head .um-link{color:#3464e8;font-weight:600;font-size:11px;cursor:pointer}
+    .usage-mini-head .um-link:hover{text-decoration:underline}
+    .usage-bar{height:11px;border-radius:4px;background:#eef1f6;margin:9px 0 7px;overflow:hidden}
+    .usage-bar i{display:block;height:100%;border-radius:4px;background:repeating-linear-gradient(90deg,#3464e8 0 8px,transparent 8px 11px)}
+    .usage-mini-meta{display:flex;justify-content:space-between;font-size:11px;color:#8a93a8}
+    .usage-pop-admin{display:flex;align-items:center;gap:6px;margin-top:10px;padding:8px 10px;border-top:1px solid #eef0f5;font-size:12px;font-weight:600;color:#3a4560;cursor:pointer;border-radius:0 0 8px 8px;transition:.15s}
+    .usage-pop-admin:hover{background:#f4f7ff;color:#3464e8}
+    /* ===== 【计费】用量与计费中心（跨中栏+右栏） ===== */
+    #billingView{position:fixed;top:20px;height:calc(100vh - 40px);max-height:960px;width:1310px;background:#fff;z-index:50;display:none;flex-direction:column;border-left:1px solid #e7eaf1;border-radius:0 16px 16px 0;overflow:hidden}
+    #billingView.active{display:flex}
+    .bv-header-right{display:flex;align-items:center;gap:10px}
+    .bv-role-switch{display:flex;background:#f3f5f9;border-radius:10px;padding:3px}
+    .bv-role{padding:6px 14px;font-size:12px;color:#5a6478;font-weight:600;border-radius:8px;cursor:pointer;transition:.15s}
+    .bv-role.active{background:#fff;color:#3464e8;box-shadow:0 1px 4px rgba(30,45,80,.08)}
+    .bv-recharge-btn{border:0;border-radius:10px;background:#3464e8;color:#fff;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s}.bv-recharge-btn:hover{background:#2b56d4}
+    .bv-tabs{display:flex;gap:0;padding:14px 20px 0;border-bottom:1px solid #eef0f5}
+    .bv-tab{padding:8px 14px;font-size:13px;color:#7c879e;cursor:pointer;border-bottom:2px solid transparent;font-weight:600;transition:.15s}
+    .bv-tab:hover{color:#3464e8}.bv-tab.active{color:#3464e8;border-bottom-color:#3464e8}
+    .bv-body{flex:1;overflow-y:auto;padding:0 24px 24px}
+    .bv-pane{display:none}.bv-pane.active{display:block}
+    .bv-sec{font-size:14px;font-weight:800;color:#1f2940;margin:20px 0 10px}
+    .bv-grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-top:16px}
+        #billingView.member-view .bv-grid2{grid-template-columns:1fr}
+    .bv-usage-card{border:1px solid #e7eaf1;border-radius:14px;padding:18px}
+    .bv-usage-head{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:800;color:#1f2940}
+    .bv-usage-actions{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600}
+    .bv-usage-actions a{color:#3464e8;text-decoration:none;cursor:pointer}
+    .bv-usage-sub{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:13px;color:#3a4560;font-weight:600}
+    .bv-plan-tag{margin-left:8px;font-size:10px;font-weight:700;color:#14885a;background:#eafaf1;border-radius:8px;padding:2px 7px}
+    .bv-refresh-date{font-size:12px;color:#9aa2b5;font-weight:400}
+    .bv-usage-card .usage-bar{height:14px;margin:12px 0 10px}
+    .bv-usage-meta{display:flex;justify-content:space-between;font-size:13px;color:#5a6478}
+    .bv-usage-meta b{color:#1f2940}
+    .bv-balance-card{border-radius:14px;padding:18px;background:linear-gradient(135deg,#3464e8,#7654e8);color:#fff;display:flex;flex-direction:column}
+    .bv-balance-label{font-size:12px;opacity:.85}
+    .bv-balance-num{font-size:28px;font-weight:800;margin:6px 0 4px;letter-spacing:.5px}
+    .bv-balance-meta{font-size:11px;opacity:.85;line-height:1.6}
+    .bv-balance-btn{margin-top:auto;align-self:flex-start;border:0;border-radius:8px;background:#fff;color:#3464e8;font-weight:700;font-size:13px;padding:8px 20px;cursor:pointer;transition:.15s}.bv-balance-btn:hover{background:#eaf0ff}
+    .bv-trend{display:flex;align-items:stretch;gap:14px;height:130px;border:1px solid #e7eaf1;border-radius:14px;padding:16px 18px 10px}
+    .bv-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px}
+    .bv-bar{width:26px;border-radius:6px 6px 2px 2px;background:#dbe4fb;transition:.2s}.bv-bar.hot{background:#3464e8}
+    .bv-bar-col:hover .bv-bar{background:#3464e8}
+    .bv-bar-label{font-size:10px;color:#9aa2b5}
+    .bv-table{width:100%;border-collapse:collapse;font-size:12px;color:#3a4560}
+    .bv-table th{text-align:left;font-size:11px;color:#8a93a8;font-weight:600;padding:9px 12px;border-bottom:1px solid #eef0f5;background:#fafbfd}
+    .bv-table td{padding:11px 12px;border-bottom:1px solid #f4f6fa}
+    .bv-table tr:hover td{background:#f8f9fd}
+    .bv-avatar{width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:700;color:#fff;vertical-align:middle;margin-right:8px}
+    .role-tag{font-size:10px;font-weight:700;border-radius:8px;padding:2px 8px}
+    .role-tag.admin{color:#3464e8;background:#eaf0ff}
+    .role-tag.member{color:#5a6478;background:#f0f3fa}
+    .new-tag{font-size:10px;color:#14885a;background:#eafaf1;border-radius:8px;padding:2px 6px;font-weight:700;margin-left:6px}
+    .mc-bar{display:inline-block;width:110px;height:6px;background:#eef1f6;border-radius:3px;vertical-align:middle;margin-right:8px}
+    .mc-bar i{display:block;height:100%;border-radius:3px;background:#3464e8}
+    .bv-op-btn{border:1px solid #dce1e8;background:#fff;border-radius:7px;padding:4px 10px;font-size:11px;color:#5a6478;cursor:pointer;transition:.15s;margin-right:4px}.bv-op-btn:hover{background:#f0f3fa;color:#3464e8}.bv-op-btn.danger:hover{background:#fde8e8;color:#e34;border-color:#f2c5c5}
+    .bv-toolbar{display:flex;align-items:center;justify-content:space-between;margin:16px 0 12px}
+    .bv-invite-btn{border:0;border-radius:10px;background:#3464e8;color:#fff;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;transition:.15s}.bv-invite-btn:hover{background:#2b56d4}
+    .bv-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+    .bv-card{border:1px solid #e7eaf1;border-radius:14px;padding:14px 16px}
+    .bv-card-label{font-size:11px;color:#8a93a8}
+    .bv-card-num{font-size:20px;font-weight:800;color:#1f2940;margin-top:4px}
+    .bv-card-sub{font-size:11px;color:#9aa2b5;margin-top:4px}
+    .bill-tag{font-size:10px;font-weight:700;border-radius:8px;padding:2px 8px}
+    .bill-tag.paid{color:#14885a;background:#eafaf1}
+    .bill-tag.open{color:#e3875d;background:#fef3e2}
+    /* ===== 【计费】充值弹窗 ===== */
+    .recharge-modal{width:460px;padding:24px}
+    .rc-title{font-size:17px;font-weight:800;color:#1f2940}
+    .rc-sub{font-size:12px;color:#8a93a8;margin-top:4px}.rc-sub b{color:#1f2940}
+    .rc-label{font-size:13px;font-weight:700;color:#3a4560;margin:18px 0 8px}
+    .rc-amounts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .rc-amount{border:1px solid #dce1e8;border-radius:10px;padding:10px 12px;cursor:pointer;transition:.15s}
+    .rc-amount b{font-size:15px;color:#1f2940;display:block}
+    .rc-amount span{font-size:11px;color:#9aa2b5;margin-top:2px;display:block}
+    .rc-amount.active{border-color:#3464e8;background:#f4f7ff}.rc-amount.active b{color:#3464e8}
+    .rc-pays{display:flex;gap:8px}
+    .rc-pay{flex:1;border:1px solid #dce1e8;border-radius:10px;padding:9px 0;text-align:center;font-size:12px;color:#5a6478;font-weight:600;cursor:pointer;transition:.15s}
+    .rc-pay.active{border-color:#3464e8;background:#f4f7ff;color:#3464e8}
+    .rc-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
+    /* ===== 【原子模型】左侧入口（点击新标签页打开模型库） ===== */
+    .atom-entry{display:flex;align-items:center;gap:7px;margin-top:10px;padding:8px 10px;border-radius:10px;font-size:13px;font-weight:600;color:#3a4560;cursor:pointer;transition:.15s}
+    .atom-entry:hover{background:#eaf0ff;color:#3464e8}
+    .atom-entry svg{color:#3464e8;flex-shrink:0}
   </style>
 </head>
 <body><div class="app">
-  <aside class="left"><div class="brand">贵州白酒交易所AI</div><div class="brand-sub">智能协作系统</div><div class="new">⊕ 开启新对话</div><div class="nav"><div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>技能</div><div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>任务</div><div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>更多</div></div><div class="work"><span class="work-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>工作空间</span><button class="work-add" title="新建工作空间">+</button></div><div class="chat-list"><div class="chat active" data-mode="multi" data-title="630版本迭代" data-pending="true" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">630版本迭代</span><span class="chat-meta"><span class="collab-icon" title="多人协作"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="pending-dot"></span></span></div><div class="chat-row"><span class="chat-preview">Rclaw技术方案初稿已经完成，接下来需要确认接入方式</span><span class="chat-time">1 小时</span></div></div></div><div class="chat" data-mode="solo" data-title="明天天气怎么样" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">明天天气怎么样？</span><span class="chat-time">1 天</span></div><div class="chat-row"><span class="chat-preview">明天天气怎么样？</span></div></div></div><div class="chat" data-mode="solo" data-title="研发方案讨论" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">研发方案讨论</span><span class="chat-time">1 周</span></div><div class="chat-row"><span class="chat-preview">研发方案讨论</span></div></div></div><div class="chat" data-mode="solo" data-title="今日任务是什么" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">今日任务是什么</span><span class="chat-time">3 周</span></div><div class="chat-row"><span class="chat-preview">今日任务是什么</span></div></div></div></div>
-    <div class="user-bar"><div class="user-avatar">c</div><span class="user-name">chenb</span><button class="bell-btn" onclick="toggleNotifPanel()" title="消息通知">🔔<span class="bell-badge" id="bellBadge">4</span></button></div>
+  <aside class="left"><div class="brand">贵州白酒交易所AI</div><div class="brand-sub">智能协作系统</div><div class="new">⊕ 开启新对话</div><div class="nav"><div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>技能</div><div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>任务</div><div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>更多</div><div class="nav-item" onclick="openAtomView()" title="进入原子模型空间：模型库 · 管理模型 · 蒸馏模型"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="3.8"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(120 12 12)"/></svg>原子模型</div></div><div class="work"><span class="work-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>工作空间</span><button class="work-add" title="新建工作空间">+</button></div><div class="chat-list"><div class="chat active" data-mode="multi" data-title="630版本迭代" data-pending="true" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">630版本迭代</span><span class="chat-meta"><span class="collab-icon" title="多人协作"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="pending-dot"></span></span></div><div class="chat-row"><span class="chat-preview">Rclaw技术方案初稿已经完成，接下来需要确认接入方式</span><span class="chat-time">1 小时</span></div></div></div><div class="chat" data-mode="solo" data-title="明天天气怎么样" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">明天天气怎么样？</span><span class="chat-time">1 天</span></div><div class="chat-row"><span class="chat-preview">明天天气怎么样？</span></div></div></div><div class="chat" data-mode="solo" data-title="研发方案讨论" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">研发方案讨论</span><span class="chat-time">1 周</span></div><div class="chat-row"><span class="chat-preview">研发方案讨论</span></div></div></div><div class="chat" data-mode="solo" data-title="今日任务是什么" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">今日任务是什么</span><span class="chat-time">3 周</span></div><div class="chat-row"><span class="chat-preview">今日任务是什么</span></div></div></div></div>
+    <div class="org-invite-entry" onclick="openOrgInviteModal()" title="生成邀请链接/二维码，邀请员工加入机构">⊕ 邀请成员加入机构</div>
+    <div class="user-bar"><div class="user-avatar">c</div><span class="user-name">chenb</span><div class="usage-pop-wrap"><button class="bell-btn" title="用量与计费"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg></button>
+      <div class="usage-pop"><div class="usage-mini">
+        <div class="usage-mini-head"><span>我的用量</span><span class="um-link" onclick="openBillingView()">查看详情 ›</span></div>
+        <div class="usage-bar"><i style="width:63%"></i></div>
+        <div class="usage-mini-meta"><span>31.5万 / 50万（63%）</span><span>剩余 18.5万</span></div>
+        <div class="usage-pop-admin" onclick="openBillingManage()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>用量管理</div>
+      </div></div>
+    </div><button class="bell-btn" onclick="toggleNotifPanel()" title="消息通知">🔔<span class="bell-badge" id="bellBadge">4</span></button></div>
   </aside>
 
   <main class="main"><header class="header"><div><span class="title" id="sessionTitle">630版本迭代</span> <span class="mode-pill" id="modePill">● 多人协作</span></div><div class="people" id="peopleBar"><span class="avatar a1">陈斌</span><span class="avatar a2">施展</span><span class="avatar a3">宋贤</span><button class="invite" onclick="openMembersModal()">邀请</button></div></header>
@@ -669,6 +851,277 @@
 </div>
 
 <!-- 消息通知已移至右侧面板 -->
+
+<!-- 【多租户】机构邀请弹窗（管理员视角） -->
+<div class="modal-overlay" id="orgInviteOverlay" onclick="if(event.target===this)closeOrgInviteModal()">
+  <div class="modal org-invite-modal">
+    <button class="modal-close" onclick="closeOrgInviteModal()">×</button>
+    <div class="oi-header">
+      <div class="oi-org-logo">酒</div>
+      <div class="oi-org-info">
+        <div class="oi-title">邀请成员加入机构</div>
+        <div class="oi-sub">贵州白酒交易所 · 当前成员 12 人</div>
+      </div>
+    </div>
+    <div class="oi-tabs">
+      <div class="oi-tab active" data-pane="linkPane" onclick="switchInvitePane(this)">🔗 邀请链接</div>
+      <div class="oi-tab" data-pane="qrPane" onclick="switchInvitePane(this)">▣ 邀请二维码</div>
+    </div>
+    <div class="oi-body">
+      <div class="oi-pane active" id="linkPane">
+        <div class="oi-link-box">
+          <div class="oi-link-input" id="inviteLink">https://ai.gzlex.com/join/gzbjjys?t=iv_8f3k2m9d&exp=7d</div>
+          <button class="oi-copy-btn" onclick="copyInviteLink()">复制</button>
+        </div>
+        <div class="oi-link-tip">将链接发送给员工，对方打开后注册即可自动加入机构</div>
+      </div>
+      <div class="oi-pane" id="qrPane">
+        <div class="oi-qr-wrap">
+          <div class="oi-qr">
+            <svg viewBox="0 0 29 29" shape-rendering="crispEdges">
+              <rect width="29" height="29" fill="#fff"/>
+              <path fill="#1f2940" d="M0 0h7v7H0zM22 0h7v7h-7zM0 22h7v7H0zM2 2h3v3H2zM24 2h3v3h-3zM2 24h3v3H2zM9 0h1v2H9zM11 0h2v1h-2zM14 0h1v3h-1zM16 0h2v2h-2zM19 0h1v4h-1zM9 3h2v1H9zM12 2h1v3h-1zM15 4h3v1h-3zM10 5h1v2h-1zM13 6h2v1h-2zM16 6h1v2h-1zM18 5h2v2h-2zM0 9h2v1H0zM3 9h2v2H3zM6 9h1v1H6zM8 8h2v2H8zM11 9h3v1h-3zM15 9h1v2h-1zM17 9h2v1h-2zM20 8h2v1h-2zM23 9h1v1h-1zM25 8h2v2h-2zM28 9h1v2h-1zM1 11h1v2H1zM4 12h2v1H4zM7 11h2v2H7zM10 12h1v2h-1zM12 11h2v1h-2zM14 13h2v1h-2zM17 12h1v2h-1zM19 11h2v2h-2zM22 12h2v1h-2zM26 11h1v3h-1zM0 14h1v2H0zM2 14h2v1H2zM5 15h2v1H5zM8 14h1v3H8zM11 15h1v2h-1zM13 14h1v2h-1zM15 16h2v1h-2zM18 15h1v2h-1zM20 14h2v2h-2zM23 15h2v1h-2zM27 14h2v1h-2zM1 17h2v2H1zM4 18h1v2H4zM6 17h1v2H6zM9 18h2v1H9zM12 17h2v2h-2zM15 18h1v2h-1zM17 17h2v1h-2zM20 18h1v2h-1zM22 17h2v2h-2zM25 18h2v1h-2zM28 17h1v3h-1zM9 20h1v2H9zM11 21h2v1h-2zM14 20h2v2h-2zM17 21h1v2h-1zM19 20h2v1h-2zM22 21h1v2h-1zM24 20h2v2h-2zM27 21h1v1h-1zM9 23h2v2H9zM12 24h1v2h-1zM14 23h1v3h-1zM16 24h2v1h-2zM19 23h2v2h-2zM22 24h2v2h-2zM25 23h1v2h-1zM27 24h2v2h-2zM9 26h1v3H9zM11 27h2v1h-2zM14 27h3v2h-3zM18 26h2v2h-2zM21 27h2v1h-2zM24 26h1v3h-1zM26 27h2v2h-2z"/>
+            </svg>
+          </div>
+          <div class="oi-qr-tip">员工使用微信/手机浏览器扫码，注册后自动加入机构</div>
+          <div class="oi-qr-actions">
+            <button class="oi-qr-btn" onclick="showToast('二维码已保存到本地')">⬇ 下载二维码</button>
+            <button class="oi-qr-btn" onclick="refreshInviteLink()">↻ 刷新</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="oi-settings">
+      <div class="oi-setting-row">
+        <div class="oi-setting-label">有效期<small>到期后链接/二维码自动失效</small></div>
+        <select class="oi-select" id="expireSelect" onchange="refreshInviteLink()">
+          <option value="1d">1 天</option>
+          <option value="7d" selected>7 天</option>
+          <option value="30d">30 天</option>
+          <option value="forever">永久有效</option>
+        </select>
+      </div>
+      <div class="oi-setting-row">
+        <div class="oi-setting-label">身份验证<small>防止链接扩散导致陌生人加入</small></div>
+        <select class="oi-select" id="verifySelect">
+          <option value="sms" selected>手机验证码</option>
+          <option value="approve">管理员确认</option>
+          <option value="none">无需验证</option>
+        </select>
+      </div>
+      <div class="oi-setting-row" style="border-bottom:0">
+        <div class="oi-setting-label">默认角色<small>新成员加入后的初始角色</small></div>
+        <select class="oi-select">
+          <option selected>普通用户</option>
+          <option>管理员</option>
+        </select>
+      </div>
+    </div>
+    <div class="oi-hint"><span class="oi-hint-icon">✓</span><span>新成员注册后将<b>自动加入机构</b>并<b>自动分配 Token 算力额度</b>，无需后台配置即可直接使用。</span></div>
+    <div class="oi-footer">
+      <button class="oi-reset" onclick="resetInviteLink()">重置邀请链接</button>
+      <button class="oi-demo-btn" onclick="startEmpFlow()">▶ 演示：员工扫码加入流程</button>
+    </div>
+  </div>
+</div>
+
+<!-- 【多租户】员工扫码注册流程（员工视角演示覆盖层） -->
+<div id="empFlow">
+  <div class="ef-topbar">
+    <span class="ef-view-tag">👤 员工视角 · 扫码邀请注册流程演示</span>
+    <button class="ef-exit" onclick="exitEmpFlow()">× 退出演示</button>
+  </div>
+  <div class="ef-stepper" id="efStepper">
+    <div class="ef-step active" data-step="1"><span class="ef-step-dot">1</span><span class="ef-step-name">扫码邀请</span></div>
+    <div class="ef-step-line"></div>
+    <div class="ef-step" data-step="2"><span class="ef-step-dot">2</span><span class="ef-step-name">注册账号</span></div>
+    <div class="ef-step-line"></div>
+    <div class="ef-step" data-step="3"><span class="ef-step-dot">3</span><span class="ef-step-name">加入机构·分配资源</span></div>
+    <div class="ef-step-line"></div>
+    <div class="ef-step" data-step="4"><span class="ef-step-dot">4</span><span class="ef-step-name">进入工作台</span></div>
+  </div>
+
+  <!-- 步骤①：扫码落地页 -->
+  <div class="ef-card ef-screen active" id="efScreen1">
+    <div class="ef-org-head">
+      <div class="ef-org-logo">酒</div>
+      <div>
+        <div class="ef-org-name">贵州白酒交易所</div>
+        <div class="ef-org-sub">企业级 AI 智能协作工作台</div>
+      </div>
+    </div>
+    <div class="ef-invite-banner"><b>chenb</b> 邀请你加入机构，加入后可使用 AI 智能体、多人协作会话等能力。<br>邀请有效期至：<b id="efExpireText">2026-08-04</b></div>
+    <button class="ef-btn" onclick="gotoEmpStep(2)">接受邀请，注册账号</button>
+    <div class="ef-safe-tip">已有账号？<a href="javascript:void(0)" style="color:#3464e8;text-decoration:none" onclick="showToast('已有账号登录后将直接加入该机构')">直接登录加入</a></div>
+  </div>
+
+  <!-- 步骤②：注册账号（含身份验证） -->
+  <div class="ef-card ef-screen" id="efScreen2">
+    <div class="ef-org-head">
+      <div class="ef-org-logo">酒</div>
+      <div>
+        <div class="ef-org-name">注册账号</div>
+        <div class="ef-org-sub">注册完成后自动加入「贵州白酒交易所」</div>
+      </div>
+    </div>
+    <div class="ef-field" style="margin-top:16px">
+      <div class="ef-label">姓名</div>
+      <input class="ef-input" id="efName" placeholder="请输入真实姓名" value="李小明">
+    </div>
+    <div class="ef-field">
+      <div class="ef-label">手机号</div>
+      <div class="ef-input-row">
+        <input class="ef-input" id="efPhone" placeholder="请输入手机号" value="138****6688">
+        <button class="ef-code-btn" id="efCodeBtn" onclick="sendSmsCode()">获取验证码</button>
+      </div>
+    </div>
+    <div class="ef-field">
+      <div class="ef-label">短信验证码 <span style="font-weight:400;font-size:11px;color:#9aa2b5">（邀请身份验证）</span></div>
+      <input class="ef-input" id="efCode" placeholder="请输入 6 位验证码">
+    </div>
+    <div class="ef-field">
+      <div class="ef-label">设置密码</div>
+      <input class="ef-input" type="password" placeholder="8-20位，含字母和数字" value="password123">
+    </div>
+    <button class="ef-btn" onclick="submitRegister()">注册并加入机构</button>
+    <div class="ef-safe-tip">注册即表示同意《用户协议》与《隐私政策》</div>
+  </div>
+
+  <!-- 步骤③：自动加入机构 + 自动分配 Token/算力 -->
+  <div class="ef-card ef-screen" id="efScreen3">
+    <div class="ef-join-title" id="efJoinTitle">正在为你初始化…</div>
+    <div class="ef-join-sub">开箱即用，无需后台配置</div>
+    <div class="ef-check-list">
+      <div class="ef-check" id="efCheck1"><span class="ef-check-icon">✓</span>账号注册成功<span class="ef-check-extra">李小明</span></div>
+      <div class="ef-check" id="efCheck2"><span class="ef-check-icon">✓</span>自动加入机构「贵州白酒交易所」<span class="ef-check-extra">普通用户</span></div>
+      <div class="ef-check" id="efCheck3"><span class="ef-check-icon">✓</span>自动分配 Token 算力额度<span class="ef-check-extra">已到账</span></div>
+      <div class="ef-check" id="efCheck4"><span class="ef-check-icon">✓</span>工作空间与默认智能体就绪<span class="ef-check-extra">工作秘书</span></div>
+    </div>
+    <div class="ef-token-card" id="efTokenCard">
+      <div class="ef-token-label">已为你分配初始算力额度</div>
+      <div class="ef-token-num">500,000 Tokens</div>
+      <div class="ef-token-meta"><span>机构：贵州白酒交易所</span><span>角色：普通用户</span><span>用量可在工作台查看</span></div>
+    </div>
+    <button class="ef-btn ef-enter-btn" id="efEnterBtn" onclick="gotoEmpStep(4)">进入工作台，开始使用 →</button>
+  </div>
+</div>
+
+<!-- 【计费】用量与计费中心（跨中栏+右栏） -->
+<div id="billingView">
+  <div class="notif-header">
+    <div class="notif-title">用量与计费</div>
+    <div class="bv-header-right">
+      <div class="bv-role-switch">
+        <div class="bv-role active" data-role="admin" onclick="switchBillingRole('admin')">管理员视角</div>
+        <div class="bv-role" data-role="member" onclick="switchBillingRole('member')">成员视角</div>
+      </div>
+      <button class="bv-recharge-btn admin-only" onclick="openRecharge()">充值</button>
+      <button class="notif-action-btn" onclick="closeBillingView()" title="关闭">×</button>
+    </div>
+  </div>
+  <div class="bv-tabs">
+    <div class="bv-tab active" data-pane="bvUsage" onclick="switchBillingTab(this)">我的用量</div>
+    <div class="bv-tab admin-only" data-pane="bvMembers" onclick="switchBillingTab(this)">成员管理</div>
+    <div class="bv-tab admin-only" data-pane="bvBills" onclick="switchBillingTab(this)">消费账单</div>
+  </div>
+  <div class="bv-body">
+    <!-- Tab① 我的用量（全员可见） -->
+    <div class="bv-pane active" id="bvUsage">
+      <div class="bv-grid2">
+        <div class="bv-usage-card">
+          <div class="bv-usage-head"><span>我的用量</span><span class="bv-usage-actions"><a onclick="showToast('用量明细见下方列表')">查看详情</a><a onclick="showToast('用量数据已刷新')" title="刷新">↻</a></span></div>
+          <div class="bv-usage-sub"><span>套餐内 Token<span class="bv-plan-tag">企业标准版</span></span><span class="bv-refresh-date">将于 2026年8月11日 刷新</span></div>
+          <div class="usage-bar"><i style="width:63%"></i></div>
+          <div class="bv-usage-meta"><span><b>315,000</b> / 500,000（已使用 63%）</span><span>剩余 <b>185,000</b></span></div>
+        </div>
+        <div class="bv-balance-card admin-only">
+          <div class="bv-balance-label">机构余额</div>
+          <div class="bv-balance-num" id="bvBalanceNum">¥ 12,580.00</div>
+          <div class="bv-balance-meta">按 Token 计费 · ¥1.8 / 万 Tokens · 余额不足将影响机构成员使用</div>
+          <button class="bv-balance-btn admin-only" onclick="openRecharge()">立即充值</button>
+        </div>
+      </div>
+      <div class="bv-sec">近 7 日用量（万 Tokens）</div>
+      <div class="bv-trend">
+        <div class="bv-bar-col" title="2.1万"><div class="bv-bar" style="height:42%"></div><span class="bv-bar-label">07-22</span></div>
+        <div class="bv-bar-col" title="2.8万"><div class="bv-bar" style="height:56%"></div><span class="bv-bar-label">07-23</span></div>
+        <div class="bv-bar-col" title="2.5万"><div class="bv-bar" style="height:50%"></div><span class="bv-bar-label">07-24</span></div>
+        <div class="bv-bar-col" title="3.1万"><div class="bv-bar" style="height:62%"></div><span class="bv-bar-label">07-25</span></div>
+        <div class="bv-bar-col" title="1.9万"><div class="bv-bar" style="height:38%"></div><span class="bv-bar-label">07-26</span></div>
+        <div class="bv-bar-col" title="0.8万"><div class="bv-bar" style="height:16%"></div><span class="bv-bar-label">07-27</span></div>
+        <div class="bv-bar-col" title="3.4万"><div class="bv-bar hot" style="height:68%"></div><span class="bv-bar-label">今天</span></div>
+      </div>
+      <div class="bv-sec">用量明细</div>
+      <table class="bv-table">
+        <tr><th>时间</th><th>会话</th><th>智能体</th><th style="text-align:right">Token 消耗</th></tr>
+        <tr><td>今天 10:23</td><td>630版本迭代</td><td>工作秘书</td><td style="text-align:right">12,400</td></tr>
+        <tr><td>今天 09:52</td><td>多租户原型评审</td><td>工作秘书</td><td style="text-align:right">8,900</td></tr>
+        <tr><td>昨天 17:36</td><td>50周年定制酒</td><td>创意助手</td><td style="text-align:right">21,300</td></tr>
+        <tr><td>昨天 14:12</td><td>研发方案讨论</td><td>工作秘书</td><td style="text-align:right">6,700</td></tr>
+        <tr><td>07-26 11:05</td><td>数据分析-月度报表</td><td>财富管家</td><td style="text-align:right">32,800</td></tr>
+      </table>
+    </div>
+    <!-- Tab② 成员管理（仅管理员） -->
+    <div class="bv-pane" id="bvMembers">
+      <div class="bv-toolbar">
+        <div class="notif-search"><input type="text" placeholder="搜索成员姓名..."></div>
+        <button class="bv-invite-btn" onclick="openOrgInviteModal()">⊕ 邀请成员</button>
+      </div>
+      <table class="bv-table">
+        <tr><th>成员</th><th>角色</th><th>加入时间</th><th>本月 Token 消耗</th><th>累计消耗</th><th>操作</th></tr>
+        <tr><td><span class="bv-avatar" style="background:#4b9fe8">c</span>chenb</td><td><span class="role-tag admin">管理员</span></td><td>2026-05-12</td><td><span class="mc-bar"><i style="width:95%"></i></span>486,000</td><td>1,420,000</td><td>—</td></tr>
+        <tr><td><span class="bv-avatar" style="background:#8b72e8">宋</span>宋贤群</td><td><span class="role-tag member">普通用户</span></td><td>2026-05-12</td><td><span class="mc-bar"><i style="width:100%"></i></span>512,000</td><td>1,650,000</td><td><button class="bv-op-btn" onclick="showToast('宋贤群 已设为管理员')">设为管理员</button><button class="bv-op-btn danger" onclick="showToast('移除后将无法登录本机构（演示）')">移除</button></td></tr>
+        <tr><td><span class="bv-avatar" style="background:#e3875d">陈</span>陈斌</td><td><span class="role-tag member">普通用户</span></td><td>2026-05-20</td><td><span class="mc-bar"><i style="width:60%"></i></span>305,000</td><td>860,000</td><td><button class="bv-op-btn" onclick="showToast('陈斌 已设为管理员')">设为管理员</button><button class="bv-op-btn danger" onclick="showToast('移除后将无法登录本机构（演示）')">移除</button></td></tr>
+        <tr><td><span class="bv-avatar" style="background:#16ad69">施</span>施展</td><td><span class="role-tag member">普通用户</span></td><td>2026-05-20</td><td><span class="mc-bar"><i style="width:52%"></i></span>268,000</td><td>790,000</td><td><button class="bv-op-btn" onclick="showToast('施展 已设为管理员')">设为管理员</button><button class="bv-op-btn danger" onclick="showToast('移除后将无法登录本机构（演示）')">移除</button></td></tr>
+        <tr><td><span class="bv-avatar" style="background:#e84393">许</span>许娇</td><td><span class="role-tag member">普通用户</span></td><td>2026-06-03</td><td><span class="mc-bar"><i style="width:37%"></i></span>187,000</td><td>430,000</td><td><button class="bv-op-btn" onclick="showToast('许娇 已设为管理员')">设为管理员</button><button class="bv-op-btn danger" onclick="showToast('移除后将无法登录本机构（演示）')">移除</button></td></tr>
+        <tr><td><span class="bv-avatar" style="background:#14b269">李</span>李小明<span class="new-tag">新加入</span></td><td><span class="role-tag member">普通用户</span></td><td>今天</td><td><span class="mc-bar"><i style="width:1%"></i></span>3,200</td><td>3,200</td><td><button class="bv-op-btn" onclick="showToast('李小明 已设为管理员')">设为管理员</button><button class="bv-op-btn danger" onclick="showToast('移除后将无法登录本机构（演示）')">移除</button></td></tr>
+      </table>
+    </div>
+    <!-- Tab③ 消费账单（仅管理员） -->
+    <div class="bv-pane" id="bvBills">
+      <div class="bv-cards">
+        <div class="bv-card"><div class="bv-card-label">本月 Token 消耗</div><div class="bv-card-num">188.8 万</div><div class="bv-card-sub">较上月 +12.6%</div></div>
+        <div class="bv-card"><div class="bv-card-label">本月消费金额</div><div class="bv-card-num">¥ 3,420.00</div><div class="bv-card-sub">按量计费 · 本期未出账</div></div>
+        <div class="bv-card"><div class="bv-card-label">当前余额</div><div class="bv-card-num" id="billBalanceNum">¥ 12,580.00</div><div class="bv-card-sub">可供全机构成员使用</div></div>
+        <div class="bv-card"><div class="bv-card-label">当前套餐</div><div class="bv-card-num" style="font-size:16px">企业标准版</div><div class="bv-card-sub">月度池 300 万 Tokens + 按量计费</div></div>
+      </div>
+      <div class="bv-sec">月度账单</div>
+      <table class="bv-table">
+        <tr><th>账期</th><th>Token 消耗</th><th>消费金额</th><th>状态</th><th>操作</th></tr>
+        <tr><td>2026-07（本期）</td><td>1,888,000</td><td>¥ 3,420.00</td><td><span class="bill-tag open">未出账</span></td><td><button class="bv-op-btn" onclick="showToast('本期账单将于月末生成')">查看明细</button></td></tr>
+        <tr><td>2026-06</td><td>2,310,000</td><td>¥ 4,180.00</td><td><span class="bill-tag paid">已结算</span></td><td><button class="bv-op-btn" onclick="showToast('账单已下载（2026-06）')">下载账单</button></td></tr>
+        <tr><td>2026-05</td><td>2,187,000</td><td>¥ 3,960.00</td><td><span class="bill-tag paid">已结算</span></td><td><button class="bv-op-btn" onclick="showToast('账单已下载（2026-05）')">下载账单</button></td></tr>
+        <tr><td>2026-04</td><td>1,520,000</td><td>¥ 2,750.00</td><td><span class="bill-tag paid">已结算</span></td><td><button class="bv-op-btn" onclick="showToast('账单已下载（2026-04）')">下载账单</button></td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 【计费】充值弹窗（仅管理员） -->
+<div class="modal-overlay" id="rechargeOverlay" onclick="if(event.target===this)closeRecharge()">
+  <div class="modal recharge-modal">
+    <button class="modal-close" onclick="closeRecharge()">×</button>
+    <div class="rc-title">账户充值</div>
+    <div class="rc-sub">当前机构余额 <b id="rcBalance">¥ 12,580.00</b> · 充值即时到账</div>
+    <div class="rc-label">充值金额</div>
+    <div class="rc-amounts">
+      <div class="rc-amount" onclick="pickAmount(this,1000)"><b>¥1,000</b><span>约 55.6 万 Tokens</span></div>
+      <div class="rc-amount active" onclick="pickAmount(this,5000)"><b>¥5,000</b><span>赠 5% · 约 291.7 万 Tokens</span></div>
+      <div class="rc-amount" onclick="pickAmount(this,10000)"><b>¥10,000</b><span>赠 10% · 约 611.1 万 Tokens</span></div>
+      <div class="rc-amount" onclick="pickCustomAmount(this)"><b>自定义</b><span>输入任意金额</span></div>
+    </div>
+    <div class="rc-label">支付方式</div>
+    <div class="rc-pays">
+      <div class="rc-pay active" onclick="pickPay(this)">微信支付</div>
+      <div class="rc-pay" onclick="pickPay(this)">支付宝</div>
+      <div class="rc-pay" onclick="pickPay(this)">对公转账</div>
+    </div>
+    <div class="rc-footer">
+      <button class="btn-cancel" onclick="closeRecharge()">取消</button>
+      <button class="btn-confirm" id="rcConfirmBtn" onclick="confirmRecharge()">确认支付 ¥5,000</button>
+    </div>
+  </div>
+</div>
 
 <script>
 /* ========== 状态 ========== */
@@ -1422,6 +1875,7 @@ function toggleNotifPanel() {
   notifViewOpen = !notifViewOpen;
   const notifView = $('notifView');
   if (notifViewOpen) {
+    closeBillingView();
     const appRect = document.querySelector('.app').getBoundingClientRect();
     notifView.style.left = (appRect.left + 290) + 'px';
     notifView.classList.add('active');
@@ -1500,6 +1954,227 @@ function updateUnreadCount() {
   // 更新未读Tab计数
   const unreadTab = document.querySelector('.notif-tab[data-tab="unread"] .tab-count');
   if (unreadTab) unreadTab.textContent = total;
+}
+
+/* ========== 【多租户】机构邀请（管理员视角） ========== */
+function openOrgInviteModal() {
+  $('orgInviteOverlay').classList.add('show');
+}
+
+function closeOrgInviteModal() {
+  $('orgInviteOverlay').classList.remove('show');
+}
+
+function switchInvitePane(el) {
+  document.querySelectorAll('.oi-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.oi-pane').forEach(p => p.classList.remove('active'));
+  $(el.dataset.pane).classList.add('active');
+}
+
+function genInviteToken() {
+  return 'iv_' + Math.random().toString(36).slice(2, 10);
+}
+
+function refreshInviteLink() {
+  const exp = $('expireSelect').value;
+  $('inviteLink').textContent = 'https://ai.gzlex.com/join/gzbjjys?t=' + genInviteToken() + (exp === 'forever' ? '' : '&exp=' + exp);
+}
+
+function copyInviteLink() {
+  navigator.clipboard?.writeText($('inviteLink').textContent);
+  showToast('邀请链接已复制，发给员工即可邀请加入');
+}
+
+function resetInviteLink() {
+  refreshInviteLink();
+  showToast('邀请链接已重置，旧链接/二维码即刻失效');
+}
+
+/* ========== 【多租户】员工扫码注册流程（员工视角） ========== */
+let empStep = 1;
+let smsTimer = null;
+
+function startEmpFlow() {
+  closeOrgInviteModal();
+  $('empFlow').classList.add('active');
+  gotoEmpStep(1, true);
+}
+
+function exitEmpFlow() {
+  $('empFlow').classList.remove('active');
+  clearInterval(smsTimer);
+  gotoEmpStep(1, true);
+}
+
+function gotoEmpStep(step, silent) {
+  // 第4步：退出演示回到工作台，模拟新成员已加入
+  if (step === 4) {
+    exitEmpFlow();
+    onNewMemberJoined();
+    return;
+  }
+  empStep = step;
+  // 更新步骤条
+  const steps = document.querySelectorAll('#efStepper .ef-step');
+  const lines = document.querySelectorAll('#efStepper .ef-step-line');
+  steps.forEach(s => {
+    const n = +s.dataset.step;
+    s.classList.toggle('active', n === step);
+    s.classList.toggle('done', n < step);
+    s.querySelector('.ef-step-dot').textContent = n < step ? '✓' : n;
+  });
+  lines.forEach((l, i) => l.classList.toggle('done', i + 1 < step));
+  // 切换屏幕
+  [1, 2, 3].forEach(n => $('efScreen' + n).classList.toggle('active', n === step));
+  if (step === 3 && !silent) runJoinAnimation();
+}
+
+function sendSmsCode() {
+  const btn = $('efCodeBtn');
+  btn.disabled = true;
+  let count = 60;
+  btn.textContent = count + 's 后重发';
+  clearInterval(smsTimer);
+  smsTimer = setInterval(() => {
+    count--;
+    if (count <= 0) {
+      clearInterval(smsTimer);
+      btn.disabled = false;
+      btn.textContent = '获取验证码';
+    } else {
+      btn.textContent = count + 's 后重发';
+    }
+  }, 1000);
+  $('efCode').value = '628519';
+  showToast('验证码已发送至 138****6688（演示已自动填入）');
+}
+
+function submitRegister() {
+  if (!$('efName').value.trim()) { showToast('请输入姓名'); return; }
+  if (!$('efCode').value.trim()) { showToast('请先获取并输入短信验证码'); return; }
+  gotoEmpStep(3);
+}
+
+function runJoinAnimation() {
+  // 重置状态
+  [1, 2, 3, 4].forEach(n => $('efCheck' + n).classList.remove('done'));
+  $('efTokenCard').classList.remove('show');
+  $('efEnterBtn').classList.remove('show');
+  $('efJoinTitle').textContent = '正在为你初始化…';
+  // 依次完成：注册 → 入机构 → 分配Token → 空间就绪
+  [1, 2, 3, 4].forEach((n, i) => {
+    setTimeout(() => $('efCheck' + n).classList.add('done'), 500 + i * 600);
+  });
+  setTimeout(() => {
+    $('efJoinTitle').textContent = '🎉 欢迎加入贵州白酒交易所！';
+    $('efTokenCard').classList.add('show');
+  }, 500 + 4 * 600);
+  setTimeout(() => $('efEnterBtn').classList.add('show'), 500 + 4 * 600 + 400);
+}
+
+/* 新成员加入后：回到管理员工作台视角，同步通知与联系人 ========== */
+function onNewMemberJoined() {
+  showToast('李小明 已通过邀请加入机构，并自动分配 500,000 Tokens');
+  // 新成员进入机构联系人池，可被邀请进会话
+  if (!contactPool.find(c => c.name === '李小明')) {
+    contactPool.unshift({ name: '李小明', dept: '贵州白酒交易所', color: '#14b269' });
+  }
+  // 给管理员推一条消息通知
+  const list = $('notifList');
+  const sep = list.querySelector('.notif-day-sep');
+  if (sep && !$('newMemberCard')) {
+    sep.insertAdjacentHTML('afterend',
+      '<div class="notif-card unread" data-tab="system" id="newMemberCard" onclick="markCardRead(this)"><span class="notif-avatar" style="background:#14b269">李</span><div class="notif-body"><div class="notif-card-title">新成员加入机构<span class="notif-time">刚刚</span></div><div class="notif-desc">李小明 通过邀请二维码完成注册，已自动加入机构（角色：普通用户）并分配 500,000 Tokens 初始额度。</div><div class="notif-meta"><span class="sender">系统</span><span class="notif-type-tag system">成员变更</span><span class="notif-status">未读</span></div></div></div>');
+    updateUnreadCount();
+  }
+}
+
+/* ========== 【计费】用量与计费中心 ========== */
+let billingRole = 'admin';
+let selRechargeAmount = 5000;
+let orgBalance = 12580;
+
+function openBillingView() {
+  if (notifViewOpen) toggleNotifPanel();
+  const appRect = document.querySelector('.app').getBoundingClientRect();
+  const bv = $('billingView');
+  bv.style.left = (appRect.left + 290) + 'px';
+  bv.classList.add('active');
+}
+
+function closeBillingView() {
+  $('billingView').classList.remove('active');
+}
+
+/* 迷你浮窗「用量管理」入口（仅管理员）：直达成员管理 */
+function openBillingManage() {
+  openBillingView();
+  switchBillingTab(document.querySelector('.bv-tab[data-pane="bvMembers"]'));
+}
+
+function switchBillingTab(el) {
+  document.querySelectorAll('.bv-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.bv-pane').forEach(p => p.classList.remove('active'));
+  $(el.dataset.pane).classList.add('active');
+}
+
+function switchBillingRole(role) {
+  billingRole = role;
+  document.querySelectorAll('.bv-role').forEach(r => r.classList.toggle('active', r.dataset.role === role));
+  const isAdmin = role === 'admin';
+  $('billingView').classList.toggle('member-view', !isAdmin);
+  document.querySelectorAll('#billingView .admin-only').forEach(el => el.style.display = isAdmin ? '' : 'none');
+  if (!isAdmin) {
+    // 成员视角仅保留个人用量，不展示机构余额
+    switchBillingTab(document.querySelector('.bv-tab[data-pane="bvUsage"]'));
+    showToast('成员视角：仅展示个人用量');
+  } else {
+    showToast('管理员视角：可管理成员、查看账单并充值');
+  }
+}
+
+/* ---- 充值 ---- */
+function openRecharge() {
+  $('rechargeOverlay').classList.add('show');
+}
+function closeRecharge() {
+  $('rechargeOverlay').classList.remove('show');
+}
+function pickAmount(el, amount) {
+  selRechargeAmount = amount;
+  document.querySelectorAll('.rc-amount').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+  $('rcConfirmBtn').textContent = '确认支付 ¥' + amount.toLocaleString();
+}
+function pickCustomAmount(el) {
+  const v = prompt('请输入充值金额（元）', '2000');
+  const amount = parseInt(v, 10);
+  if (!amount || amount <= 0) return;
+  pickAmount(el, amount);
+}
+function pickPay(el) {
+  document.querySelectorAll('.rc-pay').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+}
+function confirmRecharge() {
+  orgBalance += selRechargeAmount;
+  const txt = '¥ ' + orgBalance.toLocaleString('zh-CN', { minimumFractionDigits: 2 });
+  $('bvBalanceNum').textContent = txt;
+  $('billBalanceNum').textContent = txt;
+  $('rcBalance').textContent = txt;
+  closeRecharge();
+  showToast('充值成功：¥' + selRechargeAmount.toLocaleString() + ' 已到账');
+}
+
+/* ========== 【原子模型】外部系统集成 ========== */
+// 点击左侧入口后在新标签页打开模型库（展示设计/维度/要素），不覆盖工作台
+const ATOM_URL = 'http://39.174.173.89:19089/zlmx/hotel-models/model-library';
+
+function openAtomView() {
+  window.open(ATOM_URL, '_blank');
+  showToast('已在新页面打开原子模型库');
 }
 </script>
 </body>
