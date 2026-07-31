@@ -207,11 +207,195 @@
     .notif-meta .sender{color:#5a6478;font-weight:600}
     .notif-status{font-size:11px;color:#9aa2b5;margin-left:auto}
     .notif-status.read{color:#bdc5d3}
+    /* 左侧栏覆盖：同步 AI工作台.html 样式 */
+    .left{padding:16px 14px 0;background:#f5f7fa}
+    .brand-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0}
+    .brand{font-size:18px;font-weight:800;color:#3963ec;line-height:1.2}
+    .brand-sub{font-size:13px;color:#8a93a8;margin-top:4px}
+    .layout-toggle{width:30px;height:30px;border:0;background:transparent;border-radius:6px;display:grid;place-items:center;cursor:pointer;color:#5a6478;transition:.15s}.layout-toggle:hover{background:#e8ebef;color:#3464e8}.layout-toggle svg{width:20px;height:20px}
+    .new{height:40px;border:1px solid #dce0e8;border-radius:10px;margin-top:14px;padding:0 12px;display:flex;align-items:center;gap:8px;font-size:14px;background:#fff;cursor:pointer;transition:.15s;color:#343e55;width:100%}.new .new-chat-icon{width:16px;height:16px;color:#5a6478;flex-shrink:0}.new .new-bubble-icon{width:16px;height:16px;color:#5a6478;margin-left:auto;flex-shrink:0}.new:hover{border-color:#c0c8d8;background:#f8f9fa}
+    .nav{gap:12px;margin:18px 0 0;padding:0 2px}.nav-item{gap:8px;padding:0;border-radius:0;font-size:14px;color:#343e55}.nav-item:hover{color:#3464e8;background:transparent}.nav-item svg{width:18px;height:18px;color:#343e55}
+    .work{display:block;margin-top:20px;font-size:13px;color:#8a93a8;padding:0 2px}.work-title,.work-add{display:none}
+    .folder{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:13px;color:#343e55;cursor:pointer;margin-top:10px;user-select:none}.folder-collab{gap:4px}.folder-icon{width:18px;height:18px;color:#8a93a8;flex-shrink:0}.folder-collab .folder-icon{width:22px;height:22px}
+    .chat-list{padding:0;margin-top:0}
+    .chat{display:flex;align-items:center;justify-content:space-between;padding:8px 0 8px 24px;margin-top:0;border-radius:0;font-size:13px;color:#343e55;white-space:nowrap}.chat:hover{background:transparent;color:#3464e8}.chat.active{background:transparent;color:#4268ee}
+    .chat-title{display:flex;align-items:center;gap:6px;flex:1;min-width:0}.chat-title svg{display:none}.chat-title-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:500;color:inherit}.chat.active .chat-title-text{color:#4268ee}
+    .chat-meta{display:flex;align-items:center;gap:4px;flex-shrink:0}.chat-meta svg{width:14px;height:14px}.chat-time{font-size:12px;color:#8a93a8;white-space:nowrap}.chat.active .chat-time{color:#6b80e8}
+    .collab-icon{display:none;position:relative;width:22px;height:22px;border-radius:6px;background:#eaf0ff;align-items:center;justify-content:center;flex-shrink:0}.collab-icon svg{width:16px;height:16px;fill:none;stroke:#3464e8;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.chat.active .collab-icon{background:#d4dfff}
+    .chat .pending-dot{display:none;width:8px;height:8px;border-radius:50%;background:#3464e8;flex-shrink:0;margin-left:8px;box-shadow:0 0 0 2px #eaf0ff;animation:pulse 1.5s ease-in-out infinite}.chat[data-pending="true"] .pending-dot{display:inline-block}.chat.active .pending-dot{display:none!important}
+    .chat-expand{margin-top:6px;margin-left:24px;font-size:12px;color:#8a93a8;cursor:pointer}
+    .user-bar{gap:8px;padding:12px 0 8px;margin-top:auto;border-top:0}.user-avatar{width:28px;height:28px;border-radius:50%;background:#f0f0ff;color:#3b52d6;font-size:14px;font-weight:600}.user-actions{display:flex;align-items:center;gap:10px;margin-left:auto}.bell-btn{color:#2c3340;padding:2px;border-radius:4px}.bell-btn:hover{background:#eef1f6}.bell-badge{top:-5px;right:-6px;min-width:20px;height:20px;border-radius:50%;background:#ff2d2d;font-size:11px;font-weight:700;padding:0;border:0}.settings-btn{border:0;background:transparent;color:#2c3340;cursor:pointer;padding:2px;border-radius:4px;display:grid;place-items:center}.settings-btn:hover{background:#eef1f6}
   </style>
 </head>
 <body><div class="app">
-  <aside class="left"><div class="brand">贵州白酒交易所AI</div><div class="brand-sub">智能协作系统</div><div class="new">⊕ 开启新对话</div><div class="nav"><div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>技能</div><div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>任务</div><div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>更多</div></div><div class="work"><span class="work-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>工作空间</span><button class="work-add" title="新建工作空间">+</button></div><div class="chat-list"><div class="chat active" data-mode="multi" data-title="630版本迭代" data-pending="true" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">630版本迭代</span><span class="chat-meta"><span class="collab-icon" title="多人协作"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="pending-dot"></span></span></div><div class="chat-row"><span class="chat-preview">Rclaw技术方案初稿已经完成，接下来需要确认接入方式</span><span class="chat-time">1 小时</span></div></div></div><div class="chat" data-mode="solo" data-title="明天天气怎么样" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">明天天气怎么样？</span><span class="chat-time">1 天</span></div><div class="chat-row"><span class="chat-preview">明天天气怎么样？</span></div></div></div><div class="chat" data-mode="solo" data-title="研发方案讨论" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">研发方案讨论</span><span class="chat-time">1 周</span></div><div class="chat-row"><span class="chat-preview">研发方案讨论</span></div></div></div><div class="chat" data-mode="solo" data-title="今日任务是什么" onclick="switchSession(this)"><div class="chat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="chat-main"><div class="chat-row"><span class="chat-title">今日任务是什么</span><span class="chat-time">3 周</span></div><div class="chat-row"><span class="chat-preview">今日任务是什么</span></div></div></div></div>
-    <div class="user-bar"><div class="user-avatar">c</div><span class="user-name">chenb</span><button class="bell-btn" onclick="toggleNotifPanel()" title="消息通知">🔔<span class="bell-badge" id="bellBadge">4</span></button></div>
+  <aside class="left">
+    <div class="brand-header">
+      <div>
+        <div class="brand">贵州白酒交易所AI</div>
+        <div class="brand-sub">智能协作系统</div>
+      </div>
+      <svg class="layout-toggle" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8a93a8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="2"/>
+        <line x1="8" y1="4" x2="8" y2="20"/>
+        <path d="m14 9-3 3 3 3"/>
+      </svg>
+    </div>
+    <div class="new">
+      <svg class="new-chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+      开启新对话
+    </div>
+    <div class="nav">
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+        技能
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+        任务
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><path d="M10 12h4"></path><path d="M12 10v4"></path></svg>
+        更多
+      </div>
+    </div>
+    <div class="work">工作空间</div>
+    <div class="chat-list">
+      <!-- 测试任务文件夹 -->
+      <div class="folder">
+        <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V10.5"/><path d="M11.5 19H22M22 10.5V19"/></svg>
+        测试任务
+      </div>
+      <div class="chat" data-mode="solo" data-title="测试任务" onclick="switchSession(this)" data-pending="true">
+        <div class="chat-title">
+          <span class="chat-title-text">测试任务</span>
+        </div>
+        <div class="chat-meta">
+          <span class="pending-dot"></span>
+          <span class="chat-time">刚刚</span>
+        </div>
+      </div>
+
+      <!-- 陈冰的测试任务文件夹 -->
+      <div class="folder folder-collab">
+        <svg class="folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7.5"/>
+          <circle cx="13.5" cy="12.5" r="1.8"/>
+          <path d="M10 18c0-1.6 1.6-2.6 3.5-2.6s3.5 1 3.5 2.6"/>
+          <circle cx="18.5" cy="10" r="1.5"/>
+          <path d="M16 14.8c.7-.4 1.6-.6 2.5-.6 1.8 0 2.8.8 2.8 2.2"/>
+        </svg>
+        陈冰的测试任务
+      </div>
+      <div class="chat" data-mode="multi" data-title="陈冰的测试任务" onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text">陈冰的测试任务</span>
+        </div>
+        <div class="chat-meta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b52d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <path d="m9 10 2 2 4-4"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8a93a8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M 18.5 12 A 8 8 0 1 0 7 17.5 L 4.5 20 L 9 18.5 A 8 8 0 0 0 18.5 12"/>
+            <circle cx="13" cy="12.5" r="1.8"/>
+            <path d="M9.5 18c0-1.6 1.6-2.6 3.5-2.6s3.5 1 3.5 2.6"/>
+            <circle cx="18" cy="10" r="1.5"/>
+            <path d="M15.5 14.8c.7-.4 1.6-.6 2.5-.6 1.8 0 2.8.8 2.8 2.2"/>
+          </svg>
+          <span class="chat-time" style="color:#6b80e8">15小时前</span>
+        </div>
+      </div>
+
+      <!-- 0728消息中心上线文件夹 -->
+      <div class="folder folder-collab">
+        <svg class="folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7.5"/>
+          <circle cx="13.5" cy="12.5" r="1.8"/>
+          <path d="M10 18c0-1.6 1.6-2.6 3.5-2.6s3.5 1 3.5 2.6"/>
+          <circle cx="18.5" cy="10" r="1.5"/>
+          <path d="M16 14.8c.7-.4 1.6-.6 2.5-.6 1.8 0 2.8.8 2.8 2.2"/>
+        </svg>
+        0728消息中心上线
+      </div>
+      <div class="chat" data-mode="multi" data-title="0728消息中心上线" onclick="switchSession(this)" data-pending="true">
+        <div class="chat-title">
+          <span class="chat-title-text">0728消息中心上线</span>
+        </div>
+        <div class="chat-meta">
+          <span class="pending-dot"></span>
+          <span class="chat-time">10分钟前</span>
+        </div>
+      </div>
+
+      <!-- 默认文件夹 -->
+      <div class="folder">
+        <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V10.5"/><path d="M11.5 19H22M22 10.5V19"/></svg>
+        默认
+      </div>
+      <!-- 保留原页面可点击的会话 -->
+      <div class="chat active" data-mode="multi" data-title="630版本迭代" data-pending="true" onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text" style="color:#3963ec">630版本迭代</span>
+        </div>
+        <div class="chat-meta">
+          <span class="collab-icon" title="多人协作"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="pending-dot"></span>
+          <span class="chat-time" style="color:#6b80e8">1 小时</span>
+        </div>
+      </div>
+      <div class="chat" data-mode="solo" data-title="明天天气怎么样" onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text">明天天气怎么样？</span>
+        </div>
+        <div class="chat-meta">
+          <span class="chat-time">1 天</span>
+        </div>
+      </div>
+      <div class="chat" data-mode="solo" data-title="OpenClaw最新版本更新与功能改..." onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text">OpenClaw最新版本更新与功能改...</span>
+        </div>
+        <div class="chat-meta">
+          <span class="chat-time">21小时前</span>
+        </div>
+      </div>
+      <div class="chat" data-mode="solo" data-title="目前openclaw最新版本以及最近..." onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text">目前openclaw最新版本以及最近...</span>
+        </div>
+        <div class="chat-meta">
+          <span class="chat-time">21小时前</span>
+        </div>
+      </div>
+      <div class="chat" data-mode="solo" data-title="当前会话" onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text">当前会话</span>
+        </div>
+        <div class="chat-meta">
+          <span class="chat-time">21小时前</span>
+        </div>
+      </div>
+      <div class="chat-expand">展开显示</div>
+    </div>
+    <div class="user-bar">
+      <div class="user-avatar">C</div>
+      <span class="user-name">chenb</span>
+      <div class="user-actions">
+        <button class="bell-btn" onclick="toggleNotifPanel()" title="消息通知">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="bell-badge" id="bellBadge">4</span>
+        </button>
+        <button class="settings-btn" title="设置">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   </aside>
 
   <main class="main"><header class="header"><div><span class="title" id="sessionTitle">630版本迭代</span> <span class="mode-pill" id="modePill">● 多人协作</span></div><div class="people" id="peopleBar"><span class="avatar a1">陈斌</span><span class="avatar a2">施展</span><span class="avatar a3">宋贤</span><button class="invite" onclick="openMembersModal()">邀请</button></div></header>
