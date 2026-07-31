@@ -322,7 +322,7 @@
         <div class="context" id="context"><span id="contextText"></span><button onclick="clearContext()">×</button></div>
         <!-- 附件上传预览区 -->
         <div class="uploads" id="uploads"></div>
-        <div class="textline"><textarea id="input" placeholder="与成员讨论，开启AI或输入 @工作秘书 让AI参与" oninput="onInput()"></textarea></div>
+        <div class="textline"><textarea id="input" placeholder="与成员讨论，开启AI参与按钮，或输入 @智能体 让AI参与" oninput="onInput()"></textarea></div>
         <div class="toolbar-sep"></div>
         <div class="tools">
           <div class="tool-left">
@@ -767,7 +767,7 @@ function switchSession(el) {
     aiOn = false;
     toggle.classList.remove('on');
     composer.classList.remove('ai-on');
-    input.placeholder = '与成员讨论，开启AI或输入 @工作秘书 让AI参与';
+    input.placeholder = '与成员讨论，开启AI参与按钮，或输入 @智能体 让AI参与';
   }
   sendBtn.classList.toggle('ai', aiOn);
   composer.classList.toggle('ai-on', aiOn);
@@ -784,7 +784,7 @@ function toggleAI() {
   updateSendBtn();
   updatePlaceholder();
   showToast(aiOn
-    ? 'AI已开启：后续发送内容将由「' + selectedAgent + '」处理'
+    ? 'AI已开启：后续发送内容将由AI处理'
     : 'AI已关闭：后续发送内容将作为成员聊天发送');
 }
 
@@ -803,7 +803,7 @@ function updatePlaceholder() {
   } else {
     input.placeholder = aiOn
       ? '向AI提问，每条消息均由AI处理'
-      : '与成员讨论，开启AI或输入 @工作秘书 让AI参与';
+      : '与成员讨论，开启AI参与按钮，或输入 @智能体 让AI参与';
   }
 }
 
