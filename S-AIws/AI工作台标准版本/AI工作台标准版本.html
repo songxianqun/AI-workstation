@@ -427,6 +427,21 @@
     .main.new-chat-mode .workspace-selector-bar{display:flex;margin-top:0;padding:8px 14px;border-top:1px solid #f0f2f7;background:#fafbfc}
     .main.new-chat-mode .workspace-select-btn{padding:2px 0;color:#5a6478}
     .main.new-chat-mode .toast{bottom:160px}
+    /* 框架说明信息图标与弹窗 */
+    .info-toggle{width:20px;height:20px;border:0;background:transparent;border-radius:4px;display:grid;place-items:center;cursor:pointer;color:#9aa2b5;transition:.15s;flex-shrink:0}
+    .info-toggle:hover{color:#3464e8}
+    .info-toggle svg{width:14px;height:14px}
+    .framework-popup{display:none;position:fixed;width:440px;max-width:90vw;max-height:520px;overflow-y:auto;background:#fff;border:1px solid #e8ebf0;border-radius:14px;box-shadow:0 10px 30px rgba(30,45,80,.14);z-index:9999;padding:22px 26px;font-size:13px;line-height:1.8;color:#4a5269}
+    .framework-popup.show{display:block}
+    .framework-popup .fp-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #f0f2f7}
+    .framework-popup .fp-icon{font-size:18px;color:#3963ec}
+    .framework-popup .fp-title{font-size:15px;font-weight:700;color:#1f2940}
+    .framework-popup .fp-intro{margin:0 0 14px;color:#6b7388;font-size:12px;line-height:1.7}
+    .framework-popup .fp-section{margin-bottom:12px}
+    .framework-popup .fp-section:last-child{margin-bottom:0}
+    .framework-popup .fp-section-title{font-size:12px;font-weight:700;color:#3963ec;margin-bottom:4px}
+    .framework-popup .fp-list{margin:0;padding-left:16px}
+    .framework-popup .fp-list li{margin-bottom:3px;color:#4a5269;font-size:12px;line-height:1.7}
     /* ===== 版本切换器（标题旁下拉） ===== */
     .version-switch-wrap{position:relative;display:inline-flex;align-items:center}
     .vs-trigger{display:inline-flex;align-items:center;gap:4px;border:1px solid #dce0e8;background:#fff;border-radius:8px;padding:2px 8px;font-size:11px;font-weight:600;color:#5a6478;cursor:pointer;transition:.15s;white-space:nowrap;line-height:1.4}
@@ -468,7 +483,7 @@
     .support-center-bar.placeholder .sc-placeholder-text{display:block}
     .sc-expand-arrow{display:none;cursor:pointer;color:#9aa2b5;transition:.15s;margin-left:auto;align-items:center}
     .sc-expand-arrow:hover{color:#3464e8}
-    /* 新会话模式：绝对定位到顶部，限宽居中 */
+    /* 新会话模式：绝对定位到顶部，居中760px */
     .main.new-chat-mode .support-center-bar.show{display:flex!important;position:absolute;top:0;left:50%;transform:translateX(-50%);width:760px;max-width:92%;z-index:5;border-radius:0 0 12px 12px;border:1px solid #e8ebf0;border-top:0}
     .main.new-chat-mode .support-center-bar.placeholder .sc-placeholder-text{display:none}
     /* 占位智能体卡片 */
@@ -483,7 +498,7 @@
     .main:not(.new-chat-mode) .sc-title{font-size:13px;font-weight:600;color:#5a6478;transition:.15s}
     .main:not(.new-chat-mode) .sc-header:hover .sc-title{color:#3464e8}
     .main:not(.new-chat-mode) .sc-list{display:none}
-    .main:not(.new-chat-mode) .support-center-bar.expanded .sc-list{display:flex;flex-wrap:nowrap;align-items:center;gap:8px;position:absolute;top:100%;left:50%;transform:translateX(-50%);width:auto;max-width:680px;background:#fff;border:1px solid #e8ebf0;border-top:0;padding:12px 16px;border-radius:0 0 12px 12px;box-shadow:0 10px 24px rgba(30,45,80,.1);z-index:40;overflow-x:auto;scrollbar-width:none}
+    .main:not(.new-chat-mode) .support-center-bar.expanded .sc-list{display:flex;flex-wrap:nowrap;align-items:center;gap:8px;position:absolute;top:100%;left:0;right:0;width:auto;max-width:none;background:#fff;border:1px solid #e8ebf0;border-top:0;padding:12px 16px;border-radius:0 0 12px 12px;box-shadow:0 10px 24px rgba(30,45,80,.1);z-index:40;overflow-x:auto;scrollbar-width:none}
     .main:not(.new-chat-mode) .support-center-bar.expanded{position:relative;z-index:41}
     .main:not(.new-chat-mode) .sc-expand-arrow{display:flex;color:#9aa2b5}
     .main:not(.new-chat-mode) .support-center-bar.expanded .sc-expand-arrow{transform:rotate(180deg)}
@@ -550,11 +565,46 @@
         </div>
         <div class="brand-row">
           <div class="brand-sub" id="brandSub">智能协作系统</div>
+          <svg class="info-toggle" onclick="toggleFrameworkInfo(event)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </div>
       </div>
       <svg class="layout-toggle" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8a93a8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <rect x="3" y="4" width="18" height="16" rx="2"/><line x1="8" y1="4" x2="8" y2="20"/><path d="m14 9-3 3 3 3"/>
       </svg>
+    </div>
+    <div class="framework-popup" id="frameworkPopup">
+      <div class="fp-header">
+        <span class="fp-icon">◎</span>
+        <span class="fp-title">AI 工作台标准框架说明</span>
+      </div>
+      <p class="fp-intro">基于酒交与华创工作台共性抽取，形成标准框架，支持差异化配置适配各工作台形态。</p>
+      <div class="fp-section">
+        <div class="fp-section-title">一、顶部区域</div>
+        <ul class="fp-list">
+          <li>工作台名称支持按需替换</li>
+          <li>业务支持中心：浮窗式智能体展示，点击开启新会话（酒交可不配置，华创按需展示）</li>
+        </ul>
+      </div>
+      <div class="fp-section">
+        <div class="fp-section-title">二、菜单与工作空间</div>
+        <ul class="fp-list">
+          <li>任务、原子模型纳入标准版；技能、自动化、异常提醒等差异化功能可在菜单展示区配置</li>
+          <li>工作空间（文件夹/会话、用户栏、消息通知、设置）保持统一形态</li>
+        </ul>
+      </div>
+      <div class="fp-section">
+        <div class="fp-section-title">三、输入框与自定义入口</div>
+        <ul class="fp-list">
+          <li>加号扩展功能为框架标准配置（附件/成果物/技能/任务）</li>
+          <li>右侧自定义入口按各工作台需求配置</li>
+        </ul>
+      </div>
+      <div class="fp-section">
+        <div class="fp-section-title">四、会话目录</div>
+        <ul class="fp-list">
+          <li>会话摘要、当前任务、成果物、关联原子模型、来源共 5 个板块</li>
+        </ul>
+      </div>
     </div>
     <div class="new" onclick="startNewChat()">
       <svg class="new-chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
@@ -1579,7 +1629,7 @@ function renderSupportCenters(cfg) {
   bar.classList.remove('placeholder');
   list.innerHTML = centers.map((c, i) =>
     '<div class="sc-card' + (i === 4 ? ' active' : '') + '" onclick="selectSupportCenter(this,\'' + c.name + '\')">' +
-    (c.img ? '<img class="sc-avatar-img" src="' + (AVATAR_DATA[c.img] || c.img) + '" alt="' + c.name + '">' : '<span class="sc-avatar" style="background:' + c.color + '">' + c.initial + '</span>') +
+    (c.img ? '<img class="sc-avatar-img" src="' + ((typeof AVATAR_DATA !== 'undefined' && AVATAR_DATA[c.img]) ? AVATAR_DATA[c.img] : ('images/' + c.img + '.png')) + '" alt="' + c.name + '">' : '<span class="sc-avatar" style="background:' + c.color + '">' + c.initial + '</span>') +
     '<span class="sc-name">' + c.name + '</span></div>'
   ).join('');
 }
@@ -1706,6 +1756,23 @@ function manageCustomEntries() {
   const dd = $('actionMoreDropdown');
   if (dd) dd.classList.remove('show');
   showToast('自定义入口管理');
+}
+
+function toggleFrameworkInfo(e) {
+  if (e) e.stopPropagation();
+  const popup = $('frameworkPopup');
+  if (!popup) return;
+  if (popup.classList.contains('show')) {
+    popup.classList.remove('show');
+    return;
+  }
+  const icon = e.currentTarget || document.querySelector('.info-toggle');
+  if (icon) {
+    const rect = icon.getBoundingClientRect();
+    popup.style.top = (rect.bottom + 6) + 'px';
+    popup.style.left = rect.left + 'px';
+  }
+  popup.classList.add('show');
 }
 
 function renderPlusMenu(cfg) {
@@ -2614,6 +2681,10 @@ document.addEventListener('click', function(e) {
   if (!e.target.closest('.action-more-wrap')) {
     const amd = $('actionMoreDropdown');
     if (amd) amd.classList.remove('show');
+  }
+  if (!e.target.closest('.info-toggle') && !e.target.closest('.framework-popup')) {
+    const fp = $('frameworkPopup');
+    if (fp) fp.classList.remove('show');
   }
 });
 
