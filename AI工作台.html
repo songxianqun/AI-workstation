@@ -1,0 +1,3254 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>多人协作会话 · AI 输入交互设计</title>
+  <style>
+    :root{--blue:#4369f5;--ink:#1f2940;--muted:#7c879e;--line:#e7eaf1;--bg:#f7f8fc;--surface:#fff;--soft:#eef2ff;--accent:#3464e8;--accent-bg:#eaf0ff;--purple:#7654e8;--shadow:0 10px 26px rgba(42,61,109,.09)}
+    *{box-sizing:border-box} body{margin:0;background:#edf0f7;color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}.app{width:1600px;max-width:100%;height:calc(100vh - 40px);max-height:960px;background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:0 18px 52px rgba(25,39,82,.16);display:grid;grid-template-columns:280px 1fr 330px;position:relative}
+    .left{border-right:1px solid var(--line);padding:16px 14px 0;background:#f5f7fa;display:flex;flex-direction:column;overflow:hidden;min-height:0}.brand-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0}.brand{font-size:18px;font-weight:800;color:#3963ec;line-height:1.2}.brand-sub{font-size:13px;color:#8a93a8;margin-top:4px}.layout-toggle{width:30px;height:30px;border:0;background:transparent;border-radius:6px;display:grid;place-items:center;cursor:pointer;color:#5a6478;transition:.15s}.layout-toggle:hover{background:#e8ebef;color:#3464e8}.layout-toggle svg{width:20px;height:20px}.new{height:40px;border:1px solid #dce0e8;border-radius:10px;margin-top:14px;padding:0 12px;display:flex;align-items:center;gap:8px;font-size:14px;background:#fff;cursor:pointer;transition:.15s;flex-shrink:0;color:#343e55;width:100%}.new .new-chat-icon{width:16px;height:16px;color:#5a6478;flex-shrink:0}.new .new-bubble-icon{width:16px;height:16px;color:#5a6478;margin-left:auto;flex-shrink:0}.new:hover{border-color:#c0c8d8;background:#f8f9fa}.nav{display:flex;flex-direction:column;gap:12px;margin:18px 0 0;padding:0 2px;flex-shrink:0}.nav-item{display:flex;align-items:center;gap:8px;font-size:14px;color:#343e55;cursor:pointer;transition:.12s}.nav-item:hover{color:#3464e8}.nav-item svg{width:18px;height:18px;color:#343e55;flex-shrink:0}.work{margin-top:20px;font-size:13px;color:#8a93a8;padding:0 2px;flex-shrink:0}.folder{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:13px;color:#343e55;cursor:pointer;margin-top:10px}.folder-collab{gap:4px}.folder-icon{width:18px;height:18px;color:#8a93a8;flex-shrink:0}.folder-collab .folder-icon{width:22px;height:22px}.space{display:none}.space-icon{display:none}.space .arrow{display:none}.chat-list{flex:1;overflow-y:auto;padding:0}.chat-folder{display:none}.chat{display:flex;align-items:center;justify-content:space-between;padding:8px 0 8px 24px;margin-top:0;border-radius:0;font-size:13px;color:#343e55;cursor:pointer;transition:.12s;position:relative;white-space:nowrap}.chat:hover{background:transparent;color:#3464e8}.chat.active{background:transparent;color:#4268ee}.chat-title{display:flex;align-items:center;gap:6px;flex:1;min-width:0}.chat-title svg{display:none}.chat-title-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chat-meta{display:flex;align-items:center;gap:4px;flex-shrink:0}.chat-meta svg{width:14px;height:14px}.chat-time{font-size:12px;color:#8a93a8;white-space:nowrap}.chat.active .chat-time{color:#6b80e8}.collab-icon{display:none}.pending-dot{display:none}.chat-expand{margin-top:6px;margin-left:24px;font-size:12px;color:#8a93a8;cursor:pointer}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(0.9)}}.chat[data-pending="true"] .pending-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3464e8;flex-shrink:0;margin-left:8px;box-shadow:0 0 0 2px #eaf0ff;animation:pulse 1.5s ease-in-out infinite}.chat.active .pending-dot{display:none!important}.collab-icon{position:relative;width:22px;height:22px;border-radius:6px;background:#eaf0ff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}.collab-icon svg{width:16px;height:16px;fill:none;stroke:#3464e8;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.chat.active .collab-icon{background:#d4dfff}
+    /* 文件夹拖拽样式 */
+    .folder{cursor:grab;user-select:none}.folder:active{cursor:grabbing}.folder.dragging{opacity:0.4;background:#eef2ff;border-radius:6px}.folder.drag-over{border-top:2px solid #3464e8;margin-top:-1px}
+    .main{position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden}.header{height:72px;padding:0 22px;border-bottom:1px solid #f0f1f5;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.title{font-size:21px;font-weight:800}.mode-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:20px;background:#eaf0ff;color:#3464e8;font-size:12px;font-weight:700}.people{display:flex;align-items:center;gap:7px}.avatar{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;border:2px solid #fff}.a1{background:#8b72e8}.a2{background:#e3875d}.a3{background:#4b9fe8}.invite{border:0;border-radius:18px;background:#eaf0ff;color:#4166e9;font-weight:700;padding:8px 13px;margin-left:7px}.messages{padding:24px 30px 170px;overflow-y:auto;background:linear-gradient(#fff,#fcfcfe);flex:1;min-height:0}.system{text-align:center;color:#6e7891;font-size:12px;margin:2px 0 24px}.system span{background:#f1f4fa;padding:7px 12px;border-radius:14px}.msg{display:flex;gap:11px;margin:17px 0;max-width:82%;position:relative}.msg.mine{margin-left:auto;flex-direction:row-reverse}.msg .bubble{padding:12px 14px;border-radius:4px 16px 16px 16px;background:#f4f6fa;font-size:14px;line-height:1.65;position:relative}.msg.mine .bubble{background:#e9efff;border-radius:16px 4px 16px 16px}.meta{font-size:12px;color:#758097;margin-bottom:5px}.msg.mine .meta{text-align:right}.tiny{font-size:11px;color:#9aa2b5;margin-top:6px}.reply-ref{border-left:3px solid #9bacef;background:#e4e9f7;border-radius:5px;padding:6px 8px;margin-bottom:8px;font-size:12px;color:#66718a;max-width:350px}.reply-ref b{color:#4e5c7a}
+    .ai-card{border:1px solid #dce2f0;border-radius:12px;background:#fff;box-shadow:0 4px 14px rgba(42,61,150,.05);padding:12px 16px}.ai-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#3464e8}.ai-icon{width:22px;height:22px;border-radius:7px;background:#4d70f5;color:#fff;display:grid;place-items:center;font-size:12px}.ai-quote{margin-top:8px;font-size:12px;color:#8a93a8;line-height:1.5;cursor:pointer;display:flex;align-items:baseline;gap:4px}.ai-quote:hover{color:#3464e8}.ai-quote .arrow{color:#b0b8cc;font-size:11px;flex-shrink:0}.ai-quote .who{color:#5c6a8a;font-weight:600}.ai-quote .q-text{color:#8a93a8}.ai-context{margin-top:4px;font-size:12px;color:#9aa2b5;line-height:1.4;padding-left:15px}.ai-text{font-size:14px;line-height:1.7;margin:8px 0 4px;white-space:pre-wrap}.ai-text sup{display:inline-flex;align-items:center;justify-content:center;min-width:14px;height:14px;padding:0 3px;font-size:10px;line-height:1;background:#eaf0ff;color:#3464e8;border-radius:4px;margin:0 2px;font-weight:600;cursor:pointer;transition:all .2s}.ai-text sup:hover{background:#3464e8;color:#fff;transform:translateY(-1px)}.ai-actions{display:flex;gap:14px;color:#60708e;font-size:12px}.ai-sources{margin-top:12px;padding-top:10px;border-top:1px dashed #e3e7ef}.ai-sources-title{font-size:12px;font-weight:600;color:#5c667b;margin-bottom:6px;display:flex;align-items:center;gap:4px}.ai-sources-list{font-size:12px;color:#8a93a8;line-height:1.8}.ai-source-item{display:flex;align-items:baseline;gap:6px}.ai-source-num{color:#3464e8;font-weight:600;flex-shrink:0}.ai-source-name{color:#5c6a8a;cursor:pointer}.ai-source-name:hover{color:#3464e8;text-decoration:underline}.ai-source-tag{font-size:11px;padding:1px 5px;border-radius:4px;margin-left:4px;font-weight:normal}.ai-source-tag.doc{background:#e3f2fd;color:#1976d2}.ai-source-tag.data{background:#f3e5f5;color:#8e24aa}.ai-source-tag.wiki{background:#e8f5e9;color:#388e3c}
+    .msg-actions{display:none;position:absolute;bottom:-22px;left:10px;background:#fff;border:1px solid #e3e7ef;border-radius:8px;box-shadow:0 4px 14px rgba(30,45,80,.1);padding:3px 6px;font-size:12px;color:#5c667b;z-index:10;white-space:nowrap}.msg-actions.show{display:flex;gap:2px}.msg-actions span{padding:3px 8px;cursor:pointer;border-radius:5px}.msg-actions span:hover{background:#eef2ff;color:#4168ee}.msg.mine .msg-actions{left:auto;right:10px}
+    .ai-card-wrap{position:relative;margin:20px 0 22px 42px;max-width:630px;clear:both}.ai-card-wrap .ai-card{margin:0}.ai-card-wrap .msg-actions{display:none;position:absolute;bottom:-22px;left:10px;background:#fff;border:1px solid #e3e7ef;border-radius:8px;box-shadow:0 4px 14px rgba(30,45,80,.1);padding:3px 6px;font-size:12px;color:#5c667b;z-index:10;white-space:nowrap}.ai-card-wrap .msg-actions.show{display:flex;gap:2px}.ai-card-wrap .msg-actions span{padding:3px 8px;cursor:pointer;border-radius:5px}.ai-card-wrap .msg-actions span:hover{background:#eef2ff;color:#4168ee}
+    /* AI思考中动画 */
+    .ai-thinking{display:flex;align-items:center;gap:8px;color:#5a6478;font-size:14px;padding:4px 0}
+    .ai-thinking-dots{display:flex;gap:4px}
+    .ai-thinking-dots span{width:6px;height:6px;background:#4d70f5;border-radius:50%;animation:thinkingBounce 1.4s ease-in-out infinite}
+    .ai-thinking-dots span:nth-child(1){animation-delay:-0.32s}
+    .ai-thinking-dots span:nth-child(2){animation-delay:-0.16s}
+    @keyframes thinkingBounce{0%,80%,100%{transform:scale(0.6);opacity:0.5}40%{transform:scale(1);opacity:1}}
+    .composer-wrap{position:absolute;bottom:0;left:0;right:0;padding:12px 30px 18px;background:linear-gradient(transparent 0,#fff 18%);overflow:visible;z-index:50}
+    .composer{border:1px solid #dce1e8;border-radius:12px;background:#f8f9fa;box-shadow:0 4px 16px rgba(42,61,109,.06);padding:0;transition:.2s;overflow:visible}.composer.ai-on{border-color:#a4b8f0;background:#f4f7ff;box-shadow:0 4px 18px rgba(42,61,150,.1)}
+    .context{display:none;align-items:center;justify-content:space-between;background:#e6ecf8;border-radius:8px 8px 0 0;padding:8px 12px;margin:0;font-size:12px;color:#4a5c8a;border-bottom:1px solid #cdd6ef}.context.show{display:flex}.context button{border:0;background:transparent;color:#87928a;font-size:18px;line-height:1;cursor:pointer}
+    .textline{min-height:70px;display:flex;align-items:flex-start;padding:14px}.textline textarea{border:0;outline:0;resize:none;width:100%;height:56px;min-height:56px;font:15px "Microsoft YaHei";line-height:1.6;padding:0;color:#303b54;background:transparent}
+    .toolbar-sep{height:1px;background:#e4e8ee;margin:0 12px}
+    .tools{display:flex;align-items:center;justify-content:space-between;padding:6px 10px 7px;background:transparent}.tool-left,.tool-right{display:flex;align-items:center;gap:4px}
+    .tb-btn{border:0;background:transparent;color:#5a6478;font-size:13px;padding:6px 10px;cursor:pointer;border-radius:6px;display:inline-flex;align-items:center;gap:5px;transition:.15s}.tb-btn:hover{background:#e9ecf2;color:#3a4560}.tb-btn .arrow{font-size:10px;color:#9aa2b5;margin-left:1px}
+    .skill-select-wrapper{position:relative;z-index:200;display:inline-flex;align-items:center}
+    .skill-select-wrapper .tb-btn{position:relative;z-index:201}
+    .skill-select-btn.active{background:#eef1ff !important;color:#3b52d6 !important}
+    .skill-clear{border:0;background:transparent;color:#9aa2b5;width:20px;height:20px;border-radius:50%;cursor:pointer;display:grid;place-items:center;margin-left:-4px;padding:0;transition:.1s}.skill-clear:hover{color:#5a6478;background:#e9ecf2}
+    .skill-dropdown{position:absolute;bottom:calc(100% + 8px);left:0;background:#fff;border-radius:12px;box-shadow:0 -4px 20px rgba(0,0,0,0.12);padding:8px 0;min-width:240px;display:none;z-index:200}
+    .skill-dropdown.show{display:block}
+    .skill-search{display:flex;align-items:center;gap:8px;padding:6px 12px 8px;border-bottom:1px solid #eef0f5;margin-bottom:4px}
+    .skill-search svg{color:#9aa2b5;flex-shrink:0}
+    .skill-search input{border:0;outline:0;background:transparent;flex:1;font-size:13px;color:#343e55;padding:4px 0}
+    .skill-list{max-height:260px;overflow-y:auto}
+    .skill-option{padding:9px 14px;font-size:13px;color:#343e55;cursor:pointer;transition:.1s}.skill-option:hover{background:#f5f7fb}.skill-option.selected{color:#3b52d6;background:#eef1ff;font-weight:600}
+    .folder-select-wrapper{position:relative;z-index:200}
+    .folder-select-wrapper .tb-btn{position:relative;z-index:201}
+    .folder-select-btn{background:#f0f2f7 !important;color:#343e55 !important}.folder-select-btn.active{background:#eef1ff !important;color:#3b52d6 !important}
+    .folder-dropdown{position:absolute;bottom:calc(100% + 8px);left:0;background:#fff;border-radius:12px;box-shadow:0 -4px 20px rgba(0,0,0,0.12);padding:6px 0;min-width:220px;display:none;z-index:200}
+    .folder-dropdown.show{display:block}
+    .folder-list{max-height:240px;overflow-y:auto}
+    .folder-option{display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:13px;color:#343e55;cursor:pointer;transition:.1s}.folder-option:hover{background:#f5f7fb}
+    .folder-option.selected{color:#3b52d6;background:#eef1ff}
+    .folder-option.selected svg{color:#3b52d6}
+    .folder-divider{height:1px;background:#eef0f5;margin:4px 8px}
+    .folder-new{display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:13px;color:#5a6478;cursor:pointer;transition:.1s}.folder-new:hover{background:#f5f7fb;color:#3b52d6}
+    .folder-new-input{display:flex;align-items:center;gap:6px;padding:6px 10px;background:#f8f9fc;border-top:1px solid #eef0f5}
+    .folder-new-input svg{color:#9aa2b5;flex-shrink:0}
+    .folder-new-input input{border:0;outline:0;background:transparent;flex:1;font-size:13px;color:#343e55;padding:4px 0}
+    .folder-confirm{border:0;background:#3b52d6;color:#fff;width:24px;height:24px;border-radius:6px;cursor:pointer;display:grid;place-items:center;transition:.1s;flex-shrink:0}.folder-confirm:hover{background:#2d42b8}
+    .ai-toggle{display:inline-flex;align-items:center;gap:6px;border:1px solid #dde3ed;background:#fff;border-radius:18px;padding:4px 10px 4px 8px;font-size:12px;color:#5b667c;cursor:pointer;transition:.2s}.ai-toggle.on{background:#eaf0ff;border-color:#a4b8f0;color:#3464e8;font-weight:700}
+    .switch{width:28px;height:16px;background:#bdc5d3;border-radius:10px;padding:2px;transition:.2s;display:inline-block;vertical-align:middle}.switch i{display:block;width:12px;height:12px;border-radius:50%;background:#fff;transition:.2s}.on .switch{background:#4d70f5}.on .switch i{transform:translateX(12px)}
+    .send{border:0;border-radius:50%;width:32px;height:32px;background:#4d70f5;color:#fff;font-size:15px;cursor:pointer;display:grid;place-items:center;transition:.15s;margin-left:4px;flex-shrink:0}.send:hover{background:#3b5de7}.send.thinking{background:#e74c3c;animation:stopPulse 1.2s ease-in-out infinite}.send.thinking:hover{background:#c0392b}
+    @keyframes stopPulse{0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,0.4)}50%{box-shadow:0 0 0 8px rgba(231,76,60,0)}}
+    .send .stop-icon{width:12px;height:12px;background:#fff;border-radius:2px;display:block;animation:stopRotate 2s linear infinite}
+    @keyframes stopRotate{0%{transform:rotate(0deg);border-radius:2px}50%{border-radius:50%}100%{transform:rotate(360deg);border-radius:2px}}
+    .toast{position:absolute;bottom:140px;left:50%;transform:translateX(-50%);padding:8px 16px;background:#26314d;color:#fff;border-radius:10px;font-size:12px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:20;white-space:nowrap;box-shadow:var(--shadow)}.toast.show{opacity:1}
+    .auto-status{display:none;text-align:center;font-size:12px;color:#3464e8;padding:6px 0 2px}.auto-status.show{display:block}
+    .right{border-left:1px solid var(--line);background:#fff;display:flex;flex-direction:column;overflow:hidden;position:relative}
+    .right-header{height:56px;padding:0 16px;border-bottom:1px solid #eff1f5;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:700;color:#1f2940;flex-shrink:0}
+    .right-header-title{display:flex;align-items:center;gap:8px;padding:5px 10px;border:1px solid #e4e8ee;border-radius:10px;background:#f8f9fa}
+    .right-header-icon{width:18px;height:18px;display:grid;place-items:center;color:#5a6478;font-size:14px}
+    .right-header-btn{width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:#8a93a8;cursor:pointer;display:grid;place-items:center;transition:.15s}.right-header-btn:hover{background:#f0f3fa;color:#3464e8}
+    .dir{flex:1;overflow-y:auto;padding:12px 0}
+    .dir-section{margin-bottom:2px}
+    .dir-section-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;transition:.12s;font-size:14px;font-weight:700;color:#1f2940}
+    .dir-section-header:hover{background:#f8f9fd}
+    .dir-section-title{display:flex;align-items:center;gap:10px}
+    .dir-section-line{width:3px;height:14px;border-radius:2px;background:#3464e8}
+    .dir-section-right{display:flex;align-items:center;gap:8px}
+    .dir-chevron{font-size:11px;color:#8a93a8;transition:.15s}.dir-section.collapsed .dir-chevron{transform:rotate(-90deg)}
+    .dir-status{font-size:11px;color:#e34;background:#fde8e8;border-radius:8px;padding:2px 7px;display:none}.dir-status.show{display:inline-block}
+    .dir-section-body{padding:0 16px 14px;display:block}
+    .dir-section.collapsed .dir-section-body{display:none}
+    .summary-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .update{border:0;background:#eef2ff;color:#4669e9;padding:6px 9px;border-radius:8px;font-size:12px;cursor:pointer}.update:hover{background:#e4ebff}
+    .updated{font-size:12px;color:#8b95a9}
+    /* Markdown 会话摘要 */
+    .md-summary{font-size:13px;line-height:1.7;color:#1f2940}
+    .md-summary h2{font-size:15px;font-weight:800;margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid #eef0f5}
+    .md-summary h3{font-size:13px;font-weight:800;margin:16px 0 8px;color:#1f2940}
+    .md-summary h3:first-child{margin-top:0}
+    .md-summary p{margin:0 0 8px;color:#4e5870}
+    .md-summary ul,.md-summary ol{margin:0 0 8px;padding-left:18px;color:#4e5870}
+    .md-summary li{margin:4px 0}
+    .md-summary hr{border:0;border-top:1px solid #eef0f5;margin:12px 0}
+    .md-summary strong{color:#1f2940;font-weight:700}
+    .md-summary a{color:#3464e8;text-decoration:none}
+    .md-summary .status{display:inline-block;margin-left:4px;background:#eaf0ff;color:#3464e8;border-radius:8px;font-size:10px;padding:2px 5px}
+    /* 智能体列表 */
+    .agent-list{display:flex;flex-direction:column;gap:4px}
+    .agent-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;transition:.12s}.agent-item:hover{background:#f8f9fd}
+    .agent-avatar{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+    .agent-info{flex:1;min-width:0}
+    .agent-name{font-size:13px;font-weight:600;color:#1f2940}
+    .agent-meta{font-size:11px;color:#8a93a8;margin-top:1px}
+    .agent-status{width:8px;height:8px;border-radius:50%;background:#2ecc71;flex-shrink:0;box-shadow:0 0 0 2px #fff}
+    .agent-status.off{background:#bdc5d3}
+    /* 成果物列表 */
+    .deliverable-list{display:flex;flex-direction:column;gap:8px}
+    .deliverable-card{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#f8f9fd;cursor:pointer;transition:.15s;position:relative}.deliverable-card:hover{background:#f0f3fa}
+    .deliverable-icon{width:36px;height:36px;border-radius:8px;background:#e8eaff;color:#6c5ce7;display:grid;place-items:center;font-size:16px;flex-shrink:0}
+    .deliverable-icon.md{background:#e8eaff;color:#6c5ce7}
+    .deliverable-icon.xlsx{background:#e8f8ef;color:#16ad69}
+    .deliverable-icon.png{background:#e8efff;color:#3464e8}
+    .deliverable-icon.pdf{background:#fde8e8;color:#e34}
+    .deliverable-info{flex:1;min-width:0}
+    .deliverable-name{font-size:12px;font-weight:600;color:#1f2940;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .deliverable-date{font-size:11px;color:#8a93a8;margin-top:2px}
+    .deliverable-source{display:inline-flex;align-items:center;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:500;margin-left:4px}
+    .deliverable-source.ai{background:#eaf0ff;color:#3464e8}
+    .deliverable-source.upload{background:#f3e8ff;color:#7654e8}
+    .deliverable-jump{display:inline-flex;align-items:center;gap:2px;font-size:10px;color:#8a93a8;cursor:pointer;margin-left:6px;padding:1px 4px;border-radius:3px;transition:.12s}
+    .deliverable-jump:hover{color:#3464e8;background:#eaf0ff}
+    .deliverable-actions{display:flex;align-items:center;gap:4px;opacity:0;transition:.15s}
+    .deliverable-card:hover .deliverable-actions{opacity:1}
+    .deliverable-btn{width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:#8a93a8;cursor:pointer;display:grid;place-items:center;transition:.15s}.deliverable-btn:hover{background:#e4e8ee;color:#3464e8}.deliverable-btn.download:hover{color:#16ad69}.deliverable-btn.jump:hover{color:#e3875d}
+    /* 参考文献列表 */
+    .ref-list{display:flex;flex-direction:column;gap:2px;padding:4px 0}
+    .ref-item{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;transition:.12s;line-height:1.5}
+    .ref-item:hover{background:#f0f3fa}
+    .ref-content{flex:1;min-width:0}
+    .ref-title{font-size:12px;color:#1f2940;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+    .ref-item:hover .ref-title{color:#3464e8}
+    .ref-loc{font-size:11px;color:#8a93a8;margin-top:1px}
+    .ref-type{width:20px;height:20px;border-radius:4px;display:inline-grid;place-items:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
+    .ref-type.doc{background:#7654e8}
+    .ref-type.pdf{background:#e34}
+    .ref-type.web{background:#10b981}
+    .ref-type.wiki{background:#16ad69}
+    .ref-type.data{background:#e3875d}
+    .quote-clickable{cursor:pointer}
+    /* @提及下拉面板 */
+    .at-panel{display:none;position:absolute;bottom:100%;left:10px;width:280px;background:#fff;border:1px solid #dce1e8;border-radius:12px;box-shadow:0 8px 28px rgba(30,45,80,.12);z-index:30;overflow:hidden;margin-bottom:6px}.at-panel.show{display:block}
+    .at-section{padding:6px 0}.at-label{font-size:11px;color:#9aa2b5;padding:4px 14px 3px;font-weight:600;letter-spacing:.5px}
+    .at-item{display:flex;align-items:center;gap:9px;padding:7px 14px;cursor:pointer;transition:.12s;font-size:13px;color:#3a4560}.at-item:hover{background:#f0f3fa}
+    .at-item .at-avatar{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+    .at-item .at-icon{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:12px;flex-shrink:0}
+    .at-item .at-name{font-weight:600}.at-item .at-desc{font-size:11px;color:#9aa2b5;margin-left:auto}
+    .at-item .at-default{font-size:10px;background:#eaf0ff;color:#3464e8;padding:1px 6px;border-radius:8px;margin-left:auto;font-weight:600}
+    .at-sep{height:1px;background:#eef0f5;margin:2px 12px}
+    .at-item.selected{background:#f0f4ff}.at-item.selected .at-name{color:#3464e8}
+    .at-item.hidden{display:none}
+    .at-empty{display:none;padding:10px 14px;font-size:12px;color:#9aa2b5;text-align:center}.at-empty.show{display:block}
+    .hide{display:none!important}
+    .solo-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:12px;background:#eaf0ff;color:#3464e8;font-size:11px;font-weight:600}
+    /* 会话成果物附件 */
+    .msg-deliverables{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+    .deliverable-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:#f0f2f7;transition:.15s;cursor:pointer}
+    .deliverable-item:hover{background:#e8ebf2}
+    .deliverable-item-icon{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;font-size:16px;flex-shrink:0;color:#fff}
+    .deliverable-item-icon.md{background:#7654e8}
+    .deliverable-item-icon.png{background:#4d70f5}
+    .deliverable-item-icon.xlsx{background:#16ad69}
+    .deliverable-item-icon.img{background:#4d70f5}
+    .deliverable-item-icon.pdf{background:#e34}
+    .deliverable-item-info{flex:1;min-width:0}
+    .deliverable-item-name{font-size:13px;font-weight:500;color:#1f2940;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .deliverable-item-date{font-size:11px;color:#8a93a8;margin-top:2px}
+    .deliverable-item-actions{display:flex;align-items:center;gap:4px;flex-shrink:0;opacity:0;transition:.15s}
+    .deliverable-item:hover .deliverable-item-actions{opacity:1}
+    .deliverable-item-btn{width:28px;height:28px;border:0;border-radius:6px;background:#fff;color:#8a93a8;cursor:pointer;display:grid;place-items:center;transition:.15s;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+    .deliverable-item-btn:hover{box-shadow:0 2px 6px rgba(0,0,0,.1);transform:translateY(-1px)}
+    .deliverable-item-btn.preview:hover{color:#3464e8;background:#eaf0ff}
+    .deliverable-item-btn.download:hover{color:#16ad69;background:#e8f8ef}
+    /* 引用文档预览弹窗 */
+    .doc-preview{width:1000px;max-width:95vw;height:750px;max-height:90vh;background:#fff;border-radius:12px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+    .doc-preview-header{padding:14px 20px;border-bottom:1px solid #eef0f5;display:flex;align-items:center;justify-content:space-between}
+    .doc-preview-title{display:flex;align-items:center;gap:10px;font-weight:600;color:#1f2940;font-size:15px}
+    .doc-preview-type{width:28px;height:28px;border-radius:6px;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700}
+    .doc-preview-type.doc{background:#7654e8}
+    .doc-preview-type.pdf{background:#e34}
+    .doc-preview-type.wiki{background:#16ad69}
+    .doc-preview-type.data{background:#e3875d}
+    .doc-preview-type.web{background:#10b981}
+    .doc-preview-loc{font-size:12px;color:#667085;font-weight:normal;margin-left:8px}
+    .doc-preview-close{width:32px;height:32px;border:0;border-radius:6px;background:transparent;cursor:pointer;display:grid;place-items:center;color:#8a93a8;font-size:18px}
+    .doc-preview-close:hover{background:#f0f3fa;color:#1f2940}
+    .doc-preview-body{flex:1;overflow-y:auto;padding:30px 40px;background:#f8f9fb}
+    .doc-content{max-width:680px;margin:0 auto;background:#fff;padding:40px;box-shadow:0 1px 3px rgba(0,0,0,0.08);min-height:100%}
+    .doc-content h1{font-size:22px;color:#1f2940;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid #eef0f5}
+    .doc-content h2{font-size:16px;color:#1f2940;margin:24px 0 12px}
+    .doc-content p{font-size:14px;color:#3a4560;line-height:1.8;margin:10px 0}
+    .doc-content .highlight{background:#fff3cd;padding:2px 4px;border-radius:3px}
+    .doc-content .page-indicator{text-align:right;font-size:12px;color:#8a93a8;margin-top:40px;padding-top:12px;border-top:1px solid #eef0f5}
+    /* 弹窗基础样式 */
+    .modal-mask{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+    .modal-box{background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.2);overflow:hidden;animation:modalIn .2s ease-out}
+    @keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+    /* 成果物预览弹窗 */
+    .preview-modal{width:1000px;max-width:95vw;max-height:90vh;display:flex;flex-direction:column}
+    .preview-header{padding:16px 20px;border-bottom:1px solid #eef0f5;display:flex;align-items:center;justify-content:space-between;background:#fff}
+    .preview-title{font-size:16px;font-weight:700;color:#1f2940;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .preview-actions{display:flex;align-items:center;gap:8px}
+    .preview-btn{border:0;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+    .preview-btn.primary{background:#3464e8;color:#fff}
+    .preview-btn.primary:hover{background:#2b56d4}
+    .preview-btn.secondary{background:#f0f3fa;color:#5a6478}
+    .preview-btn.secondary:hover{background:#e4e8ee}
+    .preview-body{flex:1;overflow:auto;padding:20px;background:#f8f9fa;min-height:400px}
+    .preview-image{display:flex;align-items:center;justify-content:center}
+    .preview-image img{max-width:100%;max-height:70vh;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+    .preview-md{background:#fff;border-radius:8px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.05);font-size:14px;line-height:1.8;color:#303b54}
+    .preview-md h1{font-size:24px;font-weight:800;margin:0 0 16px;padding-bottom:12px;border-bottom:1px solid #eef0f5;color:#1f2940}
+    .preview-md h2{font-size:20px;font-weight:700;margin:24px 0 12px;color:#1f2940}
+    .preview-md h3{font-size:16px;font-weight:700;margin:18px 0 8px;color:#343e55}
+    .preview-md p{margin:8px 0;color:#4e5870}
+    .preview-md ul,.preview-md ol{margin:8px 0;padding-left:20px;color:#4e5870}
+    .preview-md li{margin:4px 0}
+    .preview-md strong{color:#1f2940;font-weight:600}
+    .preview-unsupported{text-align:center;padding:60px 20px;color:#8a93a8}
+    .preview-unsupported-icon{font-size:48px;margin-bottom:12px;opacity:.6}
+    .preview-unsupported-text{font-size:14px}
+    /* 附件上传预览 */
+    .uploads{display:none;flex-wrap:wrap;gap:8px;padding:8px 14px 0;border-bottom:1px solid #eef0f5}.uploads.show{display:flex}
+    .upload-card{position:relative;width:216px;height:56px;border:1px solid #dce1e8;border-radius:10px;background:#f7f8fa;display:flex;align-items:center;gap:10px;padding:8px 28px 8px 10px;transition:.15s;overflow:hidden}
+    .upload-card:hover{border-color:#c0c8d8;box-shadow:0 2px 8px rgba(42,61,109,.07)}
+    .upload-remove{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.06);color:#8a93a8;border:0;font-size:13px;display:grid;place-items:center;cursor:pointer;transition:.15s;line-height:1;padding:0}.upload-remove:hover{background:#fde8e8;color:#e34}
+    .file-icon{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;font-size:15px;flex-shrink:0;overflow:hidden;background:#eef1f6}
+    .file-icon img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+    .file-info{min-width:0;flex:1}.file-name{font-size:12px;font-weight:600;color:#3a4560;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.file-meta{font-size:11px;color:#9aa2b5;margin-top:2px}
+    .upload-card.img-thumb{width:96px;height:96px;padding:0;border-radius:10px}.upload-card.img-thumb img{width:100%;height:100%;object-fit:cover;display:block;border-radius:9px}.upload-card.img-thumb .upload-remove{background:rgba(0,0,0,.45);color:#fff}.upload-card.img-thumb .upload-remove:hover{background:rgba(0,0,0,.7);color:#fff}
+    .msg-uploads{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .msg-uploads .upload-card{pointer-events:none;border-color:#d4d9e4;width:180px;height:48px;padding:6px 10px 6px 8px;gap:8px}.msg-uploads .file-icon{width:30px;height:30px;border-radius:6px}.msg-uploads .file-name{font-size:11px}.msg-uploads .file-meta{font-size:10px}
+    .msg-uploads .upload-card.img-thumb{width:72px;height:72px;padding:0}
+    /* 邀请弹窗 */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(20,30,55,.45);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(2px)}.modal-overlay.show{display:flex}
+    .modal{background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(25,40,80,.18);overflow:hidden;position:relative;animation:modalIn .2s ease}
+    @keyframes modalIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    .modal-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:8px;background:rgba(0,0,0,.04);border:0;font-size:16px;color:#8a93a8;cursor:pointer;display:grid;place-items:center;z-index:5;transition:.15s}.modal-close:hover{background:rgba(0,0,0,.08);color:#333}
+    /* 会话成员弹窗 */
+    .members-modal{width:420px;padding:24px 0 0}
+    .members-modal .m-title{font-size:17px;font-weight:800;text-align:center;padding:0 20px}
+    .members-modal .m-sub{font-size:12px;color:#8a93a8;text-align:center;margin:4px 0 16px}
+    .m-search{display:flex;align-items:center;gap:8px;padding:0 20px;margin-bottom:14px}
+    .m-search input{flex:1;border:1px solid #dce1e8;border-radius:10px;padding:8px 12px 8px 34px;font-size:13px;outline:0;background:#f8f9fa url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239aa2b5' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8' stroke='%239aa2b5' stroke-width='2' fill='none'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65' stroke='%239aa2b5' stroke-width='2'/%3E%3C/svg%3E") no-repeat 10px center;transition:.15s}.m-search input:focus{border-color:#a4b8f0;background-color:#fff}
+    .m-add-btn{width:34px;height:34px;border-radius:50%;background:#1f2940;color:#fff;border:0;font-size:20px;cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s}.m-add-btn:hover{background:#3464e8}
+    .m-section-label{font-size:12px;color:#8a93a8;padding:8px 20px 4px;font-weight:600}
+    .m-list{max-height:280px;overflow-y:auto;padding:0 8px}
+    .m-member{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;transition:.12s}
+    .m-member:hover{background:#f5f7fa}
+    .m-member .m-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+    .m-member .m-name{flex:1;font-size:13px;font-weight:600;color:#3a4560}
+    .m-member .m-role{font-size:11px;color:#9aa2b5;padding:2px 8px;background:#f3f5f8;border-radius:8px}
+    .m-member .m-remove{width:24px;height:24px;border-radius:6px;background:transparent;border:0;font-size:14px;color:#bcc3d0;cursor:pointer;display:grid;place-items:center;transition:.15s;flex-shrink:0}.m-member .m-remove:hover{background:#fde8e8;color:#e34}
+    /* 邀请附言 */
+    .m-brief{margin:12px 20px 0;padding:12px 14px;border:1px solid #dce1e8;border-radius:10px;background:#f8f9fa}
+    .m-brief-label{font-size:11px;color:#8a93a8;margin-bottom:6px;display:flex;align-items:center;gap:4px}.m-brief-label .ai-spark{color:#4d70f5;font-size:13px}
+    .m-brief-text{font-size:12px;color:#4a5c8a;line-height:1.6}
+    .m-brief-actions{display:flex;gap:6px;margin-top:8px}
+    .m-brief-btn{border:1px solid #dce1e8;background:#fff;border-radius:8px;padding:4px 10px;font-size:11px;color:#5a6478;cursor:pointer;transition:.15s}.m-brief-btn:hover{background:#f0f3fa;color:#3464e8}
+    .m-invite-bar{padding:14px 20px;border-top:1px solid #eef0f5;display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+    .btn-cancel{border:1px solid #dce1e8;background:#fff;border-radius:10px;padding:8px 18px;font-size:13px;color:#5a6478;cursor:pointer;transition:.15s}.btn-cancel:hover{background:#f5f7fa}
+    .btn-confirm{border:0;border-radius:10px;background:#3464e8;color:#fff;padding:8px 20px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s}.btn-confirm:hover{background:#2b56d4}.btn-confirm:disabled{background:#b0bdd8;cursor:not-allowed}
+    /* 选择联系人弹窗 */
+    .contacts-modal{width:680px;height:500px;display:flex;flex-direction:column;padding:0}
+    .c-header{padding:18px 20px 0;display:flex;align-items:center;justify-content:space-between}
+    .c-header h3{margin:0;font-size:16px;font-weight:800}
+    .c-body{display:flex;flex:1;overflow:hidden;margin:14px 0 0}
+    .c-left{flex:1;border-right:1px solid #eef0f5;display:flex;flex-direction:column;min-width:0}
+    .c-search{padding:0 16px 10px}.c-search input{width:100%;border:1px solid #dce1e8;border-radius:10px;padding:8px 12px 8px 34px;font-size:13px;outline:0;background:#f8f9fa url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239aa2b5' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8' stroke='%239aa2b5' stroke-width='2' fill='none'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65' stroke='%239aa2b5' stroke-width='2'/%3E%3C/svg%3E") no-repeat 10px center}.c-search input:focus{border-color:#a4b8f0;background-color:#fff}
+    .c-org{padding:6px 16px;font-size:12px;color:#5a6478;font-weight:600;display:flex;align-items:center;gap:6px}
+    .c-org .org-icon{font-size:14px;color:#8a93a8}
+    .c-contacts{flex:1;overflow-y:auto;padding:0 8px}
+    .c-contact{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;cursor:pointer;transition:.12s}
+    .c-contact:hover{background:#f5f7fa}
+    .c-checkbox{width:18px;height:18px;border:2px solid #c8ced8;border-radius:5px;flex-shrink:0;display:grid;place-items:center;transition:.15s;font-size:12px;color:transparent}
+    .c-contact.checked .c-checkbox{background:#3464e8;border-color:#3464e8;color:#fff}
+    .c-contact .c-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+    .c-contact .c-info{flex:1;min-width:0}.c-contact .c-name{font-size:13px;font-weight:600;color:#3a4560}.c-contact .c-dept{font-size:11px;color:#9aa2b5}
+    .c-right{width:220px;display:flex;flex-direction:column;padding:12px 16px}
+    .c-right-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .c-right-count{font-size:12px;color:#8a93a8}.c-right-clear{border:0;background:transparent;color:#3464e8;font-size:12px;cursor:pointer;padding:0}
+    .c-selected-list{flex:1;overflow-y:auto}
+    .c-selected-item{display:flex;align-items:center;gap:8px;padding:5px 0}
+    .c-selected-item .c-sel-avatar{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+    .c-selected-item .c-sel-name{flex:1;font-size:12px;color:#3a4560;font-weight:600}
+    .c-selected-item .c-sel-remove{border:0;background:transparent;color:#bcc3d0;font-size:14px;cursor:pointer;padding:2px}.c-selected-item .c-sel-remove:hover{color:#e34}
+    .c-empty{text-align:center;padding:40px 10px;color:#b0b8cc;font-size:12px}.c-empty-icon{font-size:36px;margin-bottom:8px;opacity:.5}
+    .c-footer{padding:12px 20px;border-top:1px solid #eef0f5;display:flex;justify-content:flex-end;gap:8px}
+    /* 左侧用户栏 */
+    .user-bar{display:flex;align-items:center;gap:8px;padding:12px 0 8px;margin-top:auto}
+    .user-avatar{width:28px;height:28px;border-radius:50%;background:#f0f0ff;color:#3b52d6;display:grid;place-items:center;font-size:14px;font-weight:600;flex-shrink:0}
+    .user-name{font-size:14px;font-weight:600;color:#1f2940;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .user-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+    .bell-btn{position:relative;border:0;background:transparent;color:#2c3340;cursor:pointer;padding:2px;transition:.15s;border-radius:4px;display:grid;place-items:center}.bell-btn:hover{background:#eef1f6}
+    .bell-badge{position:absolute;top:-5px;right:-6px;min-width:20px;height:20px;border-radius:50%;background:#ff2d2d;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;padding:0}
+    .settings-btn{border:0;background:transparent;color:#2c3340;cursor:pointer;padding:2px;transition:.15s;border-radius:4px;display:grid;place-items:center}.settings-btn:hover{background:#eef1f6}
+    /* 引用上标hover预览气泡 */
+    sup{position:relative}
+    .ref-tooltip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1f2940;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;white-space:nowrap;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,0.15);pointer-events:none;opacity:0;transition:opacity 0.15s ease}
+    .ref-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1f2940}
+    .ref-tooltip.show{opacity:1}
+    .ref-tooltip-title{font-weight:500;margin-bottom:2px}
+    .ref-tooltip-loc{font-size:11px;opacity:0.8}
+    /* 右侧面板 - 消息通知视图（跨中栏+右栏） */
+    #notifView{position:fixed;top:20px;height:960px;width:1310px;background:#fff;z-index:50;display:none;flex-direction:column;border-left:1px solid #e7eaf1;border-radius:0 16px 16px 0;overflow:hidden}
+    #notifView.active{display:flex}
+    .notif-header{padding:18px 24px 0;display:flex;align-items:center;justify-content:space-between}
+    .notif-title{font-size:17px;font-weight:800;color:#1f2940}
+    .notif-actions{display:flex;align-items:center;gap:8px}
+    .notif-action-btn{width:30px;height:30px;border:0;border-radius:8px;background:transparent;color:#8a93a8;cursor:pointer;display:grid;place-items:center;font-size:15px;transition:.15s}.notif-action-btn:hover{background:#f0f3fa;color:#3464e8}
+    .notif-tabs{display:flex;gap:0;padding:14px 20px 0;overflow-x:auto;scrollbar-width:none}
+    .notif-tabs::-webkit-scrollbar{display:none}
+    .notif-tab{white-space:nowrap;padding:8px 14px;font-size:12px;color:#7c879e;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;font-weight:600;flex-shrink:0}
+    .notif-tab:hover{color:#3464e8}
+    .notif-tab.active{color:#3464e8;border-bottom-color:#3464e8}
+    .notif-tab .tab-count{font-size:10px;color:#8a93a8;margin-left:3px;font-weight:400}
+    .notif-tab.active .tab-count{color:#3464e8}
+    .notif-toolbar{display:flex;align-items:center;justify-content:space-between;padding:12px 24px 8px}
+    .notif-search{flex:1;max-width:320px}
+    .notif-search input{width:100%;border:1px solid #dce1e8;border-radius:8px;padding:7px 12px 7px 32px;font-size:12px;outline:0;background:#f8f9fa url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%239aa2b5' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8' stroke='%239aa2b5' stroke-width='2' fill='none'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65' stroke='%239aa2b5' stroke-width='2'/%3E%3C/svg%3E") no-repeat 10px center;transition:.15s}.notif-search input:focus{border-color:#a4b8f0;background-color:#fff}
+    .notif-toolbar-right{display:flex;align-items:center;gap:6px}
+    .notif-mark-read{border:0;background:transparent;color:#3464e8;font-size:12px;cursor:pointer;padding:5px 10px;border-radius:6px;transition:.15s;font-weight:600}.notif-mark-read:hover{background:#eaf0ff}
+    .notif-list{flex:1;overflow-y:auto;padding:0 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;align-content:start}
+    .notif-day-sep{grid-column:1/-1;font-size:11px;color:#8a93a8;padding:10px 4px 4px;font-weight:600}
+    .notif-card{display:flex;gap:12px;padding:14px;border-radius:12px;border:1px solid transparent;cursor:pointer;transition:.15s;position:relative}
+    .notif-card:hover{background:#f8f9fd;border-color:#e7eaf1}
+    .notif-card.unread{background:#f4f7ff;border-color:#dce6f8;border-left:3px solid #3464e8}
+    .notif-avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+    .notif-body{flex:1;min-width:0}
+    .notif-card-title{font-size:13px;font-weight:700;color:#1f2940;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+    .notif-card-title .notif-time{margin-left:auto;font-size:11px;color:#9aa2b5;font-weight:400;flex-shrink:0}
+    .notif-type-tag{font-size:10px;padding:1px 6px;border-radius:6px;font-weight:600;flex-shrink:0}
+    .notif-type-tag.task{background:#fef3e2;color:#e3875d}
+    .notif-type-tag.invite{background:#eaf0ff;color:#3464e8}
+    .notif-type-tag.system{background:#f0f3fa;color:#7c879e}
+    .notif-desc{font-size:12px;color:#5a6478;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .notif-meta{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:11px;color:#9aa2b5}
+    .notif-meta .sender{color:#5a6478;font-weight:600}
+    .notif-status{font-size:11px;color:#9aa2b5;margin-left:auto}
+    .notif-status.read{color:#bdc5d3}
+  </style>
+</head>
+<body><div class="app">
+  <aside class="left">
+    <div class="brand-header">
+      <div>
+        <div class="brand">贵州白酒交易所AI</div>
+        <div class="brand-sub">智能协作系统</div>
+      </div>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8a93a8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="2"/>
+        <line x1="8" y1="4" x2="8" y2="20"/>
+        <path d="m14 9-3 3 3 3"/>
+      </svg>
+    </div>
+    <div class="new" onclick="newChat()">
+      <svg class="new-chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+      开启新对话
+    </div>
+    <div class="nav">
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+        技能
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+        任务
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><path d="M10 12h4"></path><path d="M12 10v4"></path></svg>
+        更多
+      </div>
+    </div>
+    <div class="work">工作空间</div>
+    <div class="chat-list">
+      <!-- 测试任务文件夹 -->
+      <div class="folder">
+        <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V10.5"/><path d="M11.5 19H22M22 10.5V19"/></svg>
+        测试任务
+      </div>
+      <div class="chat" data-mode="solo" data-title="测试任务" onclick="switchSession(this)" data-pending="true">
+        <div class="chat-title">
+          <span class="chat-title-text">测试任务</span>
+        </div>
+        <div class="chat-meta">
+          <span class="pending-dot"></span>
+          <span class="chat-time">刚刚</span>
+        </div>
+      </div>
+
+      <!-- 陈冰的测试任务文件夹 -->
+      <div class="folder folder-collab">
+        <svg class="folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7.5"/>
+          <circle cx="13.5" cy="12.5" r="1.8"/>
+          <path d="M10 18c0-1.6 1.6-2.6 3.5-2.6s3.5 1 3.5 2.6"/>
+          <circle cx="18.5" cy="10" r="1.5"/>
+          <path d="M16 14.8c.7-.4 1.6-.6 2.5-.6 1.8 0 2.8.8 2.8 2.2"/>
+        </svg>
+        陈冰的测试任务
+      </div>
+      <div class="chat active" data-mode="multi" data-title="陈冰的测试任务" onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text" style="color:#3963ec">陈冰的测试任务</span>
+        </div>
+        <div class="chat-meta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b52d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <path d="m9 10 2 2 4-4"/>
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8a93a8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M 18.5 12 A 8 8 0 1 0 7 17.5 L 4.5 20 L 9 18.5 A 8 8 0 0 0 18.5 12"/>
+            <circle cx="13" cy="12.5" r="1.8"/>
+            <path d="M9.5 18c0-1.6 1.6-2.6 3.5-2.6s3.5 1 3.5 2.6"/>
+            <circle cx="18" cy="10" r="1.5"/>
+            <path d="M15.5 14.8c.7-.4 1.6-.6 2.5-.6 1.8 0 2.8.8 2.8 2.2"/>
+          </svg>
+          <span class="chat-time" style="color:#6b80e8">15小时前</span>
+        </div>
+      </div>
+
+      <!-- 0728消息中心上线文件夹 -->
+      <div class="folder folder-collab">
+        <svg class="folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7.5"/>
+          <circle cx="13.5" cy="12.5" r="1.8"/>
+          <path d="M10 18c0-1.6 1.6-2.6 3.5-2.6s3.5 1 3.5 2.6"/>
+          <circle cx="18.5" cy="10" r="1.5"/>
+          <path d="M16 14.8c.7-.4 1.6-.6 2.5-.6 1.8 0 2.8.8 2.8 2.2"/>
+        </svg>
+        0728消息中心上线
+      </div>
+      <div class="chat" data-mode="multi" data-title="0728消息中心上线" onclick="switchSession(this)" data-pending="true">
+        <div class="chat-title">
+          <span class="chat-title-text">0728消息中心上线</span>
+        </div>
+        <div class="chat-meta">
+          <span class="pending-dot"></span>
+          <span class="chat-time">10分钟前</span>
+        </div>
+      </div>
+
+      <!-- 默认文件夹 -->
+      <div class="folder">
+        <svg class="folder-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V10.5"/><path d="M11.5 19H22M22 10.5V19"/></svg>
+        默认
+      </div>
+      <div class="chat" data-mode="solo" data-title="OpenClaw最新版本更新与功能改..." onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text">OpenClaw最新版本更新与功能改...</span>
+        </div>
+        <div class="chat-meta">
+          <span class="chat-time">21小时前</span>
+        </div>
+      </div>
+      <div class="chat" data-mode="solo" data-title="目前openclaw最新版本以及最近..." onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text">目前openclaw最新版本以及最近...</span>
+        </div>
+        <div class="chat-meta">
+          <span class="chat-time">21小时前</span>
+        </div>
+      </div>
+      <div class="chat" data-mode="solo" data-title="当前会话" onclick="switchSession(this)">
+        <div class="chat-title">
+          <span class="chat-title-text">当前会话</span>
+        </div>
+        <div class="chat-meta">
+          <span class="chat-time">21小时前</span>
+        </div>
+      </div>
+      <div class="chat-expand">展开显示</div>
+    </div>
+    <div class="user-bar">
+      <div class="user-avatar">C</div>
+      <span class="user-name">chenb</span>
+      <div class="user-actions">
+        <button class="bell-btn" onclick="toggleNotifPanel()" title="消息通知">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="bell-badge" id="bellBadge">84</span>
+        </button>
+        <button class="settings-btn" title="设置">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main"><header class="header"><div><span class="title" id="sessionTitle">630版本迭代</span> <span class="mode-pill" id="modePill">● 多人协作</span></div><div class="people" id="peopleBar"><span class="avatar a1">陈斌</span><span class="avatar a2">施展</span><span class="avatar a3">宋贤</span><button class="invite" onclick="openMembersModal()">邀请</button></div></header>
+
+    <!-- 多人会话消息区 -->
+    <section class="messages" id="messages">
+      <!-- §1 系统提示 -->
+      <div class="system"><span>会话已进入多人协作模式 · 可通过输入框AI开关或 @工作秘书 让AI参与</span></div>
+
+      <!-- 陈斌消息 -->
+      <div class="msg"><span class="avatar a1">陈斌</span><div><div class="meta">陈斌 10:12</div><div class="bubble">Rclaw技术方案初稿已经完成，接下来需要确认接入方式和演示范围。</div></div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="quoteMsg('陈斌','Rclaw技术方案初稿已经完成，接下来需要确认接入方式和演示范围。')">引用</span><span onclick="aiProcess('陈斌','Rclaw技术方案初稿已经完成，接下来需要确认接入方式和演示范围。')">AI处理</span></div>
+      </div>
+
+      <!-- 我的消息 -->
+      <div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群 10:16</div><div class="bubble">我建议先按接口方案A验证，大家看看是否有风险？</div></div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="copyToInput(this)">复制入框</span><span onclick="aiProcess('宋贤群','我建议先按接口方案A验证，大家看看是否有风险？')">AI处理</span></div>
+      </div>
+
+      <!-- 施展消息 -->
+      <div class="msg" id="shiZhanMsg"><span class="avatar a2">施展</span><div><div class="meta">施展 10:18</div><div class="bubble">需要先确认接口权限和测试环境，演示范围可以先限定在酒店和酒交两个场景。</div></div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="quoteMsg('施展','需要先确认接口权限和测试环境，演示范围可以先限定在酒店和酒交两个场景。')">引用</span><span onclick="aiProcess('施展','需要先确认接口权限和测试环境，演示范围可以先限定在酒店和酒交两个场景。')">AI处理</span></div>
+      </div>
+
+      <!-- 我的引用回复消息 -->
+      <div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群 10:23</div><div class="bubble"><div class="reply-ref"><b>引用 施展</b><br>"需要先确认接口权限和测试环境……"</div>我来推动测试环境确认，@陈斌 你协助确认演示范围。</div></div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="copyToInput(this)">复制入框</span><span onclick="aiProcess('宋贤群','我来推动测试环境确认，@陈斌 你协助确认演示范围。')">AI处理</span></div>
+      </div>
+
+      <!-- 用户上传文件消息 -->
+      <div class="msg mine" id="msg_upload_1">
+        <span class="avatar a3">宋贤</span>
+        <div>
+          <div class="meta">宋贤群 07-23 10:30</div>
+          <div class="bubble">这是上月销售数据统计表，帮我分析一下销售趋势。
+            <div class="msg-uploads">
+              <div class="upload-card">
+                <span class="file-icon" style="background:#e8f8ef;color:#16ad69">X</span>
+                <div class="file-info">
+                  <div class="file-name">销售数据统计表.xlsx</div>
+                  <div class="file-meta">2.4 MB · 已上传</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="copyToInput(this)">复制入框</span></div>
+      </div>
+
+      <!-- §7 AI回复（带引用上下文） -->
+      <div class="ai-card-wrap" id="msg_1">
+        <div class="ai-card">
+          <div class="ai-head"><span class="ai-icon">✦</span>工作秘书 · 由宋贤群发起</div>
+          <div class="ai-quote quote-clickable" onclick="scrollToMsg('shiZhanMsg')"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：@工作秘书 请生成今日财经股票与AI早报。</span></div>
+          <div class="ai-text">综合评估后建议采用接口方案A<sup data-ref="1" onclick="event.stopPropagation();openRef(1)">[1]</sup><sup data-ref="2" onclick="event.stopPropagation();openRef(2)">[2]</sup>，实施路径更短，适合本期演示；主要风险在于接口权限<sup data-ref="2" onclick="event.stopPropagation();openRef(2)">[2]</sup>与测试环境准备<sup data-ref="3" onclick="event.stopPropagation();openRef(3)">[3]</sup>，演示范围建议先限定在酒店和酒交两个场景<sup data-ref="4" onclick="event.stopPropagation();openRef(4)">[4]</sup>。参考A股最新行情数据<sup data-ref="7" onclick="event.stopPropagation();openRef(6)">[5]</sup>，建议在演示中加入实时市场动态板块，增强说服力。附财经股票与AI早报信息图长图一张，适配移动端阅读。需要切换主题或调整订阅范围，随时告诉我。</div>
+
+          <div class="msg-deliverables">
+            <div class="deliverable-item" data-name="财经股票与AI早报_2026-07-23.md" data-type="md">
+              <span class="deliverable-item-icon md">M</span>
+              <div class="deliverable-item-info" onclick="previewDeliverable(this.parentElement)">
+                <div class="deliverable-item-name">财经股票与AI早报_2026-07-23.md</div>
+                <div class="deliverable-item-date">07-23 10:50<span class="deliverable-source ai">AI生成</span></div>
+              </div>
+              <div class="deliverable-item-actions">
+                <button class="deliverable-item-btn preview" title="预览" onclick="event.stopPropagation();previewDeliverable(this.parentElement.parentElement)">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button class="deliverable-item-btn download" title="下载" onclick="event.stopPropagation();downloadDeliverable('财经股票与AI早报_2026-07-23.md', 0, this)">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="deliverable-item" data-name="财经股票与AI早报_2026-07-23.png" data-type="image">
+              <span class="deliverable-item-icon img">图</span>
+              <div class="deliverable-item-info" onclick="previewDeliverable(this.parentElement)">
+                <div class="deliverable-item-name">财经股票与AI早报_2026-07-23.png</div>
+                <div class="deliverable-item-date">07-23 10:50<span class="deliverable-source ai">AI生成</span></div>
+              </div>
+              <div class="deliverable-item-actions">
+                <button class="deliverable-item-btn preview" title="预览" onclick="event.stopPropagation();previewDeliverable(this.parentElement.parentElement)">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button class="deliverable-item-btn download" title="下载" onclick="event.stopPropagation();downloadDeliverable('财经股票与AI早报_2026-07-23.png', 1, this)">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="quoteMsg('工作秘书','方案A实施路径更短，适合本期演示；主要风险在于接口权限与环境准备。建议先锁定方案A，同时保留方案B作为后续扩展路径。')">引用</span></div>
+      </div>
+
+      <!-- ========== 第二轮对话：用户提问 ========== -->
+      <div class="msg mine">
+        <span class="avatar a3">宋贤</span>
+        <div>
+          <div class="meta">宋贤群 07-23 11:12</div>
+          <div class="bubble">那把销售数据也分析一下，出个简单的分析报告吧。</div>
+        </div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="copyToInput(this)">复制入框</span><span onclick="aiProcess('宋贤群','那把销售数据也分析一下，出个简单的分析报告吧。')">AI处理</span></div>
+      </div>
+
+      <!-- ========== 第二轮对话：AI回复（独立编号引用） ========== -->
+      <div class="ai-card-wrap" id="msg_2">
+        <div class="ai-card">
+          <div class="ai-head"><span class="ai-icon">✦</span>工作秘书 · 由宋贤群发起</div>
+          <div class="ai-quote"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：那把销售数据也分析一下，出个简单的分析报告吧。</span></div>
+          <div class="ai-text">基于你上传的上月销售数据<sup data-ref="0" onclick="event.stopPropagation();openRef(0)">[1]</sup>统计：本月总销售额1286万，同比增长18.7%<sup data-ref="0" onclick="event.stopPropagation();openRef(0)">[1]</sup>；其中白酒品类占比62%，是核心营收来源；华东区域表现最佳，完成月度目标123%<sup data-ref="0" onclick="event.stopPropagation();openRef(0)">[1]</sup>。详细数据和增长预测见附件分析报告<sup data-ref="5" onclick="event.stopPropagation();openRef(5)">[2]</sup>。</div>
+
+          <!-- 本条消息成果物 -->
+          <div class="msg-deliverables">
+            <div class="deliverable-item" data-name="7月销售数据分析报告.md" data-type="md">
+              <span class="deliverable-item-icon md">M</span>
+              <div class="deliverable-item-info" onclick="previewDeliverable(this.parentElement)">
+                <div class="deliverable-item-name">7月销售数据分析报告.md</div>
+                <div class="deliverable-item-date">07-23 11:15<span class="deliverable-source ai">AI生成</span></div>
+              </div>
+              <div class="deliverable-item-actions">
+                <button class="deliverable-item-btn preview" title="预览" onclick="event.stopPropagation();previewDeliverable(this.parentElement.parentElement)">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button class="deliverable-item-btn download" title="下载" onclick="event.stopPropagation();downloadDeliverable('7月销售数据分析报告.md', 1, this)">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="deliverable-item" data-name="7月销售数据趋势图.png" data-type="png">
+              <span class="deliverable-item-icon png">图</span>
+              <div class="deliverable-item-info" onclick="previewDeliverable(this.parentElement)">
+                <div class="deliverable-item-name">7月销售数据趋势图.png</div>
+                <div class="deliverable-item-date">07-23 11:15<span class="deliverable-source ai">AI生成</span></div>
+              </div>
+              <div class="deliverable-item-actions">
+                <button class="deliverable-item-btn preview" title="预览" onclick="event.stopPropagation();previewDeliverable(this.parentElement.parentElement)">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button class="deliverable-item-btn download" title="下载" onclick="event.stopPropagation();downloadDeliverable('7月销售数据趋势图.png', 1, this)">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="quoteMsg('工作秘书','本月总销售额1286万，同比增长18.7%，白酒品类占比62%。')">引用</span></div>
+      </div>
+    </section>
+
+    <!-- 单人会话消息区 -->
+    <section class="messages hide" id="soloMessages">
+      <div class="system"><span>与 AI 智能体对话 · 默认由「工作秘书」回复</span></div>
+      <div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群 昨天 14:02</div><div class="bubble">明天贵阳天气怎么样？</div></div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="copyToInput(this)">复制入框</span><span onclick="aiProcess('宋贤群','明天贵阳天气怎么样？')">AI处理</span></div>
+      </div>
+      <div class="ai-card-wrap">
+        <div class="ai-card">
+          <div class="ai-head"><span class="ai-icon">✦</span>工作秘书</div>
+          <div class="ai-quote"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：明天贵阳天气怎么样？</span></div>
+          <div class="ai-text">明天贵阳预计晴转多云，气温 22°C ~ 31°C，东南风 2-3 级。适合出行，但下午可能有短时阵雨，建议带伞。</div>
+        </div>
+        <div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="quoteMsg('工作秘书','明天贵阳预计晴转多云，气温 22°C ~ 31°C。')">引用</span></div>
+      </div>
+    </section>
+
+    <!-- §2 浮显提示 -->
+    <div class="toast" id="toast"></div>
+    <!-- §8 AI处理自动执行状态 -->
+    <div class="auto-status" id="autoStatus"></div>
+
+    <div class="composer-wrap">
+      <!-- @提及下拉面板 -->
+      <div class="at-panel" id="atPanel">
+        <div class="at-section" id="atAgentSection">
+          <div class="at-label">智能体</div>
+          <div class="at-item selected" data-name="工作秘书" data-type="agent" onclick="pickAt('工作秘书','agent')">
+            <span class="at-icon" style="background:#4d70f5;color:#fff">✦</span>
+            <span class="at-name">工作秘书</span>
+            <span class="at-default">默认</span>
+          </div>
+          <div class="at-item" data-name="客户经理" data-type="agent" onclick="pickAt('客户经理','agent')">
+            <span class="at-icon" style="background:#e3875d;color:#fff">✦</span>
+            <span class="at-name">客户经理</span>
+          </div>
+          <div class="at-item" data-name="财富管家" data-type="agent" onclick="pickAt('财富管家','agent')">
+            <span class="at-icon" style="background:#16ad69;color:#fff">✦</span>
+            <span class="at-name">财富管家</span>
+          </div>
+          <div class="at-item" data-name="创意助手" data-type="agent" onclick="pickAt('创意助手','agent')">
+            <span class="at-icon" style="background:#e84393;color:#fff">✦</span>
+            <span class="at-name">创意助手</span>
+          </div>
+          <div class="at-item" data-name="薯 expert" data-type="agent" onclick="pickAt('薯 expert','agent')">
+            <span class="at-icon" style="background:#fdcb6e;color:#fff">✦</span>
+            <span class="at-name">薯 expert</span>
+          </div>
+          <div class="at-item" data-name="原子模型测试" data-type="agent" onclick="pickAt('原子模型测试','agent')">
+            <span class="at-icon" style="background:#6c5ce7;color:#fff">✦</span>
+            <span class="at-name">原子模型测试</span>
+          </div>
+        </div>
+        <div class="at-sep" id="atSep"></div>
+        <div class="at-section" id="atMemberSection">
+          <div class="at-label">成员</div>
+          <div class="at-item" data-name="陈斌" data-type="member" onclick="pickAt('陈斌','member')">
+            <span class="at-avatar" style="background:#8b72e8">陈</span>
+            <span class="at-name">陈斌</span>
+          </div>
+          <div class="at-item" data-name="施展" data-type="member" onclick="pickAt('施展','member')">
+            <span class="at-avatar" style="background:#e3875d">施</span>
+            <span class="at-name">施展</span>
+          </div>
+        </div>
+        <div class="at-empty" id="atEmpty">无匹配结果</div>
+      </div>
+      <div class="composer" id="composer">
+        <!-- §5 引用预览区 -->
+        <div class="context" id="context"><span id="contextText"></span><button onclick="clearContext()">×</button></div>
+        <!-- 附件上传预览区 -->
+        <div class="uploads" id="uploads"></div>
+        <div class="textline"><textarea id="input" placeholder="开启AI或输入 @工作秘书 让AI参与" oninput="onInput()"></textarea></div>
+        <div class="toolbar-sep"></div>
+        <div class="tools">
+          <div class="tool-left">
+            <button class="ai-toggle hide" id="toggle" onclick="toggleAI()"><span class="switch"><i></i></span><span id="toggleText">AI关闭</span></button>
+            <button class="tb-btn" title="附件" onclick="simulateUpload()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></button>
+            <button class="tb-btn" id="atBtn" onclick="toggleAtPanel(event)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="5"/>
+                <path d="M20 21a8 8 0 1 0-16 0"/>
+              </svg>
+              <span id="atBtnText">酒交所AI</span><span class="arrow">▾</span>
+            </button>
+            <div class="skill-select-wrapper">
+              <button class="tb-btn skill-select-btn" id="skillBtn" onclick="toggleSkillDropdown(event)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                </svg>
+                <span id="currentSkill">技能</span><span class="arrow">▾</span>
+              </button>
+              <button class="skill-clear" id="skillClear" onclick="clearSkill(event)" style="display:none;" title="取消技能">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+              <div class="skill-dropdown" id="skillDropdown">
+                <div class="skill-search">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  </svg>
+                  <input type="text" id="skillSearchInput" placeholder="搜索技能" oninput="filterSkills(this.value)" onclick="event.stopPropagation()">
+                </div>
+                <div class="skill-list" id="skillList">
+                  <div class="skill-option" onclick="selectSkill(this, '页面设计动效素材')">页面设计动效素材</div>
+                  <div class="skill-option" onclick="selectSkill(this, '对象数据管理')">对象数据管理</div>
+                  <div class="skill-option" onclick="selectSkill(this, '调研')">调研</div>
+                  <div class="skill-option" onclick="selectSkill(this, '页面设计素材 2')">页面设计素材 2</div>
+                  <div class="skill-option" onclick="selectSkill(this, '设计审核')">设计审核</div>
+                  <div class="skill-option" onclick="selectSkill(this, '页面设计素材 4')">页面设计素材 4</div>
+                  <div class="skill-option" onclick="selectSkill(this, '文案写作')">文案写作</div>
+                </div>
+              </div>
+            </div>
+            <div class="folder-select-wrapper">
+              <button class="tb-btn folder-select-btn active" id="folderBtn" onclick="toggleFolderDropdown(event)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+                <span id="currentFolder">默认</span>
+                <span class="arrow">▾</span>
+              </button>
+              <div class="folder-dropdown" id="folderDropdown">
+                <div class="folder-list" id="folderList">
+                  <div class="folder-option selected" onclick="selectFolder(this, '默认')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b52d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 6L9 17l-5-5"/>
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    默认
+                  </div>
+                  <div class="folder-option" onclick="selectFolder(this, '测试任务')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    测试任务
+                  </div>
+                  <div class="folder-option" onclick="selectFolder(this, '陈冰的测试任务')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7.5"/>
+                      <circle cx="13.5" cy="12.5" r="1.8"/>
+                      <path d="M10 18c0-1.6 1.6-2.6 3.5-2.6s3.5 1 3.5 2.6"/>
+                      <circle cx="18.5" cy="10" r="1.5"/>
+                      <path d="M16 14.8c.7-.4 1.6-.6 2.5-.6 1.8 0 2.8.8 2.8 2.2"/>
+                    </svg>
+                    陈冰的测试任务
+                  </div>
+                  <div class="folder-option" onclick="selectFolder(this, '0728消息中心上线')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 10.5V7a2 2 0 0 0-2-2h-8.5L7.5 3H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7.5"/>
+                      <circle cx="13.5" cy="12.5" r="1.8"/>
+                      <path d="M10 18c0-1.6 1.6-2.6 3.5-2.6s3.5 1 3.5 2.6"/>
+                      <circle cx="18.5" cy="10" r="1.5"/>
+                      <path d="M16 14.8c.7-.4 1.6-.6 2.5-.6 1.8 0 2.8.8 2.8 2.2"/>
+                    </svg>
+                    0728消息中心上线
+                  </div>
+                </div>
+                <div class="folder-divider"></div>
+                <div class="folder-new" onclick="showNewFolderInput()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                    <line x1="12" y1="11" x2="12" y2="17"/>
+                    <line x1="9" y1="14" x2="15" y2="14"/>
+                  </svg>
+                  新建文件夹
+                </div>
+                <div class="folder-new-input" id="newFolderInput" style="display:none;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  <input type="text" id="newFolderName" placeholder="输入文件夹名称" onclick="event.stopPropagation()" onkeydown="handleNewFolderKeydown(event)">
+                  <button class="folder-confirm" onclick="confirmNewFolder(event)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tool-right">
+            <button class="send" id="send" onclick="sendMessage()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="right">
+    <div class="right-header">
+      <div class="right-header-title">
+        <span class="right-header-icon">☰</span>
+        <span>会话目录</span>
+      </div>
+      <div style="display:flex;gap:4px;align-items:center">
+        <button class="right-header-btn" title="收起侧边栏">⤢</button>
+      </div>
+    </div>
+    <div class="dir">
+      <!-- 会话摘要：可展开/收起 -->
+      <div class="dir-section" id="summarySection">
+        <div class="dir-section-header" onclick="toggleSummary()">
+          <div class="dir-section-title">
+            <span class="dir-section-line"></span>
+            <span>会话摘要</span>
+          </div>
+          <div class="dir-section-right">
+            <span class="dir-status" id="summaryStatus">有更新</span>
+            <span class="dir-chevron">▼</span>
+          </div>
+        </div>
+        <div class="dir-section-body summary-body" id="summaryBody">
+          <div class="summary-meta">
+            <button class="update" onclick="updateSummary()">更新摘要</button>
+            <div class="updated" id="summaryUpdated">更新于今天 10:20</div>
+          </div>
+          <div class="md-summary">
+            <h3>一、工作项</h3>
+            <p>推进 <strong>630版本工作台改造</strong>，完成 <strong>Rclaw 接入方案</strong>及演示准备。</p>
+            <h3>二、当前进展</h3>
+            <ul>
+              <li>技术方案已完成，正在确认接入方式、权限和演示范围</li>
+              <li>陈斌提出：本期优先使用方案A验证</li>
+            </ul>
+            <h3>三、已完成</h3>
+            <ol>
+              <li>Rclaw 技术方案初稿</li>
+              <li>典型业务场景梳理</li>
+            </ol>
+            <h3>四、待推进</h3>
+            <ol>
+              <li>确认接口权限 <strong>@陈斌</strong></li>
+              <li>确定演示范围 <strong>@施展</strong></li>
+            </ol>
+            <h3>五、关键结论</h3>
+            <ol>
+              <li>本期优先使用方案A验证。<span class="status">待确认</span></li>
+              <li>主要风险在于接口权限与环境准备，需提前确认。</li>
+              <li>建议先锁定方案A，同时保留方案B作为后续扩展路径。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- 当前任务 -->
+      <div class="dir-section" id="tasksSection">
+        <div class="dir-section-header" onclick="toggleSection('tasksSection')">
+          <div class="dir-section-title">
+            <span class="dir-section-line"></span>
+            <span>当前任务</span>
+          </div>
+          <span class="dir-chevron">▼</span>
+        </div>
+        <div class="dir-section-body">
+          <div style="font-size:12px;color:#8a93a8;padding:8px 0">暂无任务，可在会话中指派或转办任务。</div>
+        </div>
+      </div>
+      <!-- 协作智能体 -->
+      <div class="dir-section" id="agentsSection">
+        <div class="dir-section-header" onclick="toggleSection('agentsSection')">
+          <div class="dir-section-title">
+            <span class="dir-section-line"></span>
+            <span>协作智能体</span>
+          </div>
+          <span class="dir-chevron">▼</span>
+        </div>
+        <div class="dir-section-body">
+          <div class="agent-list">
+            <div class="agent-item">
+              <span class="agent-avatar" style="background:#4d70f5">工</span>
+              <div class="agent-info">
+                <div class="agent-name">工作秘书</div>
+                <div class="agent-meta">1 条回复</div>
+              </div>
+              <span class="agent-status"></span>
+            </div>
+            <div class="agent-item">
+              <span class="agent-avatar" style="background:#e84393">创</span>
+              <div class="agent-info">
+                <div class="agent-name">创意助手</div>
+                <div class="agent-meta">2 条回复</div>
+              </div>
+              <span class="agent-status"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 成果物 -->
+      <div class="dir-section" id="deliverablesSection">
+        <div class="dir-section-header" onclick="toggleSection('deliverablesSection')">
+          <div class="dir-section-title">
+            <span class="dir-section-line"></span>
+            <span>成果物</span>
+          </div>
+          <span class="dir-chevron">▼</span>
+        </div>
+        <div class="dir-section-body">
+          <div class="deliverable-list">
+            <div class="deliverable-card" data-name="财经股票与AI早报_2026-07-23.md" data-type="md" data-msg-id="msg_1" onclick="previewDeliverable(this)">
+              <span class="deliverable-icon md">M</span>
+              <div class="deliverable-info">
+                <div class="deliverable-name">财经股票与AI早报_2026-07-23.md</div>
+                <div class="deliverable-date">07-23 10:50<span class="deliverable-source ai">AI生成</span></div>
+              </div>
+              <div class="deliverable-actions">
+                <button class="deliverable-btn jump" title="定位到关联消息" onclick="event.stopPropagation();jumpToMessage('msg_1')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </button>
+                <button class="deliverable-btn preview" title="预览" onclick="event.stopPropagation();previewDeliverable(this.parentElement.parentElement)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button class="deliverable-btn download" title="下载" onclick="event.stopPropagation();downloadDeliverable('财经股票与AI早报_2026-07-23.md', 0, this)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="deliverable-card" data-name="财经股票与AI早报_2026-07-23.png" data-type="image" data-msg-id="msg_1" onclick="previewDeliverable(this)">
+              <span class="deliverable-icon png">图</span>
+              <div class="deliverable-info">
+                <div class="deliverable-name">财经股票与AI早报_2026-07-23.png</div>
+                <div class="deliverable-date">07-23 10:50<span class="deliverable-source ai">AI生成</span></div>
+              </div>
+              <div class="deliverable-actions">
+                <button class="deliverable-btn jump" title="定位到关联消息" onclick="event.stopPropagation();jumpToMessage('msg_1')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </button>
+                <button class="deliverable-btn preview" title="预览" onclick="event.stopPropagation();previewDeliverable(this.parentElement.parentElement)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button class="deliverable-btn download" title="下载" onclick="event.stopPropagation();downloadDeliverable('财经股票与AI早报_2026-07-23.png', 1, this)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="deliverable-card" data-name="销售数据统计表.xlsx" data-type="xlsx" data-msg-id="msg_upload_1" onclick="previewDeliverable(this)">
+              <span class="deliverable-icon xlsx">X</span>
+              <div class="deliverable-info">
+                <div class="deliverable-name">销售数据统计表.xlsx</div>
+                <div class="deliverable-date">07-23 10:30<span class="deliverable-source upload">用户上传</span></div>
+              </div>
+              <div class="deliverable-actions">
+                <button class="deliverable-btn jump" title="定位到关联消息" onclick="event.stopPropagation();jumpToMessage('msg_upload_1')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </button>
+                <button class="deliverable-btn preview" title="预览" onclick="event.stopPropagation();previewDeliverable(this.parentElement.parentElement)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button class="deliverable-btn download" title="下载" onclick="event.stopPropagation();downloadDeliverable('销售数据统计表.xlsx', 2, this)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="deliverable-card" data-name="7月销售数据分析报告.md" data-type="md" onclick="previewDeliverable(this)">
+              <span class="deliverable-icon md">M</span>
+              <div class="deliverable-info">
+                <div class="deliverable-name">7月销售数据分析报告.md</div>
+                <div class="deliverable-date">07-23 11:15<span class="deliverable-source ai">AI生成</span></div>
+              </div>
+              <div class="deliverable-actions">
+                <button class="deliverable-btn jump" title="定位到关联消息" onclick="event.stopPropagation();jumpToMessage('msg_2')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </button>
+                <button class="deliverable-btn preview" title="预览" onclick="event.stopPropagation();previewDeliverable(this.parentElement.parentElement)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button class="deliverable-btn download" title="下载" onclick="event.stopPropagation();downloadDeliverable('7月销售数据分析报告.md', 0, this)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="deliverable-card" data-name="7月销售数据趋势图.png" data-type="image" onclick="previewDeliverable(this)">
+              <span class="deliverable-icon png">图</span>
+              <div class="deliverable-info">
+                <div class="deliverable-name">7月销售数据趋势图.png</div>
+                <div class="deliverable-date">07-23 11:15<span class="deliverable-source ai">AI生成</span></div>
+              </div>
+              <div class="deliverable-actions">
+                <button class="deliverable-btn jump" title="定位到关联消息" onclick="event.stopPropagation();jumpToMessage('msg_2')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </button>
+                <button class="deliverable-btn preview" title="预览" onclick="event.stopPropagation();previewDeliverable(this.parentElement.parentElement)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button class="deliverable-btn download" title="下载" onclick="event.stopPropagation();downloadDeliverable('7月销售数据趋势图.png', 1, this)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 参考文献（整个会话去重汇总） -->
+      <div class="dir-section collapsed" id="sourcesSection">
+        <div class="dir-section-header" onclick="toggleSection('sourcesSection')">
+          <div class="dir-section-title">
+            <span class="dir-section-line" style="background:#7654e8"></span>
+            <span>📚 参考文献</span>
+            <span style="font-size:11px;color:#8a93a8;margin-left:4px;font-weight:normal">共 7 份</span>
+          </div>
+          <span class="dir-chevron">▼</span>
+        </div>
+        <div class="dir-section-body">
+          <div class="ref-list">
+            <!-- 用户上传的文件也可以作为引用来源 -->
+            <div class="ref-item" onclick="openRef(0)">
+              <span class="ref-type data">表</span>
+              <div class="ref-content">
+                <div class="ref-title">销售数据统计表.xlsx</div>
+                <div class="ref-loc">你上传 · 引用 3 次</div>
+              </div>
+            </div>
+            <div class="ref-item" onclick="openRef(1)">
+              <span class="ref-type doc">W</span>
+              <div class="ref-content">
+                <div class="ref-title">Rclaw项目技术方案_v2.3.docx</div>
+                <div class="ref-loc">第三章 接口选型 · P12 · 引用 1 次</div>
+              </div>
+            </div>
+            <div class="ref-item" onclick="openRef(2)">
+              <span class="ref-type pdf">P</span>
+              <div class="ref-content">
+                <div class="ref-title">Rclaw酒店场景接入历史方案.pdf</div>
+                <div class="ref-loc">4.2节 权限申请流程 · P7 · 引用 2 次</div>
+              </div>
+            </div>
+            <div class="ref-item" onclick="openRef(3)">
+              <span class="ref-type wiki">知</span>
+              <div class="ref-content">
+                <div class="ref-title">企业内部系统架构规范</div>
+                <div class="ref-loc">第5章 跨系统调用规范 · 引用 1 次</div>
+              </div>
+            </div>
+            <div class="ref-item" onclick="openRef(4)">
+              <span class="ref-type data">表</span>
+              <div class="ref-content">
+                <div class="ref-title">近30天演示环境可用性统计.xlsx</div>
+                <div class="ref-loc">Sheet2 · 第3-18行 · 引用 1 次</div>
+              </div>
+            </div>
+            <div class="ref-item" onclick="openRef(5)">
+              <span class="ref-type pdf">P</span>
+              <div class="ref-content">
+                <div class="ref-title">2026年白酒行业半年报.pdf</div>
+                <div class="ref-loc">第二章 行业趋势 · P23 · 引用 1 次</div>
+              </div>
+            </div>
+            <div class="ref-item" onclick="openRef(6)">
+              <span style="width:20px;height:20px;display:inline-grid;place-items:center;font-size:16px;flex-shrink:0;margin-top:1px;">🔗</span>
+              <div class="ref-content">
+                <div class="ref-title">东方财富网 - A股行情中心</div>
+                <div class="ref-loc">外部公开网页 · 引用 1 次</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+<!-- 消息通知视图（跨中栏+右栏） -->
+<div id="notifView">
+  <div class="notif-header">
+    <div class="notif-title">消息通知</div>
+    <div class="notif-actions">
+      <button class="notif-action-btn" onclick="toggleNotifPanel()" title="返回目录">☰</button>
+    </div>
+  </div>
+  <div class="notif-tabs" id="notifTabs">
+    <div class="notif-tab active" data-tab="all" onclick="switchNotifTab(this)">全部消息<span class="tab-count">8</span></div>
+    <div class="notif-tab" data-tab="unread" onclick="switchNotifTab(this)">未读<span class="tab-count">4</span></div>
+    <div class="notif-tab" data-tab="invite" onclick="switchNotifTab(this)">协作邀请<span class="tab-count">2</span></div>
+    <div class="notif-tab" data-tab="auto" onclick="switchNotifTab(this)">自动化通知<span class="tab-count">2</span></div>
+    <div class="notif-tab" data-tab="task" onclick="switchNotifTab(this)">任务提醒<span class="tab-count">2</span></div>
+  </div>
+  <div class="notif-toolbar">
+    <div class="notif-search"><input type="text" placeholder="搜索消息、任务或来源..."></div>
+    <div class="notif-toolbar-right">
+      <button class="notif-mark-read" onclick="markAllRead()">✓ 全部已读</button>
+    </div>
+  </div>
+  <div class="notif-list" id="notifList">
+    <div class="notif-day-sep">今天 · 7月24日</div>
+
+    <!-- 协作邀请 1 -->
+    <div class="notif-card unread" data-tab="invite" id="inviteCard1" onclick="enterInvite(this)">
+      <span class="notif-avatar" style="background:#8b72e8">宋</span>
+      <div class="notif-body">
+        <div class="notif-card-title">协作邀请 · 630版本迭代<span class="notif-time">15:42</span></div>
+        <div class="notif-desc">宋贤群邀请你加入协作会话：推进630版本工作台改造，当前需要共同确认 Rclaw 接入方案和演示范围。</div>
+        <div class="notif-meta">
+          <span class="sender">宋贤群</span>
+          <span class="notif-type-tag invite">协作邀请</span>
+          <span class="notif-status">未读</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 协作邀请 2 -->
+    <div class="notif-card unread" data-tab="invite" id="inviteCard2" onclick="enterInvite(this)">
+      <span class="notif-avatar" style="background:#e3875d">施</span>
+      <div class="notif-body">
+        <div class="notif-card-title">协作邀请 · Q3营销方案评审<span class="notif-time">11:08</span></div>
+        <div class="notif-desc">施展邀请你加入协作会话：Q3营销方案初稿已完成，需要协同评审并确认推广策略。</div>
+        <div class="notif-meta">
+          <span class="sender">施展</span>
+          <span class="notif-type-tag invite">协作邀请</span>
+          <span class="notif-status">未读</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 任务提醒 -->
+    <div class="notif-card unread" data-tab="task" onclick="markCardRead(this)">
+      <span class="notif-avatar" style="background:#e3875d">陈</span>
+      <div class="notif-body">
+        <div class="notif-card-title">测试任务<span class="notif-time">11:24</span></div>
+        <div class="notif-desc">这是一个测试任务，用于验证任务创建流程和 AI 引导功能。请陈冰开始执行并反馈结果。</div>
+        <div class="notif-meta">
+          <span class="sender">陈冰</span>
+          <span class="notif-type-tag task">任务</span>
+          <span class="notif-status">未读</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 自动化通知 -->
+    <div class="notif-card unread" data-tab="auto" onclick="markCardRead(this)">
+      <span class="notif-avatar" style="background:#16ad69">许</span>
+      <div class="notif-body">
+        <div class="notif-card-title">今日工作日报提交<span class="notif-time">09:07</span></div>
+        <div class="notif-desc">请在今天18:00前提交今日工作日报。可自然语言描述并上传附件；确认提交请回复1。</div>
+        <div class="notif-meta">
+          <span class="sender">许娇</span>
+          <span class="notif-type-tag system">系统</span>
+          <span class="notif-status">未读</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="notif-day-sep">昨天</div>
+
+    <!-- 已读 -->
+    <div class="notif-card" data-tab="auto" onclick="markCardRead(this)">
+      <span class="notif-avatar" style="background:#4b9fe8">系</span>
+      <div class="notif-body">
+        <div class="notif-card-title">会话摘要已自动生成<span class="notif-time">18:30</span></div>
+        <div class="notif-desc">「630版本迭代」会话摘要已根据最近对话内容自动生成，可在右侧面板查看。</div>
+        <div class="notif-meta">
+          <span class="sender">系统</span>
+          <span class="notif-type-tag system">系统</span>
+          <span class="notif-status read">已读</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="notif-card" data-tab="task" onclick="markCardRead(this)">
+      <span class="notif-avatar" style="background:#e3875d">许</span>
+      <div class="notif-body">
+        <div class="notif-card-title">测试去重-陈冰<span class="notif-time">09:08</span></div>
+        <div class="notif-desc">测试</div>
+        <div class="notif-meta">
+          <span class="sender">许娇</span>
+          <span class="notif-type-tag task">任务</span>
+          <span class="notif-status read">已读</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 会话成员弹窗 -->
+<div class="modal-overlay" id="membersOverlay" onclick="if(event.target===this)closeMembersModal()">
+  <div class="modal members-modal">
+    <button class="modal-close" onclick="closeMembersModal()">×</button>
+    <div class="m-title">会话成员</div>
+    <div class="m-sub" id="mSubTitle">630版本迭代</div>
+    <div class="m-search">
+      <input type="text" placeholder="搜索成员" id="mSearchInput" oninput="filterMembers()">
+      <button class="m-add-btn" onclick="openContactsModal()" title="添加成员">+</button>
+    </div>
+    <!-- 邀请附言 -->
+    <div class="m-brief" id="mBriefSection" style="display:none">
+      <div class="m-brief-label"><span class="ai-spark">✦</span> 邀请附言</div>
+      <div class="m-brief-text" id="mBriefText">推进630版本工作台改造；当前需要共同确认Rclaw接入方案和演示范围。</div>
+      <div class="m-brief-actions">
+        <button class="m-brief-btn" onclick="regenerateBrief()">✦ 重新生成</button>
+        <button class="m-brief-btn" onclick="editBrief()">编辑</button>
+      </div>
+    </div>
+    <div class="m-section-label">管理成员</div>
+    <div class="m-list" id="mList"></div>
+    <div class="m-invite-bar">
+      <button class="btn-cancel" onclick="closeMembersModal()">关闭</button>
+      <button class="btn-confirm" id="mConfirmBtn" onclick="confirmInvite()" disabled>发送邀请</button>
+    </div>
+  </div>
+</div>
+
+<!-- 选择联系人弹窗 -->
+<div class="modal-overlay" id="contactsOverlay" onclick="if(event.target===this)closeContactsModal()">
+  <div class="modal contacts-modal">
+    <button class="modal-close" onclick="closeContactsModal()">×</button>
+    <div class="c-header"><h3>选择联系人</h3></div>
+    <div class="c-body">
+      <div class="c-left">
+        <div class="c-search"><input type="text" placeholder="搜索用户、群组、部门或用户组" id="cSearchInput" oninput="filterContacts()"></div>
+        <div class="c-org"><span class="org-icon">▦</span> 贵州白酒交易所</div>
+        <div class="c-contacts" id="cContactsList"></div>
+      </div>
+      <div class="c-right">
+        <div class="c-right-header">
+          <span class="c-right-count" id="cSelCount">已选：0 个</span>
+          <button class="c-right-clear" onclick="clearSelection()">清空</button>
+        </div>
+        <div class="c-selected-list" id="cSelectedList">
+          <div class="c-empty"><div class="c-empty-icon">✉</div>暂未选择联系人</div>
+        </div>
+      </div>
+    </div>
+    <div class="c-footer">
+      <button class="btn-cancel" onclick="closeContactsModal()">取消</button>
+      <button class="btn-confirm" id="cConfirmBtn" onclick="confirmSelection()" disabled>确定</button>
+    </div>
+  </div>
+</div>
+
+<!-- 消息通知已移至右侧面板 -->
+
+<script>
+/* ========== 状态 ========== */
+let aiOn = false;
+let quoteData = null;   // { who, text }
+let toastTimer = null;
+let selectedAgent = '工作秘书';
+let atSearchActive = false;
+let atHighlightIdx = 0;
+let sessionMode = 'multi'; // 'multi' | 'solo'
+let uploadedFiles = [];    // 上传文件列表
+let uploadDemoIdx = 0;     // 模拟上传轮转索引
+let aiRunning = false;     // AI是否正在运行
+let stopAIRequested = false; // 是否请求停止AI
+let currentThinkingTimer = null;
+let currentTypingTimer = null;
+
+// 模拟文件数据
+const uploadDemos = [
+  { type:'img', name:'接口方案A架构图.png', size:'1.2 MB', fileType:'Image', thumb:'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><rect fill="#e0ecff" width="96" height="96" rx="8"/><text x="48" y="40" text-anchor="middle" fill="#4d70f5" font-size="11" font-family="sans-serif">接口方案</text><text x="48" y="56" text-anchor="middle" fill="#4d70f5" font-size="11" font-family="sans-serif">架构图</text></svg>') },
+  { type:'img', name:'演示场景流程图.png', size:'890 KB', fileType:'Image', thumb:'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><rect fill="#fef3e2" width="96" height="96" rx="8"/><text x="48" y="40" text-anchor="middle" fill="#e3875d" font-size="11" font-family="sans-serif">演示场景</text><text x="48" y="56" text-anchor="middle" fill="#e3875d" font-size="11" font-family="sans-serif">流程图</text></svg>') },
+  { type:'file', name:'Rclaw技术方案_v3.docx', size:'2.8 MB', fileType:'Word', icon:'📄', color:'#4d70f5' },
+  { type:'file', name:'测试环境配置清单.xlsx', size:'156 KB', fileType:'Excel', icon:'📊', color:'#16ad69' },
+  { type:'file', name:'项目进度跟踪.pdf', size:'4.1 MB', fileType:'PDF', icon:'📕', color:'#e34' }
+];
+
+const $ = id => document.getElementById(id);
+const input    = $('input');
+const toggle   = $('toggle');
+const toggleText = $('toggleText');
+const composer = $('composer');
+const sendBtn  = $('send');
+const toast    = $('toast');
+const context  = $('context');
+const contextText = $('contextText');
+const autoStatus = $('autoStatus');
+const messages = $('messages');
+const atPanel    = $('atPanel');
+const atEmpty    = $('atEmpty');
+const atBtnText  = $('atBtnText');
+const atItems    = () => atPanel.querySelectorAll('.at-item');
+const atSections = { agents: $('atAgentSection'), members: $('atMemberSection'), sep: $('atSep') };
+const soloMessages = $('soloMessages');
+const sessionTitle = $('sessionTitle');
+const modePill   = $('modePill');
+const peopleBar  = $('peopleBar');
+const uploads    = $('uploads');
+
+/* ========== 会话模式切换 ========== */
+function switchSession(el) {
+  // 切换左侧高亮
+  document.querySelectorAll('.chat').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+
+  // 进入会话时移除待处理蓝点
+  const dot = el.querySelector('.pending-dot');
+  if (dot) dot.remove();
+  el.removeAttribute('data-pending');
+
+  const mode = el.dataset.mode;
+  const title = el.dataset.title;
+  sessionMode = mode;
+
+  // 更新标题
+  sessionTitle.textContent = title;
+
+  if (mode === 'solo') {
+    // 单人+AI模式
+    modePill.textContent = '● AI 对话';
+    modePill.style.background = '#eaf0ff';
+    modePill.style.color = '#3464e8';
+    peopleBar.innerHTML = '<span class="solo-badge">✦ 工作秘书</span>';
+    messages.classList.add('hide');
+    soloMessages.classList.remove('hide');
+    // 隐藏AI开关（单人模式AI始终在线）
+    toggle.classList.add('hide');
+    // @按钮保持显示酒交所AI
+    atBtnText.textContent = '酒交所AI';
+    // 隐藏成员区
+    atSections.members.classList.add('hide');
+    atSections.sep.classList.add('hide');
+    // 更新占位提示
+    input.placeholder = '输入指令或上传交易数据文件，开启智能协作...';
+    aiOn = true; // 单人模式AI始终在线
+  } else {
+    // 多人+AI模式
+    modePill.textContent = '● 多人协作';
+    modePill.style.background = '#edf8f2';
+    modePill.style.color = '#14885a';
+    peopleBar.innerHTML = '<span class="avatar a1">陈斌</span><span class="avatar a2">施展</span><span class="avatar a3">宋贤</span><button class="invite" onclick="openMembersModal()">邀请</button>';
+    messages.classList.remove('hide');
+    soloMessages.classList.add('hide');
+    // 显示AI开关
+    toggle.classList.remove('hide');
+    // @按钮保持显示酒交所AI
+    atBtnText.textContent = '酒交所AI';
+    // 显示成员区
+    atSections.members.classList.remove('hide');
+    atSections.sep.classList.remove('hide');
+    aiOn = false;
+    toggle.classList.remove('on');
+    composer.classList.remove('ai-on');
+    toggleText.textContent = 'AI关闭';
+    input.placeholder = '开启AI或输入 @工作秘书 让AI参与';
+  }
+  sendBtn.classList.toggle('ai', aiOn);
+  composer.classList.toggle('ai-on', aiOn);
+  input.value = '';
+  clearContext();
+  clearUploads();
+}
+
+/* ========== §2 AI开关 ========== */
+function toggleAI() {
+  aiOn = !aiOn;
+  toggle.classList.toggle('on', aiOn);
+  composer.classList.toggle('ai-on', aiOn);
+  toggleText.textContent = aiOn ? 'AI开启' : 'AI关闭';
+  updateSendBtn();
+  updatePlaceholder();
+  showToast(aiOn
+    ? 'AI已开启：后续发送内容将由「' + selectedAgent + '」处理'
+    : 'AI已关闭：后续发送内容将作为成员聊天发送');
+}
+
+/* §2 浮显约2.4秒 */
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+}
+
+/* ========== 输入框占位提示 §8 ========== */
+function updatePlaceholder() {
+  if (sessionMode === 'solo') {
+    input.placeholder = '输入指令或上传交易数据文件，开启智能协作...';
+  } else {
+    input.placeholder = aiOn
+      ? '向AI提问，每条消息均由AI处理'
+      : '与成员讨论，开启AI或输入 @工作秘书 让AI参与';
+  }
+}
+
+/* ========== 检测文本是否提及任何智能体 ========== */
+function hasAgentMention(text) {
+  const agents = ['工作秘书','客户经理','财富管家','创意助手','薯 expert','原子模型测试'];
+  return agents.some(name => text.includes('@' + name));
+}
+
+/* ========== 发送按钮状态 ========== */
+function updateSendBtn() {
+  const isSolo = sessionMode === 'solo';
+  const hasFiles = uploadedFiles.length > 0;
+  const willAI = isSolo || aiOn || hasAgentMention(input.value) || quoteData?.aiProcess;
+  sendBtn.classList.toggle('ai', willAI);
+  sendBtn.disabled = !input.value.trim() && !quoteData && !hasFiles;
+  sendBtn.style.opacity = sendBtn.disabled ? '.4' : '1';
+}
+
+function onInput() {
+  const val = input.value;
+  // 检测@后输入文字，触发过滤
+  const atMatch = val.match(/@([^\s@]*)$/);
+  if (atMatch) {
+    const query = atMatch[1].toLowerCase();
+    atSearchActive = true;
+    atPanel.classList.add('show');
+    filterAtItems(query);
+  } else {
+    atSearchActive = false;
+    if (atPanel.classList.contains('show') && !atPanel._manualOpen) {
+      atPanel.classList.remove('show');
+    }
+    resetAtFilter();
+  }
+  updateSendBtn();
+}
+
+/* ========== @提及面板 ========== */
+function toggleAtPanel(e, forceOpen) {
+  if (e) e.stopPropagation();
+  if (forceOpen) {
+    atPanel.classList.add('show');
+    atPanel._manualOpen = true;
+    resetAtFilter();
+    return;
+  }
+  atPanel.classList.toggle('show');
+  atPanel._manualOpen = atPanel.classList.contains('show');
+  resetAtFilter();
+}
+
+function toggleSkillDropdown(e) {
+  e.stopPropagation();
+  const dropdown = document.getElementById('skillDropdown');
+  const folderDropdown = document.getElementById('folderDropdown');
+  folderDropdown.classList.remove('show');
+  hideNewFolderInput();
+  dropdown.classList.toggle('show');
+  if (dropdown.classList.contains('show')) {
+    document.getElementById('skillSearchInput').value = '';
+    filterSkills('');
+    document.getElementById('skillSearchInput').focus();
+  }
+}
+
+function selectSkill(el, name) {
+  document.getElementById('currentSkill').textContent = name;
+  document.querySelectorAll('.skill-option').forEach(opt => opt.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('skillBtn').classList.add('active');
+  document.getElementById('skillClear').style.display = 'grid';
+  document.getElementById('skillDropdown').classList.remove('show');
+}
+
+function clearSkill(e) {
+  e.stopPropagation();
+  document.getElementById('currentSkill').textContent = '技能';
+  document.querySelectorAll('.skill-option').forEach(opt => opt.classList.remove('selected'));
+  document.getElementById('skillBtn').classList.remove('active');
+  document.getElementById('skillClear').style.display = 'none';
+}
+
+function filterSkills(query) {
+  const options = document.querySelectorAll('.skill-option');
+  const lowerQuery = query.toLowerCase();
+  options.forEach(opt => {
+    const text = opt.textContent.toLowerCase();
+    opt.style.display = text.includes(lowerQuery) ? 'block' : 'none';
+  });
+}
+
+function toggleFolderDropdown(e) {
+  e.stopPropagation();
+  const dropdown = document.getElementById('folderDropdown');
+  const skillDropdown = document.getElementById('skillDropdown');
+  skillDropdown.classList.remove('show');
+  dropdown.classList.toggle('show');
+}
+
+function selectFolder(el, name) {
+  document.getElementById('currentFolder').textContent = name;
+  document.querySelectorAll('.folder-option').forEach(opt => opt.classList.remove('selected'));
+  el.classList.add('selected');
+  hideNewFolderInput();
+  document.getElementById('folderDropdown').classList.remove('show');
+  
+  const btn = document.getElementById('folderBtn');
+  if (name === '默认') {
+    btn.classList.remove('active');
+  } else {
+    btn.classList.add('active');
+  }
+}
+
+function showNewFolderInput() {
+  event.stopPropagation();
+  document.getElementById('newFolderInput').style.display = 'flex';
+  document.getElementById('newFolderName').value = '';
+  document.getElementById('newFolderName').focus();
+}
+
+function hideNewFolderInput() {
+  document.getElementById('newFolderInput').style.display = 'none';
+}
+
+function confirmNewFolder(e) {
+  e.stopPropagation();
+  const name = document.getElementById('newFolderName').value.trim();
+  if (!name) return;
+  
+  const folderList = document.getElementById('folderList');
+  const newOption = document.createElement('div');
+  newOption.className = 'folder-option';
+  newOption.setAttribute('onclick', `selectFolder(this, '${name}')`);
+  newOption.innerHTML = `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+    </svg>
+    ${name}
+  `;
+  folderList.appendChild(newOption);
+  
+  selectFolder(newOption, name);
+}
+
+function handleNewFolderKeydown(e) {
+  e.stopPropagation();
+  if (e.key === 'Enter') {
+    confirmNewFolder(e);
+  } else if (e.key === 'Escape') {
+    hideNewFolderInput();
+  }
+}
+
+document.addEventListener('click', function(e) {
+  // 文件夹下拉
+  const folderDropdown = document.getElementById('folderDropdown');
+  const folderBtn = document.getElementById('folderBtn');
+  if (!folderDropdown.contains(e.target) && !folderBtn.contains(e.target)) {
+    folderDropdown.classList.remove('show');
+    hideNewFolderInput();
+  }
+  // 技能下拉
+  const skillDropdown = document.getElementById('skillDropdown');
+  const skillBtn = document.getElementById('skillBtn');
+  const skillClear = document.getElementById('skillClear');
+  if (!skillDropdown.contains(e.target) && !skillBtn.contains(e.target) && !skillClear.contains(e.target)) {
+    skillDropdown.classList.remove('show');
+  }
+});
+
+/* 检查输入框中是否已经 @ 了某个智能体（单条消息仅限一个智能体） */
+function getAgentMention() {
+  const agents = ['工作秘书','客户经理','财富管家','创意助手','薯 expert','原子模型测试'];
+  for (const a of agents) {
+    const escaped = a.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp('@' + escaped + '(?=\\s|$)');
+    if (regex.test(input.value)) return a;
+  }
+  return null;
+}
+
+function filterAtItems(query) {
+  const isSolo = sessionMode === 'solo';
+  const items = atItems();
+  let visibleCount = 0;
+  let agentVisible = false, memberVisible = false;
+  const agentMention = getAgentMention();
+  // 清除旧选中
+  items.forEach(item => item.classList.remove('selected'));
+
+  items.forEach(item => {
+    const name = item.dataset.name.toLowerCase();
+    let match = !query || name.includes(query);
+    // 单人模式下始终隐藏成员项
+    if (isSolo && item.dataset.type === 'member') {
+      match = false;
+    }
+    // 已@智能体时，隐藏所有智能体项（单条消息只能@一个智能体）
+    if (item.dataset.type === 'agent' && agentMention) {
+      match = false;
+    }
+    item.classList.toggle('hidden', !match);
+    if (match) {
+      visibleCount++;
+      if (item.dataset.type === 'agent') agentVisible = true;
+      if (item.dataset.type === 'member') memberVisible = true;
+    }
+  });
+
+  // 高亮第一个匹配项
+  atHighlightIdx = 0;
+  const firstVisible = atPanel.querySelector('.at-item:not(.hidden)');
+  if (firstVisible) firstVisible.classList.add('selected');
+
+  // 显示/隐藏分组
+  atSections.agents.style.display = agentVisible ? '' : 'none';
+  atSections.members.style.display = (memberVisible && !isSolo) ? '' : 'none';
+  atSections.sep.style.display = (agentVisible && memberVisible && !isSolo) ? '' : 'none';
+  atEmpty.classList.toggle('show', visibleCount === 0);
+}
+
+function resetAtFilter() {
+  const isSolo = sessionMode === 'solo';
+  const agentMention = getAgentMention();
+  const items = atItems();
+  items.forEach((item, i) => {
+    // 单人模式下始终隐藏成员项
+    if (isSolo && item.dataset.type === 'member') {
+      item.classList.add('hidden');
+    } else {
+      item.classList.remove('hidden');
+    }
+    // 已@智能体时，隐藏所有智能体项（单条消息只能@一个智能体）
+    if (item.dataset.type === 'agent' && agentMention) {
+      item.classList.add('hidden');
+    }
+    item.classList.toggle('selected', i === 0 && !isSolo);
+  });
+  if (isSolo) {
+    atPanel.querySelector('.at-item[data-type="agent"]:not(.hidden)')?.classList.add('selected');
+  }
+  atHighlightIdx = 0;
+  // 没有可见智能体时隐藏分组标签
+  const anyVisibleAgent = atPanel.querySelector('.at-item[data-type="agent"]:not(.hidden)');
+  atSections.agents.style.display = anyVisibleAgent ? '' : 'none';
+  atSections.members.style.display = isSolo ? 'none' : '';
+  atSections.sep.style.display = (anyVisibleAgent && !isSolo) ? '' : 'none';
+  atEmpty.classList.remove('show');
+}
+
+function navigateAtHighlight(dir) {
+  const visible = [...atPanel.querySelectorAll('.at-item:not(.hidden)')];
+  if (!visible.length) return;
+  visible[atHighlightIdx]?.classList.remove('selected');
+  atHighlightIdx = (atHighlightIdx + dir + visible.length) % visible.length;
+  visible[atHighlightIdx]?.classList.add('selected');
+  visible[atHighlightIdx]?.scrollIntoView({ block: 'nearest' });
+}
+
+function confirmAtHighlight() {
+  const visible = [...atPanel.querySelectorAll('.at-item:not(.hidden)')];
+  const item = visible[atHighlightIdx];
+  if (item) {
+    pickAt(item.dataset.name, item.dataset.type);
+  }
+}
+
+function pickAt(name, type) {
+  atPanel.classList.remove('show');
+  atPanel._manualOpen = false;
+  atSearchActive = false;
+  // 移除输入框中@及后面的搜索文字
+  const atMatch = input.value.match(/@[^\s@]*$/);
+  if (atMatch) {
+    input.value = input.value.slice(0, atMatch.index);
+  }
+  if (type === 'agent') {
+    selectedAgent = name;
+  }
+  input.value += '@' + name + ' ';
+  input.focus();
+  resetAtFilter();
+  updateSendBtn();
+}
+
+// 点击面板外关闭
+document.addEventListener('click', e => {
+  const btn = document.getElementById('atBtn');
+  if (!atPanel.contains(e.target) && !btn.contains(e.target)) {
+    atPanel.classList.remove('show');
+    atPanel._manualOpen = false;
+    atSearchActive = false;
+  }
+});
+
+/* ========== §5 引用 ========== */
+function quoteMsg(who, text) {
+  quoteData = { who, text, aiProcess: false };
+  contextText.innerHTML = '<b>引用 ' + who + '</b> ' + text.slice(0, 40) + (text.length > 40 ? '…' : '');
+  context.classList.add('show');
+  autoStatus.classList.remove('show');
+  input.focus();
+  updateSendBtn();
+}
+
+/* ========== §6 AI处理（立即执行） ========== */
+function aiProcess(who, text) {
+  // 显示自动执行状态
+  autoStatus.textContent = '当前消息已作为 @' + selectedAgent + ' 请求发送，「' + selectedAgent + '」正在处理' + who + '的消息……';
+  autoStatus.classList.add('show');
+  // 清除引用状态
+  clearContext();
+
+  // 立即发送AI处理消息
+  const short = text.length > 40 ? text.slice(0, 40) + '…' : text;
+  const displayQuote = '<div class="reply-ref"><b>引用 ' + who + '</b><br>"' + short + '"</div>';
+  const msgBody = displayQuote + '@' + selectedAgent + ' 请处理这条信息。';
+
+  appendHuman(msgBody);
+
+  const questionText = '@' + selectedAgent + ' 请处理这条信息。';
+  const agentName = selectedAgent || '工作秘书';
+
+  // 先显示思考中状态
+  const thinkingId = 'thinking_' + Math.random().toString(36).slice(2);
+  const contextBlock = '<div class="ai-context">基于' + who + '提出的：“' + short + '”</div>';
+  messages.insertAdjacentHTML('beforeend',
+    '<div class="ai-card-wrap" id="' + thinkingId + '"><div class="ai-card"><div class="ai-head"><span class="ai-icon">✦</span>' + agentName + ' · 由宋贤群发起</div><div class="ai-quote"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：' + questionText + '</span></div>' + contextBlock + '<div class="ai-thinking"><div class="ai-thinking-dots"><span></span><span></span><span></span></div>AI思考中...</div></div></div>');
+  messages.scrollTop = messages.scrollHeight;
+
+  setTimeout(() => {
+    autoStatus.classList.remove('show');
+    // 移除思考中状态
+    const thinkingEl = document.getElementById(thinkingId);
+    if (thinkingEl) thinkingEl.remove();
+
+    // §7 AI回复（带上级上下文），使用打字机效果
+    appendAIWithTyping(questionText, contextBlock, messages, null, agentName);
+  }, 1200 + Math.random() * 800);
+}
+
+function clearContext() {
+  quoteData = null;
+  context.classList.remove('show');
+  updateSendBtn();
+}
+
+/* ========== 复制 ========== */
+function copyMsg(el) {
+  const bubble = el.closest('.msg, .ai-card-wrap')?.querySelector('.bubble, .ai-text');
+  if (bubble) navigator.clipboard?.writeText(bubble.textContent.trim());
+  showToast('已复制到剪贴板');
+}
+
+/* ========== 复制到输入框 ========== */
+function copyToInput(el) {
+  const msgEl = el.closest('.msg');
+  const bubble = msgEl?.querySelector('.bubble');
+  if (bubble) {
+    // 如果有引用块，克隆节点后移除引用块，只提取用户输入内容
+    const bubbleClone = bubble.cloneNode(true);
+    const replyRef = bubbleClone.querySelector('.reply-ref');
+    if (replyRef) replyRef.remove();
+    const deliverables = bubbleClone.querySelector('.deliverables');
+    if (deliverables) deliverables.remove();
+    const text = bubbleClone.textContent.trim();
+    const input = document.getElementById('input');
+    input.value = text;
+    input.focus();
+    onInput();
+  }
+}
+
+/* ========== 点击AI回复引用区定位回原消息 ========== */
+function scrollToMsg(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* 成果物跳转关联消息，带高亮效果 */
+function jumpToMessage(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // 添加高亮动画
+  const originalBoxShadow = el.style.boxShadow;
+  const originalTransition = el.style.transition;
+  el.style.transition = 'box-shadow 0.3s ease';
+  el.style.boxShadow = '0 0 0 3px rgba(52, 100, 232, 0.3)';
+  setTimeout(() => {
+    el.style.boxShadow = originalBoxShadow;
+    setTimeout(() => { el.style.transition = originalTransition; }, 300);
+  }, 2000);
+}
+
+// 引用元数据：index对应右侧ref-item的序号
+// isWeb: true=外部网页新窗口打开，false=内部文档弹框预览
+const refMeta = [
+  { title: '销售数据统计表.xlsx', loc: '你上传的数据表格', type: 'data', isWeb: false },
+  { title: 'Rclaw项目技术方案_v2.3.docx', loc: '第三章 接口选型 · P12', type: 'doc', isWeb: false },
+  { title: 'Rclaw酒店场景接入历史方案.pdf', loc: '4.2节 权限申请流程 · P7', type: 'pdf', isWeb: false },
+  { title: '企业内部系统架构规范', loc: '第5章 跨系统调用规范', type: 'wiki', isWeb: false },
+  { title: '近30天演示环境可用性统计.xlsx', loc: 'Sheet2 · 第3-18行', type: 'data', isWeb: false },
+  { title: '2026年白酒行业半年报.pdf', loc: '第二章 行业趋势 · P23', type: 'pdf', isWeb: false },
+  { title: '东方财富网 - A股行情中心', loc: '外部公开网页', type: 'web', isWeb: true, url: 'https://www.eastmoney.com/' }
+];
+
+// 当前显示的tooltip
+let currentTooltip = null;
+
+function showRefTooltip(supEl, index, customSource) {
+  // 先隐藏旧的
+  hideRefTooltip();
+  const meta = customSource || refMeta[index];
+  if (!meta) return;
+  const tooltip = document.createElement('div');
+  tooltip.className = 'ref-tooltip show';
+  const title = meta.title || meta.name;
+  const loc = meta.loc || (meta.isWeb ? '外部网页' : '');
+  const icon = meta.isWeb ? '🔗' : '📄';
+  tooltip.innerHTML = `<div class="ref-tooltip-title">${icon} ${title}</div>${loc ? `<div class="ref-tooltip-loc">${loc}</div>` : ''}`;
+  supEl.appendChild(tooltip);
+  currentTooltip = tooltip;
+}
+
+function hideRefTooltip() {
+  if (currentTooltip) {
+    currentTooltip.remove();
+    currentTooltip = null;
+  }
+}
+
+/* 点击引用：网页URL新窗口打开，文档使用大弹框预览 */
+function openRef(index, source) {
+  hideRefTooltip();
+  
+  // 支持传入source对象（会话内来源点击）或者使用refMeta（右侧面板点击）
+  let meta, url;
+  if (source && source.url) {
+    meta = source;
+    url = source.url;
+  } else {
+    meta = refMeta[index];
+    if (!meta) return;
+    url = meta.url;
+  }
+  
+  // 判断是否是外部网页：isWeb为true或者是公开网站链接
+  const isWeb = meta.isWeb || meta.type === 'web' || (url && (url.includes('gov.cn') || url.includes('eastmoney.com') || url.includes('cma.gov.cn') || url.includes('163.com') || url.includes('baidu.com') || url.includes('pbc.gov.cn') || url.includes('miit.gov.cn')));
+  
+  if (isWeb && url) {
+    window.open(url, '_blank');
+    return;
+  }
+  
+  // 文档类型：大尺寸弹框预览，根据不同文档类型生成对应内容
+  let typeLabel = 'W';
+  let docTitle = meta.title || meta.name;
+  let docLoc = meta.loc || '';
+  let contentHtml = '';
+  
+  const docKey = docTitle;
+  // 根据文档标题匹配内容
+  if (meta.type === 'doc' || docKey.includes('规范') || docKey.includes('方案') || docKey.includes('指南')) {
+    typeLabel = 'W';
+    if (docKey.includes('项目管理规范')) {
+      contentHtml = `
+        <h1>项目管理规范 v2.3</h1>
+        <h2>第四章 需求管理</h2>
+        <p>所有需求必须经过评审后才能进入开发阶段，需求变更需要走正式变更流程。</p>
+        <h2>第五章 项目推进流程</h2>
+        <p>项目推进需要遵循以下流程：</p>
+        <p>1. <span class="highlight">明确负责人和验证时间节点</span>，每个任务必须指定唯一负责人；</p>
+        <p>2. 每周五同步项目进度，风险点提前预警；</p>
+        <p>3. 上线前必须经过测试验收，验收通过后方可发布。</p>
+        <h2>第六章 风险管理</h2>
+        <p>接口权限问题属于高风险项，需要提前协调运维开通，避免影响项目进度。</p>
+        <div class="page-indicator">第18页</div>
+      `;
+    } else if (docKey.includes('夏季出行安全指南')) {
+      contentHtml = `
+        <h1>夏季出行安全指南</h1>
+        <h2>第一章 出行前准备</h2>
+        <p>夏季出行前需要关注天气预报，做好防晒、防雨准备。</p>
+        <h2>第二章 雨天出行注意事项</h2>
+        <p>短时阵雨天气出行需要注意：</p>
+        <p>1. <span class="highlight">携带雨具，注意防雷避雨</span>；</p>
+        <p>2. 雨天路滑，减速慢行；</p>
+        <p>3. 避免在低洼地带停留，防止积水。</p>
+        <h2>第三章 高温天气防护</h2>
+        <p>高温天气注意防暑降温，及时补充水分，避免长时间户外暴晒。</p>
+        <div class="page-indicator">第8页</div>
+      `;
+    } else if (docKey.includes('新能源')) {
+      contentHtml = `
+        <h1>行业研究报告 - 新能源篇</h1>
+        <h2>第一章 行业概况</h2>
+        <p>2026年新能源行业持续高速增长，光伏、风电、储能板块表现亮眼。</p>
+        <h2>第三章 光伏行业展望</h2>
+        <p>光伏行业未来发展趋势：</p>
+        <p>1. <span class="highlight">N型电池技术加速迭代，转换效率持续提升</span>；</p>
+        <p>2. 海外需求旺盛，出口量持续增长；</p>
+        <p>3. 产业链价格趋稳，盈利水平修复。</p>
+        <p>多家光伏企业发布半年报，业绩普遍超预期，板块投资价值凸显。</p>
+        <div class="page-indicator">第32页</div>
+      `;
+    } else {
+      // 默认文档内容
+      contentHtml = `
+        <h1>${docTitle}</h1>
+        <h2>文档概述</h2>
+        <p>本文档包含相关业务规范、操作流程和技术要求，是团队协作的重要参考依据。</p>
+        <h2>核心要点</h2>
+        <p>文档中梳理了当前需要重点关注的事项和<span class="highlight">关键执行路径</span>，建议相关人员仔细阅读并遵照执行。</p>
+        <p>如有疑问可联系文档负责人进行咨询，文档会根据实际情况持续更新迭代。</p>
+        <h2>更新记录</h2>
+        <p>v1.0 初始版本发布<br>v2.0 补充流程规范<br>v2.3 最新修订，更新接口相关说明</p>
+        <div class="page-indicator">正文内容</div>
+      `;
+    }
+  } else if (meta.type === 'pdf' || docKey.includes('半年报') || docKey.includes('历史方案')) {
+    typeLabel = 'P';
+    if (docKey.includes('Rclaw酒店')) {
+      contentHtml = `
+        <h1>Rclaw酒店场景接入历史方案</h1>
+        <h2>4.1 整体流程</h2>
+        <p>酒店场景接入主要分为四个阶段：需求调研、方案设计、开发联调、上线验收。</p>
+        <h2>4.2 权限申请流程</h2>
+        <p>跨系统接口调用需要提前申请以下权限：</p>
+        <p>1. 接口调用权限：需要在OA系统提交权限申请单，由双方系统管理员审批；</p>
+        <p>2. <span class="highlight">接口权限审批周期通常为3-5个工作日，需要提前安排</span>；</p>
+        <p>3. 测试环境权限与生产环境权限需要分别申请，建议先申请测试环境验证通过后再申请生产权限。</p>
+        <p>历史项目经验表明，权限问题是导致项目延期的最常见风险点，需要提前规划。</p>
+        <div class="page-indicator">第7页</div>
+      `;
+    } else if (docKey.includes('白酒')) {
+      contentHtml = `
+        <h1>2026年白酒行业半年报</h1>
+        <h2>第一章 行业概况</h2>
+        <p>2026年上半年，国内白酒行业整体保持稳定增长，规模以上企业累计实现销售收入3862亿元，同比增长12.3%。</p>
+        <h2>第二章 行业趋势</h2>
+        <p>行业呈现以下几个明显趋势：</p>
+        <p>1. 消费升级持续，高端白酒增速领先行业平均水平；</p>
+        <p>2. <span class="highlight">区域龙头企业表现亮眼，酱香、清香品类市场份额持续提升</span>；</p>
+        <p>3. 数字化转型加速，渠道线上化率提升至32%。</p>
+        <p>华东地区作为白酒消费核心市场，上半年增速达到18%，高于全国平均水平。</p>
+        <div class="page-indicator">第23页</div>
+      `;
+    } else {
+      contentHtml = `
+        <h1>${docTitle}</h1>
+        <h2>报告摘要</h2>
+        <p>本报告对相关行业/领域进行了全面分析，包含市场数据、趋势判断和发展建议。</p>
+        <p><span class="highlight">核心观点已在引用位置标注</span>，完整内容请查阅报告全文。</p>
+        <div class="page-indicator">PDF文档</div>
+      `;
+    }
+  } else if (meta.type === 'wiki' || docKey.includes('知识库') || docKey.includes('规范')) {
+    typeLabel = '知';
+    if (docKey.includes('架构规范')) {
+      contentHtml = `
+        <h1>企业内部系统架构规范</h1>
+        <h2>第4章 接口规范</h2>
+        <p>所有内部系统接口必须遵循统一的接口规范，包括请求格式、响应格式、错误码规范等。</p>
+        <h2>第5章 跨系统调用规范</h2>
+        <p>跨系统调用必须遵守以下原则：</p>
+        <p>1. 必须通过API网关进行调用，禁止系统之间直连；</p>
+        <p>2. <span class="highlight">必须设置合理的超时时间和重试机制，避免雪崩效应</span>；</p>
+        <p>3. 必须添加调用链追踪ID，便于问题排查；</p>
+        <p>4. 敏感数据传输必须加密。</p>
+        <p>所有跨系统调用需要提前在架构委员会备案，未经审批不得私自开通接口调用权限。</p>
+      `;
+    } else {
+      contentHtml = `
+        <h1>${docTitle}</h1>
+        <h2>知识概述</h2>
+        <p>本页面包含团队内部积累的相关知识、最佳实践和常见问题解答。</p>
+        <p>测试环境相关说明请参考<span class="highlight">对应章节内容</span>，按照文档指引操作即可完成环境配置和验证。</p>
+        <h2>相关链接</h2>
+        <p>更多内容可浏览知识库其他章节，或联系运维人员获取支持。</p>
+      `;
+    }
+  } else if (meta.type === 'data' || docKey.includes('统计表') || docKey.includes('流程表')) {
+    typeLabel = '表';
+    if (docKey.includes('销售数据')) {
+      contentHtml = `
+        <h1>销售数据统计表</h1>
+        <h2>Sheet1 销售总览</h2>
+        <p>2026年7月销售数据汇总：</p>
+        <p>• 总销售额：<span class="highlight">1286万元</span>，同比增长18.7%</p>
+        <p>• 白酒品类：797万元，占比62%，同比增长22.3%</p>
+        <p>• 华东区域：456万元，完成月度目标123%</p>
+        <p>• 核心客户复购率：68%，较上月提升3个百分点</p>
+        <h2>Sheet2 区域明细</h2>
+        <p>各区域销售数据详见Sheet2，包含分城市、分渠道的详细数据。</p>
+      `;
+    } else if (docKey.includes('可用性统计')) {
+      contentHtml = `
+        <h1>近30天演示环境可用性统计</h1>
+        <h2>Sheet1 可用性概览</h2>
+        <p>近30天演示环境整体可用性为99.72%，满足SLA要求。</p>
+        <p>• 计划内维护：4小时，占比0.56%</p>
+        <p>• <span class="highlight">非计划宕机：2小时，发生在7月12日凌晨，主要原因为数据库主从切换延迟</span>；</p>
+        <p>• 平均响应时间：230ms，符合性能要求。</p>
+        <h2>Sheet2 故障明细</h2>
+        <p>第3-18行为近30天所有故障的详细记录，包括发生时间、持续时长、影响范围、根因分析、修复措施。</p>
+      `;
+    } else if (docKey.includes('运维对接流程')) {
+      contentHtml = `
+        <h1>2026Q3运维对接流程表</h1>
+        <h2>Sheet1 权限申请流程</h2>
+        <p>运维对接流程梳理：</p>
+        <p>1. 提交权限申请单，注明接口用途、调用方、有效期；</p>
+        <p>2. <span class="highlight">接口权限问题优先协调运维开通</span>，审批流程通常3个工作日；</p>
+        <p>3. 测试环境验证通过后，申请生产环境权限；</p>
+        <p>4. 权限开通后进行联调测试，确认接口调用正常。</p>
+        <h2>Sheet2 联系人清单</h2>
+        <p>各系统运维负责人联系方式详见表格，对接前请提前确认对接人。</p>
+      `;
+    } else {
+      contentHtml = `
+        <h1>${docTitle}</h1>
+        <h2>数据概览</h2>
+        <p>表格包含相关业务数据统计，可用于分析和决策参考。</p>
+        <p><span class="highlight">关键数据已在引用位置标注</span>，完整数据请查看原表格。</p>
+        <div class="page-indicator">Excel表格</div>
+      `;
+    }
+  } else {
+    // 默认通用文档预览
+    typeLabel = '📄';
+    contentHtml = `
+      <h1>${docTitle}</h1>
+      <p>这是引用文档的预览内容，<span class="highlight">对应位置已高亮显示</span>。</p>
+      <p>完整内容请查看原始文档。</p>
+    `;
+  }
+
+  // 创建大尺寸预览弹窗
+  const modal = document.createElement('div');
+  modal.className = 'modal-mask';
+  modal.innerHTML = `
+    <div class="doc-preview">
+      <div class="doc-preview-header">
+        <div class="doc-preview-title">
+          <span class="doc-preview-type ${meta.type || 'doc'}">${typeLabel}</span>
+          <span>${docTitle}</span>
+          ${docLoc ? `<span class="doc-preview-loc">${docLoc}</span>` : ''}
+        </div>
+        <button class="doc-preview-close" onclick="this.closest('.modal-mask').remove()">×</button>
+      </div>
+      <div class="doc-preview-body">
+        <div class="doc-content">
+          ${contentHtml}
+        </div>
+      </div>
+    </div>
+  `;
+  // 点击遮罩关闭
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) modal.remove();
+  });
+  document.body.appendChild(modal);
+
+  // 自动滚动到高亮位置
+  setTimeout(() => {
+    const highlight = modal.querySelector('.highlight');
+    if (highlight) {
+      highlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 100);
+}
+
+// 给所有sup绑定hover事件和点击事件
+document.addEventListener('mouseover', function(e) {
+  if (e.target.tagName === 'SUP' && e.target.dataset.ref !== undefined) {
+    const refId = parseInt(e.target.dataset.ref);
+    // 优先从当前AI来源查找，找不到用右侧默认refMeta
+    const source = currentSourcesList.find(s => s.id === refId) || refMeta[refId - 1];
+    if (source) {
+      showRefTooltip(e.target, source.isWeb ? 0 : refId - 1, source);
+    }
+  }
+});
+document.addEventListener('mouseout', function(e) {
+  if (e.target.tagName === 'SUP') {
+    hideRefTooltip();
+  }
+});
+document.addEventListener('click', function(e) {
+  if (e.target.tagName === 'SUP' && e.target.dataset.ref !== undefined) {
+    const refId = parseInt(e.target.dataset.ref);
+    const source = currentSourcesList.find(s => s.id === refId);
+    if (source) {
+      openRef(0, source);
+    } else {
+      openRef(refId - 1);
+    }
+  }
+});
+
+/* ========== 附件上传 ========== */
+function simulateUpload() {
+  const demo = uploadDemos[uploadDemoIdx % uploadDemos.length];
+  uploadedFiles.push({...demo});
+  uploadDemoIdx++;
+  renderUploads();
+}
+
+function renderUploads() {
+  if (!uploadedFiles.length) {
+    uploads.classList.remove('show');
+    uploads.innerHTML = '';
+    updateSendBtn();
+    return;
+  }
+  uploads.classList.add('show');
+  // 全部是图片时用缩略图模式，否则统一文件卡片
+  const allImgs = uploadedFiles.every(f => f.type === 'img');
+  uploads.innerHTML = uploadedFiles.map((f, i) => {
+    if (allImgs && f.type === 'img') {
+      return '<div class="upload-card img-thumb"><img src="' + f.thumb + '"><button class="upload-remove" onclick="removeUpload(' + i + ')">×</button></div>';
+    }
+    const icon = f.type === 'img'
+      ? '<div class="file-icon"><img src="' + f.thumb + '"></div>'
+      : '<div class="file-icon" style="background:' + f.color + '1a;color:' + f.color + '">' + f.icon + '</div>';
+    const meta = f.fileType + ' · ' + f.size;
+    return '<div class="upload-card">' + icon + '<div class="file-info"><div class="file-name">' + f.name + '</div><div class="file-meta">' + meta + '</div></div><button class="upload-remove" onclick="removeUpload(' + i + ')">×</button></div>';
+  }).join('');
+  updateSendBtn();
+}
+
+function removeUpload(idx) {
+  uploadedFiles.splice(idx, 1);
+  renderUploads();
+}
+
+function clearUploads() {
+  uploadedFiles = [];
+  renderUploads();
+}
+
+function getUploadsHTML() {
+  if (!uploadedFiles.length) return '';
+  const allImgs = uploadedFiles.every(f => f.type === 'img');
+  return '<div class="msg-uploads">' + uploadedFiles.map(f => {
+    if (allImgs && f.type === 'img') {
+      return '<div class="upload-card img-thumb"><img src="' + f.thumb + '"></div>';
+    }
+    const icon = f.type === 'img'
+      ? '<div class="file-icon"><img src="' + f.thumb + '"></div>'
+      : '<div class="file-icon" style="background:' + f.color + '1a;color:' + f.color + '">' + f.icon + '</div>';
+    return '<div class="upload-card">' + icon + '<div class="file-info"><div class="file-name">' + f.name + '</div><div class="file-meta">' + f.fileType + ' · ' + f.size + '</div></div></div>';
+  }).join('') + '</div>';
+}
+
+/* ========== 发送消息 ========== */
+function sendMessage() {
+  let text = input.value.trim();
+  if (!text && !quoteData && !uploadedFiles.length) return;
+
+  const isSolo = sessionMode === 'solo';
+  const hasAtAgent = hasAgentMention(text);
+  const willAI = isSolo || aiOn || hasAtAgent || (quoteData?.aiProcess);
+
+  // 选择正确的消息区
+  const targetMsgs = isSolo ? soloMessages : messages;
+
+  // §5 带引用发送
+  let displayText = text;
+  if (quoteData) {
+    const short = quoteData.text.length > 40 ? quoteData.text.slice(0, 40) + '…' : quoteData.text;
+    displayText = '<div class="reply-ref"><b>引用 ' + quoteData.who + '</b><br>"' + short + '"</div>' + text;
+  }
+  // 附件预览
+  displayText += getUploadsHTML();
+
+  appendHuman(displayText, targetMsgs);
+
+  if (willAI) {
+    aiRunning = true;
+    stopAIRequested = false;
+    setSendButtonToStop();
+
+    // 先显示思考中状态
+    const thinkingId = 'thinking_' + Math.random().toString(36).slice(2);
+    const agentName = selectedAgent || '工作秘书';
+    targetMsgs.insertAdjacentHTML('beforeend',
+      '<div class="ai-card-wrap" id="' + thinkingId + '"><div class="ai-card"><div class="ai-head"><span class="ai-icon">✦</span>' + agentName + ' · 由宋贤群发起</div><div class="ai-quote"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：' + text + '</span></div><div class="ai-thinking"><div class="ai-thinking-dots"><span></span><span></span><span></span></div>AI思考中...</div></div></div>');
+    targetMsgs.scrollTop = targetMsgs.scrollHeight;
+
+    const thinkTime = 1200 + Math.random() * 800;
+    currentThinkingTimer = setTimeout(() => {
+      // 移除思考中状态
+      const thinkingEl = document.getElementById(thinkingId);
+      if (stopAIRequested) {
+        if (thinkingEl) thinkingEl.remove();
+        resetSendButton();
+        aiRunning = false;
+        return;
+      }
+      if (thinkingEl) thinkingEl.remove();
+
+      // 模拟AI回复时随机生成成果物
+      const sampleDeliverables = [
+        { name: '分析报告_' + new Date().toISOString().slice(0,10) + '.md', date: new Date().toLocaleString('zh-CN', {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).replace(/\//g, '-') },
+        { name: '数据可视化_' + new Date().toISOString().slice(0,10) + '.png', date: new Date().toLocaleString('zh-CN', {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).replace(/\//g, '-') }
+      ];
+      // 50%概率生成成果物
+      const deliverables = Math.random() > 0.5 ? sampleDeliverables : null;
+      appendAIWithTyping(text, null, targetMsgs, deliverables, agentName);
+    }, thinkTime);
+  }
+
+  input.value = '';
+  clearContext();
+  clearUploads();
+  targetMsgs.scrollTop = targetMsgs.scrollHeight;
+  updateSendBtn();
+}
+
+/* ========== 追加消息 ========== */
+function appendHuman(html, target) {
+  const t = target || (sessionMode === 'solo' ? soloMessages : messages);
+  t.insertAdjacentHTML('beforeend',
+    '<div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群 刚刚</div><div class="bubble">' + html + '</div></div><div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="copyToInput(this)">复制入框</span><span onclick="aiProcess(\'宋贤群\',\'' + html.replace(/'/g, "\\'").replace(/<[^>]*>/g, '').slice(0, 60) + '\')">AI处理</span></div></div>');
+  // 绑定悬停事件
+  setTimeout(bindActionHoverEvents, 0);
+}
+
+/* 获取文件图标信息 */
+function getFileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  let bg = '#4d70f5';
+  let text = ext.toUpperCase();
+  let type = 'other';
+  if (ext === 'md' || ext === 'doc' || ext === 'docx') { bg = '#7654e8'; text = 'M'; type = 'md'; }
+  if (ext === 'txt') { bg = '#8a93a8'; text = 'T'; type = 'md'; }
+  if (ext === 'png' || ext === 'jpg' || ext === 'jpeg' || ext === 'gif' || ext === 'webp') { bg = '#4d70f5'; text = '🖼'; type = 'image'; }
+  if (ext === 'xlsx' || ext === 'xls' || ext === 'csv') { bg = '#16ad69'; text = '📊'; type = 'excel'; }
+  if (ext === 'pdf') { bg = '#e34'; text = '📕'; type = 'pdf'; }
+  return { bg, text, type, ext };
+}
+/* 生成成果物HTML */
+function renderDeliverables(deliverables) {
+  return '<div class="msg-deliverables">' + deliverables.map((d, idx) => {
+    const icon = getFileIcon(d.name);
+    const dId = 'deliverable_' + Math.random().toString(36).slice(2);
+    return '<div class="deliverable-item" id="' + dId + '" data-name="' + d.name.replace(/"/g, '&quot;') + '" data-type="' + icon.type + '">' +
+      '<span class="deliverable-item-icon" style="background:' + icon.bg + '">' + icon.text + '</span>' +
+      '<div class="deliverable-item-info" onclick="previewDeliverable(this.parentElement)">' +
+      '<div class="deliverable-item-name">' + d.name + '</div>' +
+      '<div class="deliverable-item-date">' + d.date + '</div>' +
+      '</div>' +
+      '<div class="deliverable-item-actions">' +
+      '<button class="deliverable-item-btn preview" title="预览" onclick="previewDeliverable(this.parentElement.parentElement)">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' +
+      '</button>' +
+      '<button class="deliverable-item-btn download" title="下载" onclick="downloadDeliverable(\'' + d.name.replace(/'/g, "\\'") + '\', ' + idx + ', this)">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+      '</button>' +
+      '</div>' +
+      '</div>';
+  }).join('') + '</div>';
+}
+/* §7 AI回复固定结构 */
+function appendAI(question, extraContext, target, deliverables) {
+  const t = target || (sessionMode === 'solo' ? soloMessages : messages);
+  const agentName = selectedAgent || '工作秘书';
+  let deliverablesHTML = '';
+  if (deliverables && deliverables.length) {
+    deliverablesHTML = renderDeliverables(deliverables);
+  }
+  const replyData = getAIReplyData(question);
+  const sourcesHTML = renderSources(replyData.sources);
+  // 更新当前来源列表
+  currentSourcesList = replyData.sources;
+  t.insertAdjacentHTML('beforeend',
+    '<div class="ai-card-wrap"><div class="ai-card"><div class="ai-head"><span class="ai-icon">✦</span>' + agentName + ' · 由宋贤群发起</div><div class="ai-quote"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：' + question + '</span></div>' + (extraContext || '') + '<div class="ai-text">' + replyData.text + '</div>' + deliverablesHTML + sourcesHTML + '</div><div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="quoteMsg(\'' + agentName + '\',\'' + replyData.text.replace(/<[^>]*>/g, '').replace(/'/g, "\\'").slice(0, 60) + '\')">引用</span></div></div>');
+  // 绑定悬停事件
+  setTimeout(bindActionHoverEvents, 0);
+}
+
+function appendAIWithTyping(question, extraContext, target, deliverables, agentName) {
+  const t = target || (sessionMode === 'solo' ? soloMessages : messages);
+  const aiId = 'ai_' + Math.random().toString(36).slice(2);
+  let deliverablesHTML = '';
+  if (deliverables && deliverables.length) {
+    deliverablesHTML = renderDeliverables(deliverables);
+  }
+  const replyData = getAIReplyData(question);
+  // 打字时输出纯文本，去掉HTML标签
+  const fullTextPlain = replyData.text.replace(/<[^>]*>/g, '');
+  const sourcesHTML = renderSources(replyData.sources);
+  // 更新当前来源列表
+  currentSourcesList = replyData.sources;
+
+  // 先插入空的AI卡片（预留来源容器）
+  t.insertAdjacentHTML('beforeend',
+    '<div class="ai-card-wrap" id="' + aiId + '"><div class="ai-card"><div class="ai-head"><span class="ai-icon">✦</span>' + (agentName || selectedAgent || '工作秘书') + ' · 由宋贤群发起</div><div class="ai-quote"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：' + question + '</span></div>' + (extraContext || '') + '<div class="ai-text"></div>' + deliverablesHTML + '<div class="ai-sources-container"></div></div><div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="quoteMsg(\'' + (agentName || selectedAgent || '工作秘书') + '\',\'' + fullTextPlain.replace(/'/g, "\\'").slice(0, 60) + '\')">引用</span></div></div>');
+
+  const aiEl = document.getElementById(aiId);
+  const textEl = aiEl.querySelector('.ai-text');
+  const sourcesContainer = aiEl.querySelector('.ai-sources-container');
+  const actionsEl = aiEl.querySelector('.msg-actions');
+
+  // 打字机效果
+  let i = 0;
+  const typingSpeed = 25;
+  function typeChar() {
+    if (stopAIRequested) {
+      // 用户点击停止，结束
+      resetSendButton();
+      aiRunning = false;
+      textEl.innerHTML += '<span style="color:#8a93a8;font-size:12px;margin-left:8px;">（已停止生成）</span>';
+      actionsEl.removeAttribute('style');
+      bindActionHoverEvents();
+      return;
+    }
+    if (i < fullTextPlain.length) {
+      textEl.textContent += fullTextPlain.charAt(i);
+      i++;
+      t.scrollTop = t.scrollHeight;
+      currentTypingTimer = setTimeout(typeChar, typingSpeed + Math.random() * 20);
+    } else {
+      // 打字完成，替换为带引用上标的HTML
+      textEl.innerHTML = replyData.text;
+      // 添加来源列表
+      sourcesContainer.innerHTML = sourcesHTML;
+      // 不默认显示操作按钮，只有悬停才显示
+      actionsEl.removeAttribute('style');
+      resetSendButton();
+      aiRunning = false;
+      // 重新绑定悬停事件
+      bindActionHoverEvents();
+      // 如果页面不可见，给当前激活的会话加未读蓝点
+      if (document.hidden) {
+        markCurrentSessionUnread();
+      }
+    }
+  }
+  currentTypingTimer = setTimeout(typeChar, 100);
+}
+
+// 将发送按钮切换为停止状态（带动画）
+function setSendButtonToStop() {
+  const sendBtn = document.getElementById('send');
+  if (!sendBtn) return;
+  sendBtn.classList.add('thinking');
+  sendBtn.innerHTML = '<span class="stop-icon"></span>';
+  sendBtn.onclick = stopGenerating;
+}
+
+// 重置发送按钮为正常状态
+function resetSendButton() {
+  const sendBtn = document.getElementById('send');
+  if (!sendBtn) return;
+  sendBtn.classList.remove('thinking');
+  sendBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>';
+  sendBtn.onclick = sendMessage;
+}
+
+// 停止AI生成
+function stopGenerating() {
+  if (!aiRunning) return;
+  stopAIRequested = true;
+  if (currentThinkingTimer) clearTimeout(currentThinkingTimer);
+  if (currentTypingTimer) clearTimeout(currentTypingTimer);
+  document.querySelectorAll('.ai-thinking').forEach(el => {
+    const card = el.closest('.ai-card-wrap');
+    if (card) card.remove();
+  });
+  resetSendButton();
+  aiRunning = false;
+  showToast('已停止生成');
+}
+
+// 标记当前会话为未读
+function markCurrentSessionUnread() {
+  const activeChat = document.querySelector('.chat.active');
+  if (!activeChat) return;
+  // 如果还没有蓝点，添加一个
+  if (!activeChat.querySelector('.pending-dot')) {
+    activeChat.dataset.pending = 'true';
+    const meta = activeChat.querySelector('.chat-meta');
+    if (meta) {
+      const dot = document.createElement('span');
+      dot.className = 'pending-dot';
+      meta.insertBefore(dot, meta.firstChild);
+      // 更新时间为刚刚
+      const timeEl = meta.querySelector('.chat-time');
+      if (timeEl) timeEl.textContent = '刚刚';
+    }
+  }
+}
+
+// 清除当前会话未读标记
+function clearCurrentSessionUnread() {
+  const activeChat = document.querySelector('.chat.active');
+  if (!activeChat) return;
+  const dot = activeChat.querySelector('.pending-dot');
+  if (dot) dot.remove();
+  activeChat.removeAttribute('data-pending');
+}
+
+// 监听页面可见性变化
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) {
+    // 页面重新可见，如果在当前会话，清除未读标记
+    clearCurrentSessionUnread();
+  }
+});
+
+// 页面获得焦点时清除未读
+window.addEventListener('focus', function() {
+  clearCurrentSessionUnread();
+});
+
+/* ========== 文件夹拖拽排序功能 ========== */
+let draggedFolder = null;
+let draggedSiblings = [];
+
+document.addEventListener('dragstart', function(e) {
+  const folder = e.target.closest('.folder');
+  if (!folder) return;
+  draggedFolder = folder;
+  folder.classList.add('dragging');
+  // 收集该文件夹下的所有会话，一起移动
+  let nextEl = folder.nextElementSibling;
+  draggedSiblings = [];
+  while (nextEl && nextEl.classList.contains('chat')) {
+    draggedSiblings.push(nextEl);
+    nextEl = nextEl.nextElementSibling;
+  }
+  e.dataTransfer.effectAllowed = 'move';
+});
+
+document.addEventListener('dragend', function(e) {
+  if (draggedFolder) {
+    draggedFolder.classList.remove('dragging');
+    document.querySelectorAll('.folder.drag-over').forEach(el => el.classList.remove('drag-over'));
+    draggedFolder = null;
+    draggedSiblings = [];
+  }
+});
+
+document.addEventListener('dragover', function(e) {
+  e.preventDefault();
+  const folder = e.target.closest('.folder');
+  if (!folder || folder === draggedFolder) return;
+  document.querySelectorAll('.folder.drag-over').forEach(el => el.classList.remove('drag-over'));
+  folder.classList.add('drag-over');
+  e.dataTransfer.dropEffect = 'move';
+});
+
+document.addEventListener('dragleave', function(e) {
+  const folder = e.target.closest('.folder');
+  if (folder) folder.classList.remove('drag-over');
+});
+
+document.addEventListener('drop', function(e) {
+  e.preventDefault();
+  const targetFolder = e.target.closest('.folder');
+  if (!targetFolder || targetFolder === draggedFolder || !draggedFolder) return;
+  
+  const chatList = document.querySelector('.chat-list');
+  // 将拖拽的文件夹和其下的会话移动到目标文件夹上方
+  targetFolder.classList.remove('drag-over');
+  chatList.insertBefore(draggedFolder, targetFolder);
+  // 移动该文件夹下的所有会话
+  draggedSiblings.forEach(sib => {
+    chatList.insertBefore(sib, targetFolder);
+  });
+});
+
+// 给所有文件夹添加draggable属性
+document.querySelectorAll('.folder').forEach(f => f.draggable = true);
+
+// 根据问题生成不同的AI回复文本和来源
+function getAIReplyData(question) {
+  // 默认来源：内部文档，使用弹框预览
+  const sources = [
+    { id: 1, name: '《项目管理规范 v2.3》', tag: 'doc', tagText: '文档', isWeb: false, type: 'doc', title: '《项目管理规范 v2.3》', loc: '第五章 项目推进流程' },
+    { id: 2, name: '2026Q3运维对接流程表', tag: 'data', tagText: '数据', isWeb: false, type: 'data', title: '2026Q3运维对接流程表', loc: 'Sheet1 权限申请流程' },
+    { id: 3, name: '团队协作知识库 - 测试环境章节', tag: 'wiki', tagText: '知识库', isWeb: false, type: 'wiki', title: '团队协作知识库', loc: '测试环境章节' }
+  ];
+
+  if (question.includes('天气')) {
+    return {
+      text: '明天贵阳预计晴转多云<sup data-ref="1">1</sup>，气温 22°C ~ 31°C，东南风 2-3级。适合出行，但下午可能有短时阵雨，建议带伞。参考气象数据<sup data-ref="2">2</sup>及出行指南建议。',
+      sources: [
+        { id: 1, name: '贵阳市气象局官方预报 07-30', tag: 'data', tagText: '数据', isWeb: true, url: 'http://gz.cma.gov.cn/guiyang/' },
+        { id: 2, name: '夏季出行安全指南', tag: 'doc', tagText: '文档', isWeb: false, type: 'doc', title: '夏季出行安全指南', loc: '第二章 雨天出行注意事项' }
+      ]
+    };
+  }
+  if (question.includes('财经') || question.includes('早报')) {
+    return {
+      text: '今日财经早报摘要：A股三大指数集体收涨，创业板指涨1.2%<sup data-ref="1">1</sup>；新能源板块领涨，光伏概念多股涨停<sup data-ref="2">2</sup>；央行今日开展1000亿元逆回购操作，维持流动性合理充裕<sup data-ref="3">3</sup>。',
+      sources: [
+        { id: 1, name: '东方财富网 - 股市行情 07-30', tag: 'data', tagText: '数据', isWeb: true, url: 'https://www.eastmoney.com/' },
+        { id: 2, name: '行业研究报告 - 新能源篇', tag: 'doc', tagText: '文档', isWeb: false, type: 'doc', title: '行业研究报告 - 新能源篇', loc: '第三章 光伏行业展望' },
+        { id: 3, name: '央行公开市场业务公告', tag: 'wiki', tagText: '公告', isWeb: true, url: 'http://www.pbc.gov.cn/' }
+      ]
+    };
+  }
+  // 默认回复：包含外部网页和内部文档示例
+  return {
+    text: '我已结合当前会话中的方案、成员意见和待推进事项进行分析。建议先明确负责人和验证时间节点<sup data-ref="1">1</sup>，针对接口权限问题优先协调运维开通<sup data-ref="2">2</sup>，测试环境可先在小范围场景内验证<sup data-ref="3">3</sup>。参考行业公开数据<sup data-ref="4">4</sup>和监管要求<sup data-ref="5">5</sup>，整体方案可行。大家确认后可将结果同步到会话摘要，方便后续跟进。如有其他需要补充的信息，随时告诉我。',
+    sources: [
+      ...sources,
+      { id: 4, name: '东方财富网 - 行业数据', tag: 'data', tagText: '网页', isWeb: true, url: 'https://www.eastmoney.com/' },
+      { id: 5, name: '工信部 - 行业监管公告', tag: 'wiki', tagText: '网页', isWeb: true, url: 'https://www.miit.gov.cn/' }
+    ]
+  };
+}
+
+// 渲染来源引用HTML
+function renderSources(sources) {
+  if (!sources || sources.length === 0) return '';
+  let html = '<div style="margin-top:16px;"><div style="font-size:15px;font-weight:600;color:#1f2940;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="border-left:3px solid #3464e8;padding-left:8px;">来源</span></div><div style="display:flex;flex-direction:column;gap:8px;">';
+  sources.forEach(s => {
+    const isWeb = s.isWeb || (s.url && (s.url.includes('gov.cn') || s.url.includes('eastmoney.com') || s.url.includes('163.com') || s.url.includes('36kr.com')));
+    const icon = isWeb ? '🔗' : getSourceIcon(s.type || s.tag);
+    const tagText = isWeb ? '网页' : s.tagText;
+    const tagColor = isWeb ? '#8a93a8' : getSourceTagColor(s.tag);
+    html += `<div style="background:#f5f6f8;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:.15s;" onmouseover="this.style.background='#eef0f4'" onmouseout="this.style.background='#f5f6f8'" onclick="jumpToSource(${s.id})">
+      <span style="font-size:18px;flex-shrink:0;">${icon}</span>
+      <span style="flex:1;font-size:14px;color:#1f2940;">${s.name}</span>
+      <span style="font-size:14px;color:${tagColor};font-weight:500;">${tagText}</span>
+    </div>`;
+  });
+  html += '</div></div>';
+  return html;
+}
+
+function getSourceIcon(type) {
+  switch(type) {
+    case 'data': return '📊';
+    case 'pdf': return '📕';
+    case 'doc': return '📄';
+    case 'wiki': return '📖';
+    default: return '📄';
+  }
+}
+
+function getSourceTagColor(tag) {
+  switch(tag) {
+    case 'data': return '#e3875d';
+    case 'pdf': return '#e34';
+    case 'doc': return '#7654e8';
+    case 'wiki': return '#16ad69';
+    default: return '#8a93a8';
+  }
+}
+
+// 当前AI回复的来源列表（动态更新）
+let currentSourcesList = [];
+
+// 点击会话内来源：网页新窗口打开，文档弹框预览
+function jumpToSource(id) {
+  const source = currentSourcesList.find(s => s.id === id);
+  if (source) {
+    openRef(0, source);
+  } else {
+    // 默认弹框预览
+    openRef(1);
+  }
+}
+/* 预览成果物 */
+function previewDeliverable(el) {
+  const name = el.dataset.name;
+  const type = el.dataset.type;
+  const icon = getFileIcon(name);
+  let contentHTML = '';
+  if (type === 'image') {
+    // 使用SVG模拟信息图预览
+    const svgContent = getImageSVG();
+    const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgContent);
+    contentHTML = '<div class="preview-image"><img src="' + dataUrl + '" alt="' + name + '" /></div>';
+  } else if (type === 'md' || icon.ext === 'md') {
+    // Markdown内容预览
+    const sampleMd = getMdContent(name);
+    contentHTML = '<div class="preview-md">' + renderMarkdown(sampleMd) + '</div>';
+  } else {
+    contentHTML = '<div class="preview-unsupported"><div class="preview-unsupported-icon">' + icon.text + '</div><div class="preview-unsupported-text">暂不支持预览此文件类型，请下载后查看</div></div>';
+  }
+  const modalHTML = '<div class="modal-mask" onclick="closeModal()">' +
+    '<div class="modal-box preview-modal" onclick="event.stopPropagation()">' +
+    '<div class="preview-header">' +
+    '<span class="preview-title">' + name + '</span>' +
+    '<div class="preview-actions">' +
+    '<button class="preview-btn secondary" onclick="closeModal()">关闭</button>' +
+    '<button class="preview-btn primary" onclick="downloadDeliverable(\'' + name.replace(/'/g, "\\'") + '\', 0, this); closeModal();">' +
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载' +
+    '</button>' +
+    '</div>' +
+    '</div>' +
+    '<div class="preview-body">' + contentHTML + '</div>' +
+    '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+}
+/* 简单Markdown渲染 */
+function renderMarkdown(md) {
+  let html = md;
+  // 处理表格 - 先提取表格区块
+  const tableRegex = /((?:\|.*\|\n)+)/g;
+  html = html.replace(tableRegex, (tableBlock) => {
+    const rows = tableBlock.trim().split('\n').filter(line => !line.match(/^\|[\s-:|]+\|$/));
+    if (rows.length === 0) return '';
+    let tableHtml = '<table style="width:100%;border-collapse:collapse;margin:12px 0;">';
+    rows.forEach((row, idx) => {
+      const cells = row.split('|').slice(1,-1).map(c => c.trim());
+      const tag = idx === 0 ? 'th' : 'td';
+      const bgStyle = idx === 0 ? 'background:#f0f3fa;font-weight:600;' : '';
+      tableHtml += '<tr>';
+      cells.forEach(cell => {
+        const formattedCell = cell.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        tableHtml += '<' + tag + ' style="padding:8px 12px;border:1px solid #eef0f5;' + bgStyle + '">' + formattedCell + '</' + tag + '>';
+      });
+      tableHtml += '</tr>';
+    });
+    tableHtml += '</table>';
+    return tableHtml;
+  });
+  // 处理标题
+  html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+  html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+  // 处理列表
+  html = html.replace(/^\* (.*$)/gm, '<li>$1</li>');
+  html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+  // 处理加粗
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  // 处理引用
+  html = html.replace(/^> (.*$)/gm, '<blockquote style="margin:12px 0;padding:8px 16px;border-left:3px solid #3464e8;background:#f0f3fa;color:#5a6478;">$1</blockquote>');
+  // 处理段落 - 按行分割，非标签开头的行包裹p标签
+  const lines = html.split('\n');
+  html = lines.map(line => {
+    line = line.trim();
+    if (!line) return '';
+    if (line.startsWith('<h') || line.startsWith('<ul') || line.startsWith('<li') || line.startsWith('</') || line.startsWith('<table') || line.startsWith('<tr') || line.startsWith('<th') || line.startsWith('<td') || line.startsWith('<blockquote')) {
+      return line;
+    }
+    return '<p style="margin:8px 0;color:#4e5870;">' + line + '</p>';
+  }).join('\n');
+  return html;
+}
+/* 关闭弹窗 */
+function closeModal() {
+  const mask = document.querySelector('.modal-mask');
+  if (mask) mask.remove();
+}
+/* 获取图片SVG内容 */
+function getImageSVG() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="720" height="950" viewBox="0 0 720 950">
+      <rect width="720" height="950" fill="#f8fafc"/>
+      <rect x="30" y="30" width="660" height="70" rx="12" fill="#3464e8"/>
+      <text x="360" y="72" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">财经股票与AI早报 · 2026年7月23日</text>
+      <rect x="30" y="120" width="315" height="140" rx="10" fill="#fff" stroke="#eef0f5" stroke-width="1"/>
+      <rect x="50" y="140" width="30" height="20" rx="4" fill="#3464e8"/>
+      <text x="88" y="155" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#1f2940">市场温度</text>
+      <text x="50" y="185" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#4e5870">上证指数：<tspan fill="#16ad69" font-weight="600">3,245 +0.68%</tspan></text>
+      <text x="50" y="210" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#4e5870">深证成指：<tspan fill="#16ad69" font-weight="600">上涨1.12%</tspan></text>
+      <text x="50" y="235" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#4e5870">成交金额：<tspan fill="#303b54">1.28万亿元</tspan></text>
+      <rect x="375" y="120" width="315" height="140" rx="10" fill="#fff" stroke="#eef0f5" stroke-width="1"/>
+      <rect x="395" y="140" width="30" height="20" rx="4" fill="#16ad69"/>
+      <text x="433" y="155" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#1f2940">财经股票</text>
+      <rect x="395" y="175" width="8" height="8" rx="2" fill="#4d70f5"/>
+      <text x="413" y="183" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#4e5870">半导体板块领涨</text>
+      <rect x="395" y="200" width="8" height="8" rx="2" fill="#f5a623"/>
+      <text x="413" y="208" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#4e5870">白酒板块震荡整理</text>
+      <rect x="395" y="225" width="8" height="8" rx="2" fill="#16ad69"/>
+      <text x="413" y="233" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#4e5870">新能源赛道反弹</text>
+      <rect x="30" y="280" width="660" height="100" rx="10" fill="#fff" stroke="#eef0f5" stroke-width="1"/>
+      <rect x="50" y="300" width="30" height="20" rx="4" fill="#7654e8"/>
+      <text x="88" y="315" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#1f2940">AI产业</text>
+      <rect x="50" y="330" width="190" height="36" rx="8" fill="#eef1ff"/>
+      <text x="145" y="353" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="600" fill="#3464e8" text-anchor="middle">OpenAI 7500亿美元估值</text>
+      <rect x="265" y="330" width="190" height="36" rx="8" fill="#f0fdf4"/>
+      <text x="360" y="353" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="600" fill="#16ad69" text-anchor="middle">Google Gemini 4发布</text>
+      <rect x="480" y="330" width="190" height="36" rx="8" fill="#fef2f2"/>
+      <text x="575" y="353" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="600" fill="#e34" text-anchor="middle">Hugging Face安全事件</text>
+      <rect x="30" y="400" width="660" height="160" rx="10" fill="#fff" stroke="#eef0f5" stroke-width="1"/>
+      <rect x="50" y="420" width="30" height="20" rx="4" fill="#f5a623"/>
+      <text x="88" y="435" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#1f2940">今日看点</text>
+      <line x1="50" y1="455" x2="670" y2="455" stroke="#eef0f5" stroke-width="1"/>
+      <rect x="50" y="465" width="60" height="24" rx="4" fill="#f0f3fa"/>
+      <text x="80" y="482" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#5a6478" text-anchor="middle">16:00</text>
+      <text x="130" y="482" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#303b54">欧元区制造业PMI初值</text>
+      <line x1="50" y1="495" x2="670" y2="495" stroke="#eef0f5" stroke-width="1"/>
+      <rect x="50" y="505" width="60" height="24" rx="4" fill="#f0f3fa"/>
+      <text x="80" y="522" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#5a6478" text-anchor="middle">20:15</text>
+      <text x="130" y="522" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#303b54">欧洲央行公布利率决议</text>
+      <line x1="50" y1="535" x2="670" y2="535" stroke="#eef0f5" stroke-width="1"/>
+      <rect x="50" y="545" width="60" height="24" rx="4" fill="#f0f3fa"/>
+      <text x="80" y="562" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#5a6478" text-anchor="middle">20:30</text>
+      <text x="130" y="562" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#303b54">美国上周初请失业金人数</text>
+      <rect x="30" y="580" width="660" height="300" rx="10" fill="#fff" stroke="#eef0f5" stroke-width="1"/>
+      <rect x="50" y="600" width="30" height="20" rx="4" fill="#e34"/>
+      <text x="88" y="615" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="bold" fill="#1f2940">主线洞察</text>
+      <rect x="50" y="630" width="620" height="70" rx="8" fill="#f0f7ff"/>
+      <rect x="65" y="645" width="50" height="22" rx="4" fill="#1d4ed8"/>
+      <text x="90" y="660" font-family="Microsoft YaHei, sans-serif" font-size="11" font-weight="600" fill="#fff" text-anchor="middle">资金面</text>
+      <text x="125" y="657" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#4e5870">外资看多 + 监管稳市 → A股韧性来源</text>
+      <text x="70" y="682" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#8a93a8">北向资金连续3日加仓，市场信心逐步修复</text>
+      <rect x="50" y="715" width="620" height="70" rx="8" fill="#f0fdf4"/>
+      <rect x="65" y="730" width="50" height="22" rx="4" fill="#15803d"/>
+      <text x="90" y="745" font-family="Microsoft YaHei, sans-serif" font-size="11" font-weight="600" fill="#fff" text-anchor="middle">基本面</text>
+      <text x="125" y="742" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#4e5870">财政收入修复 + 半导体创新高 → 景气线索</text>
+      <text x="70" y="767" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#8a93a8">印花税同比增长97.3%，经济活力回升</text>
+      <rect x="50" y="800" width="620" height="70" rx="8" fill="#faf5ff"/>
+      <rect x="65" y="815" width="50" height="22" rx="4" fill="#7e22ce"/>
+      <text x="90" y="830" font-family="Microsoft YaHei, sans-serif" font-size="11" font-weight="600" fill="#fff" text-anchor="middle">AI产业</text>
+      <text x="125" y="827" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#4e5870">算力基建 + 模型迭代 + 安全事件 → 并行治理</text>
+      <text x="70" y="852" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#8a93a8">行业高速发展同时需重视安全规范</text>
+      <rect x="30" y="900" width="660" height="35" rx="8" fill="#f5f6f8"/>
+      <text x="360" y="923" font-family="Microsoft YaHei, sans-serif" font-size="11" fill="#8a93a8" text-anchor="middle">新闻信息汇总，不构成投资建议。市场有风险，投资需谨慎。</text>
+    </svg>`;
+}
+/* 获取Markdown内容 */
+function getMdContent(filename) {
+  return `# 财经股票与AI早报 2026年7月23日
+
+## 一、市场温度
+* **大盘表现**：上证指数收报3,245点，上涨0.68%；深证成指上涨1.12%
+* **成交金额**：两市合计成交1.28万亿元，较昨日放量15%
+* **北向资金**：净流入86亿元，连续3日加仓
+
+## 二、财经股票
+* 半导体板块领涨，设备销售额创历史新高
+* 白酒板块震荡整理，茅台微涨0.3%
+* 新能源赛道反弹，锂电池板块涨幅超2%
+
+## 三、人工智能
+* OpenAI完成新一轮融资，估值达7,500亿美元
+* Google发布Gemini 4多模态模型，性能大幅提升
+* 安全事件：Hugging Face遭遇入侵，部分模型权重泄露
+
+## 四、今日看点
+
+| 时间 | 事件 |
+|------|------|
+| 16:00 | 欧元区制造业PMI初值 |
+| 20:15 | 欧洲央行公布利率决议 |
+| 20:30 | 美国上周初请失业金人数 |
+
+## 五、主线
+* **资金面**：外资看多 + 监管稳市 → A股韧性来源
+* **基本面**：财政收入修复（印花税+97.3%） + 半导体设备销售创历史新高 → 景气线索
+* **AI产业**：算力基建（OpenAI 7,500亿美元） + 模型迭代加速（Gemini 4） + 安全事件（Hugging Face入侵） → 创新与治理并行
+
+> 新闻信息汇总，不构成投资建议。市场有风险，投资需谨慎。
+
+---
+*文件生成时间：${new Date().toLocaleString('zh-CN')}*`;
+}
+/* 下载成果物 - 真实触发浏览器下载 */
+function downloadDeliverable(filename, idx, btn) {
+  const icon = getFileIcon(filename);
+  let content = '';
+  let mimeType = 'text/plain';
+  if (icon.type === 'image') {
+    content = getImageSVG();
+    mimeType = 'image/svg+xml;charset=utf-8';
+  } else if (icon.type === 'md') {
+    content = getMdContent(filename);
+    mimeType = 'text/markdown;charset=utf-8';
+  } else if (icon.type === 'excel') {
+    content = 'Name,Value\n示例数据1,100\n示例数据2,200';
+    mimeType = 'text/csv;charset=utf-8';
+  } else {
+    content = '这是一个示例文件：' + filename + '\n生成时间：' + new Date().toLocaleString('zh-CN');
+  }
+  // 创建Blob并触发真实下载
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 100);
+  // 下载成功反馈
+  const originalSVG = btn.innerHTML;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16ad69" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  setTimeout(() => { btn.innerHTML = originalSVG; }, 1500);
+}
+
+/* Enter发送 / @选择 */
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    // 如果@面板打开且有匹配项，回车选中而非发送
+    if (atPanel.classList.contains('show') && atPanel.querySelector('.at-item:not(.hidden)')) {
+      e.preventDefault();
+      confirmAtHighlight();
+      return;
+    }
+    e.preventDefault();
+    sendMessage();
+  }
+  // 上下箭头在@面板中导航
+  if (atPanel.classList.contains('show') && atPanel.querySelector('.at-item:not(.hidden)')) {
+    if (e.key === 'ArrowDown') { e.preventDefault(); navigateAtHighlight(1); }
+    if (e.key === 'ArrowUp')   { e.preventDefault(); navigateAtHighlight(-1); }
+  }
+});
+
+/* ========== 邀请流程 ========== */
+// 当前会话成员
+let sessionMembers = [
+  { name:'宋贤群', color:'#4b9fe8', role:'发起人' },
+  { name:'陈斌', color:'#8b72e8', role:'成员' },
+  { name:'施展', color:'#e3875d', role:'成员' }
+];
+// 待邀请的新成员（从联系人选择后添加）
+let pendingInvitees = [];
+// 可选联系人数据
+const contactPool = [
+  { name:'刘嘉豪', dept:'贵州白酒交易所', color:'#e84393' },
+  { name:'宋正义', dept:'贵州白酒交易所', color:'#6c5ce7' },
+  { name:'庞文鹏', dept:'贵州白酒交易所', color:'#16ad69' },
+  { name:'张洵', dept:'贵州白酒交易所', color:'#fdcb6e' },
+  { name:'何锦康', dept:'贵州白酒交易所', color:'#e3875d' },
+  { name:'刘超', dept:'贵州白酒交易所', color:'#4b9fe8' },
+  { name:'张三', dept:'贵州白酒交易所', color:'#8b72e8' },
+  { name:'嘉文', dept:'贵州白酒交易所', color:'#e84393' }
+];
+// 已勾选的联系人
+let selectedContacts = new Set();
+
+function openMembersModal() {
+  $('membersOverlay').classList.add('show');
+  $('mSubTitle').textContent = sessionTitle.textContent;
+  pendingInvitees = [];
+  renderMemberList();
+  updateInviteBtn();
+}
+
+function closeMembersModal() {
+  $('membersOverlay').classList.remove('show');
+  $('mSearchInput').value = '';
+  pendingInvitees = [];
+  updateInviteBtn();
+}
+
+function renderMemberList() {
+  const query = ($('mSearchInput').value || '').toLowerCase();
+  // 待邀请人员放最上面，已有成员放下面
+  const all = [...pendingInvitees, ...sessionMembers];
+  $('mList').innerHTML = all.filter(m => !query || m.name.toLowerCase().includes(query)).map((m, i) => {
+    const isPending = pendingInvitees.includes(m);
+    const roleLabel = isPending ? '待邀请' : m.role;
+    const roleColor = isPending ? 'color:#3464e8;background:#eaf0ff' : '';
+    return '<div class="m-member"><div class="m-avatar" style="background:' + m.color + '">' + m.name[0] + '</div><span class="m-name">' + m.name + '</span><span class="m-role" style="' + roleColor + '">' + roleLabel + '</span><button class="m-remove" onclick="removeMember(' + i + ')" title="移除">×</button></div>';
+  }).join('') || '<div style="text-align:center;padding:20px;color:#9aa2b5;font-size:13px">无匹配成员</div>';
+  // 有待邀请人员时显示邀请附言区
+  $('mBriefSection').style.display = pendingInvitees.length > 0 ? 'block' : 'none';
+}
+
+function filterMembers() { renderMemberList(); }
+
+function removeMember(idx) {
+  const all = [...pendingInvitees, ...sessionMembers];
+  const member = all[idx];
+  const pi = pendingInvitees.indexOf(member);
+  if (pi >= 0) { pendingInvitees.splice(pi, 1); }
+  else if (member.role !== '发起人') {
+    const si = sessionMembers.indexOf(member);
+    if (si >= 0) sessionMembers.splice(si, 1);
+  }
+  renderMemberList();
+  updateInviteBtn();
+}
+
+function updateInviteBtn() {
+  $('mConfirmBtn').disabled = pendingInvitees.length === 0;
+  $('mConfirmBtn').textContent = pendingInvitees.length > 0 ? '发送邀请 (' + pendingInvitees.length + ')' : '发送邀请';
+}
+
+function confirmInvite() {
+  if (!pendingInvitees.length) return;
+  pendingInvitees.forEach(m => {
+    sessionMembers.push({ name: m.name, color: m.color, role: '成员' });
+  });
+  updatePeopleBar();
+  const targetMsgs = sessionMode === 'solo' ? soloMessages : messages;
+  targetMsgs.insertAdjacentHTML('beforeend', '<div class="system"><span>已邀请 ' + pendingInvitees.map(m => m.name).join('、') + ' 加入会话</span></div>');
+  targetMsgs.scrollTop = targetMsgs.scrollHeight;
+  showToast('已发送邀请：' + pendingInvitees.map(m => m.name).join('、'));
+  pendingInvitees = [];
+  renderMemberList();
+  updateInviteBtn();
+  closeMembersModal();
+}
+
+function updatePeopleBar() {
+  if (sessionMode === 'solo') return;
+  peopleBar.innerHTML = sessionMembers.map(m => '<span class="avatar" style="background:' + m.color + '">' + m.name[0] + '</span>').join('') + '<button class="invite" onclick="openMembersModal()">邀请</button>';
+}
+
+function regenerateBrief() {
+  const briefs = [
+    '推进630版本工作台改造；当前需要共同确认Rclaw接入方案和演示范围。',
+    '630版本迭代进行中，技术方案已完成，正在确认接入方式、权限配置和演示场景范围。',
+    '当前工作重点是Rclaw接入方案的技术验证，需要确认接口权限和测试环境配置。'
+  ];
+  const current = $('mBriefText').textContent;
+  let next = briefs.find(b => b !== current) || briefs[0];
+  $('mBriefText').textContent = next;
+  showToast('已重新生成邀请附言');
+}
+
+function editBrief() {
+  const text = prompt('编辑邀请附言：', $('mBriefText').textContent);
+  if (text && text.trim()) {
+    $('mBriefText').textContent = text.trim();
+    showToast('邀请附言已更新');
+  }
+}
+
+/* ========== 联系人选择 ========== */
+function openContactsModal() {
+  $('contactsOverlay').classList.add('show');
+  selectedContacts.clear();
+  renderContactList();
+  renderSelectedPanel();
+}
+
+function closeContactsModal() {
+  $('contactsOverlay').classList.remove('show');
+  $('cSearchInput').value = '';
+}
+
+function renderContactList() {
+  const query = ($('cSearchInput').value || '').toLowerCase();
+  const existing = new Set(sessionMembers.map(m => m.name));
+  const pending = new Set(pendingInvitees.map(m => m.name));
+  $('cContactsList').innerHTML = contactPool.filter(c => !existing.has(c.name) && (!query || c.name.toLowerCase().includes(query) || c.dept.toLowerCase().includes(query))).map(c => {
+    const checked = selectedContacts.has(c.name) ? ' checked' : '';
+    const disabled = pending.has(c.name) ? ' style="opacity:.5;pointer-events:none"' : '';
+    return '<div class="c-contact' + checked + '"' + disabled + ' onclick="toggleContact(\'' + c.name + '\')" data-name="' + c.name + '"><div class="c-checkbox">' + (selectedContacts.has(c.name) ? '✓' : '') + '</div><div class="c-avatar" style="background:' + c.color + '">' + c.name[0] + '</div><div class="c-info"><div class="c-name">' + c.name + (pending.has(c.name) ? ' <span style="font-size:10px;color:#3464e8">(待邀请)</span>' : '') + '</div><div class="c-dept">' + c.dept + '</div></div></div>';
+  }).join('') || '<div style="text-align:center;padding:30px;color:#9aa2b5;font-size:13px">无匹配联系人</div>';
+}
+
+function filterContacts() { renderContactList(); }
+
+function toggleContact(name) {
+  if (selectedContacts.has(name)) { selectedContacts.delete(name); }
+  else { selectedContacts.add(name); }
+  renderContactList();
+  renderSelectedPanel();
+}
+
+function renderSelectedPanel() {
+  const count = selectedContacts.size;
+  $('cSelCount').textContent = '已选：' + count + ' 个';
+  $('cConfirmBtn').disabled = count === 0;
+  if (count === 0) {
+    $('cSelectedList').innerHTML = '<div class="c-empty"><div class="c-empty-icon">✉</div>暂未选择联系人</div>';
+    return;
+  }
+  $('cSelectedList').innerHTML = [...selectedContacts].map(name => {
+    const c = contactPool.find(x => x.name === name);
+    return '<div class="c-selected-item"><div class="c-sel-avatar" style="background:' + c.color + '">' + c.name[0] + '</div><span class="c-sel-name">' + c.name + '</span><button class="c-sel-remove" onclick="toggleContact(\'' + c.name + '\')">×</button></div>';
+  }).join('');
+}
+
+function clearSelection() {
+  selectedContacts.clear();
+  renderContactList();
+  renderSelectedPanel();
+}
+
+function confirmSelection() {
+  if (!selectedContacts.size) return;
+  selectedContacts.forEach(name => {
+    const c = contactPool.find(x => x.name === name);
+    if (c && !pendingInvitees.find(p => p.name === name)) {
+      pendingInvitees.push({ name: c.name, color: c.color, role: '成员' });
+    }
+  });
+  closeContactsModal();
+  renderMemberList();
+  updateInviteBtn();
+}
+
+/* ========== 会话摘要展开/收起 ========== */
+const SUMMARY_STATE_KEY = 'aiws_summary_collapsed';
+let summaryCollapsed = false;
+
+function initSummaryState() {
+  const saved = localStorage.getItem(SUMMARY_STATE_KEY);
+  summaryCollapsed = saved === '1';
+  applySummaryState();
+}
+
+function toggleSummary() {
+  summaryCollapsed = !summaryCollapsed;
+  localStorage.setItem(SUMMARY_STATE_KEY, summaryCollapsed ? '1' : '0');
+  applySummaryState();
+  // 展开后清除更新提示
+  if (!summaryCollapsed) {
+    $('summaryStatus').classList.remove('show');
+  }
+}
+
+function applySummaryState() {
+  $('summarySection').classList.toggle('collapsed', summaryCollapsed);
+}
+
+function updateSummary() {
+  // 模拟更新摘要
+  $('summaryUpdated').textContent = '更新于刚刚';
+  showToast('会话摘要已更新');
+  // 如果当前是收起状态，显示"有更新"提示
+  if (summaryCollapsed) {
+    $('summaryStatus').classList.add('show');
+  }
+}
+
+/* ========== 通用目录分组展开/收起 ========== */
+function toggleSection(id) {
+  const section = document.getElementById(id);
+  if (!section) return;
+  section.classList.toggle('collapsed');
+  localStorage.setItem('aiws_section_' + id, section.classList.contains('collapsed') ? '1' : '0');
+}
+
+function initSectionStates() {
+  ['agentsSection', 'deliverablesSection', 'tasksSection', 'sourcesSection'].forEach(id => {
+    const section = document.getElementById(id);
+    if (!section) return;
+    const saved = localStorage.getItem('aiws_section_' + id);
+    if (saved === '1') section.classList.add('collapsed');
+    else section.classList.remove('collapsed');
+  });
+}
+
+// 初始化
+initSummaryState();
+initSectionStates();
+initAIForCurrentSession();
+
+/* ========== 精确控制消息操作框显示：只在悬停消息内容时显示 ========== */
+let currentShowActions = null;
+
+// 给所有消息气泡和AI卡片绑定悬停事件，动态绑定新生成的元素
+function bindActionHoverEvents() {
+  // 绑定消息气泡
+  document.querySelectorAll('.bubble').forEach(bubble => {
+    if (bubble._hoverBound) return;
+    bubble._hoverBound = true;
+    bubble.addEventListener('mouseenter', function() {
+      hideCurrentActions();
+      const msgEl = bubble.closest('.msg');
+      if (msgEl) {
+        const actions = msgEl.querySelector('.msg-actions');
+        if (actions) {
+          actions.classList.add('show');
+          currentShowActions = actions;
+        }
+      }
+    });
+    bubble.addEventListener('mouseleave', function(e) {
+      // 检查是不是移到操作按钮上
+      const toActions = e.relatedTarget?.closest('.msg-actions');
+      if (!toActions) {
+        hideCurrentActions();
+      }
+    });
+  });
+
+  // 绑定AI卡片
+  document.querySelectorAll('.ai-card').forEach(card => {
+    if (card._hoverBound) return;
+    card._hoverBound = true;
+    card.addEventListener('mouseenter', function() {
+      hideCurrentActions();
+      const wrap = card.closest('.ai-card-wrap');
+      if (wrap) {
+        const actions = wrap.querySelector('.msg-actions');
+        if (actions) {
+          actions.classList.add('show');
+          currentShowActions = actions;
+        }
+      }
+    });
+    card.addEventListener('mouseleave', function(e) {
+      const toActions = e.relatedTarget?.closest('.msg-actions');
+      if (!toActions) {
+        hideCurrentActions();
+      }
+    });
+  });
+
+  // 绑定操作按钮本身
+  document.querySelectorAll('.msg-actions').forEach(actions => {
+    if (actions._hoverBound) return;
+    actions._hoverBound = true;
+    actions.addEventListener('mouseleave', function() {
+      hideCurrentActions();
+    });
+  });
+}
+
+function hideCurrentActions() {
+  if (currentShowActions) {
+    currentShowActions.classList.remove('show');
+    currentShowActions = null;
+  }
+}
+
+// 初始化绑定
+bindActionHoverEvents();
+
+// 监听DOM变化，新添加的消息自动绑定事件
+const observer = new MutationObserver(function() {
+  bindActionHoverEvents();
+});
+observer.observe(document.querySelector('.messages'), { childList: true, subtree: true });
+observer.observe(document.querySelector('#soloMessages'), { childList: true, subtree: true });
+
+// 点击页面其他地方隐藏
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.bubble') && !e.target.closest('.ai-card') && !e.target.closest('.msg-actions')) {
+    hideCurrentActions();
+  }
+});
+
+/* ========== AI开关初始化 ========== */
+function initAIForCurrentSession() {
+  const activeChat = document.querySelector('.chat.active');
+  if (!activeChat) return;
+  const mode = activeChat.dataset.mode;
+  if (mode === 'multi') {
+    // 多人模式：显示AI开关，默认关闭
+    toggle.classList.remove('hide');
+    aiOn = false;
+    toggle.classList.remove('on');
+    composer.classList.remove('ai-on');
+    toggleText.textContent = 'AI关闭';
+  } else {
+    // 单人模式：隐藏AI开关，AI始终在线
+    toggle.classList.add('hide');
+    aiOn = true;
+  }
+  sendBtn.classList.toggle('ai', aiOn);
+}
+
+/* ========== 消息通知面板（右侧面板切换） ========== */
+let notifViewOpen = false;
+let currentNotifTab = 'all';
+
+function toggleNotifPanel() {
+  notifViewOpen = !notifViewOpen;
+  const notifView = $('notifView');
+  if (notifViewOpen) {
+    const appRect = document.querySelector('.app').getBoundingClientRect();
+    notifView.style.left = (appRect.left + 290) + 'px';
+    notifView.classList.add('active');
+    filterNotifCards();
+  } else {
+    notifView.classList.remove('active');
+  }
+}
+
+function switchNotifTab(el) {
+  document.querySelectorAll('.notif-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  currentNotifTab = el.dataset.tab;
+  filterNotifCards();
+}
+
+function filterNotifCards() {
+  const tab = currentNotifTab;
+  document.querySelectorAll('#notifList .notif-card').forEach(card => {
+    const cardTab = card.dataset.tab;
+    if (tab === 'all') { card.style.display = ''; return; }
+    if (tab === 'unread') { card.style.display = card.classList.contains('unread') ? '' : 'none'; return; }
+    card.style.display = cardTab === tab ? '' : 'none';
+  });
+  document.querySelectorAll('#notifList .notif-day-sep').forEach(sep => {
+    sep.style.display = (tab === 'all' || tab === 'unread') ? '' : 'none';
+  });
+}
+
+function markCardRead(card) {
+  card.classList.remove('unread');
+  const status = card.querySelector('.notif-status');
+  if (status) { status.textContent = '已读'; status.classList.add('read'); }
+  updateUnreadCount();
+}
+
+function enterInvite(card) {
+  card.classList.remove('unread');
+  const status = card.querySelector('.notif-status');
+  if (status) { status.textContent = '已读'; status.classList.add('read'); }
+  updateUnreadCount();
+  
+  // 切换到对应会话并清除蓝点
+  const sessionTitle = card.querySelector('.notif-card-title')?.textContent?.split('·')[1]?.trim();
+  const targetChat = document.querySelector('.chat[data-pending="true"]');
+  if (targetChat) {
+    const dot = targetChat.querySelector('.pending-dot');
+    if (dot) dot.remove();
+    targetChat.removeAttribute('data-pending');
+    // 切换到该会话
+    switchSession(targetChat);
+  }
+  
+  showToast('已进入会话');
+  setTimeout(() => { if(notifViewOpen) toggleNotifPanel(); }, 600);
+}
+
+function markAllRead() {
+  document.querySelectorAll('#notifList .notif-card.unread').forEach(c => {
+    c.classList.remove('unread');
+    const status = c.querySelector('.notif-status');
+    if (status) { status.textContent = '已读'; status.classList.add('read'); }
+  });
+  updateUnreadCount();
+  showToast('已全部标记为已读');
+}
+
+function updateUnreadCount() {
+  const total = document.querySelectorAll('#notifList .notif-card.unread').length;
+  // 更新左侧用户栏角标
+  const badge = $('bellBadge');
+  if (badge) {
+    badge.textContent = total;
+    badge.style.display = total > 0 ? '' : 'none';
+  }
+  // 更新未读Tab计数
+  const unreadTab = document.querySelector('.notif-tab[data-tab="unread"] .tab-count');
+  if (unreadTab) unreadTab.textContent = total;
+}
+</script>
+</body>
+</html>

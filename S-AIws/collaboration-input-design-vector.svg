@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960">
+<defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif; }
+  </style>
+  <clipPath id="app-clip"><rect width="1600" height="960" rx="16"/></clipPath>
+</defs>
+<g id="app" clip-path="url(#app-clip)">
+  <rect width="1600" height="960" rx="16" fill="#ffffff"/>
+  <!-- ===== 左侧面板 ===== -->
+  <g id="left-panel">
+    <rect x="0" y="0" width="290" height="960" fill="#fbfcff"/>
+    <line x1="290" y1="0" x2="290" y2="960" stroke="#e7eaf1" stroke-width="1"/>
+    <g id="app">
+      <rect x="0" y="0" width="1600" height="920" rx="16" fill="#ffffff"/>
+    </g>
+    <g id="left">
+      <rect x="0" y="0" width="290" height="920" rx="0" fill="#f5f7fa"/>
+    </g>
+    <g id="brand">
+      <text x="14" y="33.3" font-size="18" font-weight="800" fill="#3963ec" text-anchor="start">贵州白酒交易所AI</text>
+    </g>
+    <g id="brand-sub">
+      <text x="14" y="55.05" font-size="13" font-weight="400" fill="#8a93a8" text-anchor="start">智能协作系统</text>
+    </g>
+    <g id="new">
+      <rect x="14" y="73" width="261" height="40" rx="10" fill="#ffffff"/>
+      <rect x="14" y="73" width="261" height="40" rx="10" fill="none" stroke="#dce0e8" stroke-width="1"/>
+      <text x="14" y="97.9" font-size="14" font-weight="400" fill="#343e55" text-anchor="start">开启新对话</text>
+    </g>
+    <g id="nav-item">
+      <text x="16" y="145.4" font-size="14" font-weight="400" fill="#343e55" text-anchor="start">技能</text>
+    </g>
+    <g id="nav-item">
+      <text x="16" y="176.4" font-size="14" font-weight="400" fill="#343e55" text-anchor="start">任务</text>
+    </g>
+    <g id="nav-item">
+      <text x="16" y="207.4" font-size="14" font-weight="400" fill="#343e55" text-anchor="start">更多</text>
+    </g>
+    <g id="work">
+      <text x="14" y="245.05" font-size="13" font-weight="400" fill="#8a93a8" text-anchor="start">工作空间</text>
+    </g>
+    <g id="folder">
+      <text x="14" y="276.55" font-size="13" font-weight="400" fill="#343e55" text-anchor="start">测试任务</text>
+    </g>
+    <g id="chat-title-text">
+      <text x="38" y="306.05" font-size="13" font-weight="500" fill="#1f2940" text-anchor="start">测试任务</text>
+    </g>
+    <g id="pending-dot">
+      <rect x="239" y="297" width="8" height="8" rx="50" fill="#3464e8"/>
+    </g>
+    <g id="chat-time">
+      <text x="251" y="305.2" font-size="12" font-weight="400" fill="#8a93a8" text-anchor="start">刚刚</text>
+    </g>
+    <g id="folder-folder-collab">
+      <text x="14" y="347.55" font-size="13" font-weight="400" fill="#343e55" text-anchor="start">陈冰的测试任务</text>
+    </g>
+    <g id="chat-title-text">
+      <text x="38" y="379.05" font-size="13" font-weight="500" fill="#1f2940" text-anchor="start">陈冰的测试任务</text>
+    </g>
+    <g id="chat-time">
+      <text x="225" y="378.2" font-size="12" font-weight="400" fill="#6b80e8" text-anchor="start">15小时前</text>
+    </g>
+    <g id="folder-folder-collab">
+      <text x="14" y="420.55" font-size="13" font-weight="400" fill="#343e55" text-anchor="start">0728消息中心上线</text>
+    </g>
+    <g id="chat-title-text">
+      <text x="38" y="452.05" font-size="13" font-weight="500" fill="#1f2940" text-anchor="start">0728消息中心上线</text>
+    </g>
+    <g id="pending-dot">
+      <rect x="213" y="443" width="8" height="8" rx="50" fill="#3464e8"/>
+    </g>
+    <g id="chat-time">
+      <text x="225" y="451.2" font-size="12" font-weight="400" fill="#8a93a8" text-anchor="start">10分钟前</text>
+    </g>
+    <g id="folder">
+      <text x="14" y="491.55" font-size="13" font-weight="400" fill="#343e55" text-anchor="start">默认</text>
+    </g>
+    <g id="chat-title-text">
+      <text x="38" y="521.05" font-size="13" font-weight="500" fill="#3963ec" text-anchor="start">630版本迭代</text>
+    </g>
+    <g id="chat-time">
+      <text x="240" y="520.2" font-size="12" font-weight="400" fill="#6b80e8" text-anchor="start">1 小时</text>
+    </g>
+    <g id="chat-title-text">
+      <text x="38" y="554.05" font-size="13" font-weight="500" fill="#1f2940" text-anchor="start">明天天气怎么样？</text>
+    </g>
+    <g id="chat-time">
+      <text x="252" y="553.2" font-size="12" font-weight="400" fill="#8a93a8" text-anchor="start">1 天</text>
+    </g>
+    <g id="chat-title-text">
+      <text x="38" y="587.05" font-size="13" font-weight="500" fill="#1f2940" text-anchor="start">OpenClaw最新版本更新与功能改...</text>
+    </g>
+    <g id="chat-time">
+      <text x="225" y="586.2" font-size="12" font-weight="400" fill="#8a93a8" text-anchor="start">21小时前</text>
+    </g>
+    <g id="chat-title-text">
+      <text x="38" y="620.05" font-size="13" font-weight="500" fill="#1f2940" text-anchor="start">目前openclaw最新版本以及最近...</text>
+    </g>
+    <g id="chat-time">
+      <text x="225" y="619.2" font-size="12" font-weight="400" fill="#8a93a8" text-anchor="start">21小时前</text>
+    </g>
+    <g id="chat-title-text">
+      <text x="38" y="653.05" font-size="13" font-weight="500" fill="#1f2940" text-anchor="start">当前会话</text>
+    </g>
+    <g id="chat-time">
+      <text x="225" y="652.2" font-size="12" font-weight="400" fill="#8a93a8" text-anchor="start">21小时前</text>
+    </g>
+    <g id="chat-expand">
+      <text x="38" y="683.2" font-size="12" font-weight="400" fill="#8a93a8" text-anchor="start">展开显示</text>
+    </g>
+    <g id="user-avatar">
+      <rect x="14" y="884" width="28" height="28" rx="50" fill="#f0f0ff"/>
+      <text x="14" y="902.9" font-size="14" font-weight="600" fill="#3b52d6" text-anchor="start">C</text>
+    </g>
+    <g id="user-name">
+      <text x="50" y="903.05" font-size="13" font-weight="600" fill="#1f2940" text-anchor="start">chenb</text>
+    </g>
+    <g id="bellBadge">
+      <rect x="231" y="883" width="20" height="20" rx="50" fill="#ff2d2d"/>
+      <text x="241" y="896.85" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+    </g>
+  </g>
+  <!-- ===== 中间主区域 ===== -->
+  <g id="main-area">
+    <g id="sessionTitle">
+      <text x="312" y="40.85" font-size="21" font-weight="800" fill="#1f2940" text-anchor="start">630版本迭代</text>
+    </g>
+    <g id="modePill">
+      <rect x="440" y="22" width="79" height="30" rx="20" fill="#eaf0ff"/>
+      <text x="440" y="41.2" font-size="12" font-weight="700" fill="#3464e8" text-anchor="start">● 多人协作</text>
+    </g>
+    <g id="avatar-a1">
+      <rect x="1080" y="21" width="29" height="29" rx="50" fill="#8b72e8"/>
+      <rect x="1080" y="21" width="29" height="29" rx="50" fill="none" stroke="#ffffff" stroke-width="2"/>
+      <text x="1080" y="39.35" font-size="11" font-weight="700" fill="#ffffff" text-anchor="start">陈斌</text>
+    </g>
+    <g id="avatar-a2">
+      <rect x="1116" y="21" width="29" height="29" rx="50" fill="#e3875d"/>
+      <rect x="1116" y="21" width="29" height="29" rx="50" fill="none" stroke="#ffffff" stroke-width="2"/>
+      <text x="1116" y="39.35" font-size="11" font-weight="700" fill="#ffffff" text-anchor="start">施展</text>
+    </g>
+    <g id="avatar-a3">
+      <rect x="1152" y="21" width="29" height="29" rx="50" fill="#4b9fe8"/>
+      <rect x="1152" y="21" width="29" height="29" rx="50" fill="none" stroke="#ffffff" stroke-width="2"/>
+      <text x="1152" y="39.35" font-size="11" font-weight="700" fill="#ffffff" text-anchor="start">宋贤</text>
+    </g>
+    <g id="invite">
+      <rect x="1195" y="18" width="53" height="35" rx="18" fill="#eaf0ff"/>
+      <text x="1221.5" y="40.166655" font-size="13.3333" font-weight="700" fill="#4166e9" text-anchor="middle">邀请</text>
+    </g>
+    <g>
+      <rect x="579" y="91" width="401" height="30" rx="14" fill="#f1f4fa"/>
+      <text x="779.5" y="110.2" font-size="12" font-weight="400" fill="#6e7891" text-anchor="middle">会话已进入多人协作模式 · 可通过输入框AI开关或 @工作秘书 让AI参与</text>
+    </g>
+    <g id="avatar-a1">
+      <rect x="320" y="138" width="29" height="29" rx="50" fill="#8b72e8"/>
+      <rect x="320" y="138" width="29" height="29" rx="50" fill="none" stroke="#ffffff" stroke-width="2"/>
+      <text x="320" y="156.35" font-size="11" font-weight="700" fill="#ffffff" text-anchor="start">陈斌</text>
+    </g>
+    <g id="meta">
+      <text x="360" y="150.2" font-size="12" font-weight="400" fill="#758097" text-anchor="start">陈斌 10:12</text>
+    </g>
+    <g id="bubble">
+      <rect x="360" y="159" width="458" height="47" rx="4" fill="#f4f6fa"/>
+      <text x="360" y="187.4" font-size="14" font-weight="400" fill="#1f2940" text-anchor="start">Rclaw技术方案初稿已经完成，接下来需要确认接入方式和演示范围。</text>
+    </g>
+    <g id="avatar-a3">
+      <rect x="1211" y="223" width="29" height="29" rx="50" fill="#4b9fe8"/>
+      <rect x="1211" y="223" width="29" height="29" rx="50" fill="none" stroke="#ffffff" stroke-width="2"/>
+      <text x="1211" y="241.35" font-size="11" font-weight="700" fill="#ffffff" text-anchor="start">宋贤</text>
+    </g>
+    <g id="meta">
+      <text x="1200" y="235.2" font-size="12" font-weight="400" fill="#758097" text-anchor="end">宋贤群 10:16</text>
+    </g>
+    <g id="bubble">
+      <rect x="854" y="244" width="346" height="47" rx="16" fill="#e9efff"/>
+      <text x="854" y="272.4" font-size="14" font-weight="400" fill="#1f2940" text-anchor="start">我建议先按接口方案A验证，大家看看是否有风险？</text>
+    </g>
+    <g id="avatar-a2">
+      <rect x="320" y="308" width="29" height="29" rx="50" fill="#e3875d"/>
+      <rect x="320" y="308" width="29" height="29" rx="50" fill="none" stroke="#ffffff" stroke-width="2"/>
+      <text x="320" y="326.35" font-size="11" font-weight="700" fill="#ffffff" text-anchor="start">施展</text>
+    </g>
+    <g id="meta">
+      <text x="360" y="320.2" font-size="12" font-weight="400" fill="#758097" text-anchor="start">施展 10:18</text>
+    </g>
+    <g id="bubble">
+      <rect x="360" y="329" width="518" height="47" rx="4" fill="#f4f6fa"/>
+      <text x="360" y="357.4" font-size="14" font-weight="400" fill="#1f2940" text-anchor="start">需要先确认接口权限和测试环境，演示范围可以先限定在酒店和酒交两个场景。</text>
+    </g>
+    <g id="ai-card">
+      <rect x="362" y="396" width="630" height="155" rx="12" fill="#ffffff"/>
+      <rect x="362" y="396" width="630" height="155" rx="12" fill="none" stroke="#dce2f0" stroke-width="1"/>
+    </g>
+    <g id="ai-head">
+      <text x="379" y="424.55" font-size="13" font-weight="800" fill="#3464e8" text-anchor="start">✦工作秘书 · 由宋贤群发起</text>
+    </g>
+    <g id="ai-icon">
+      <rect x="379" y="409" width="22" height="22" rx="7" fill="#4d70f5"/>
+      <text x="379" y="424.2" font-size="12" font-weight="800" fill="#ffffff" text-anchor="start">✦</text>
+    </g>
+    <g id="arrow">
+      <text x="379" y="453.35" font-size="11" font-weight="400" fill="#b0b8cc" text-anchor="start">←</text>
+    </g>
+    <g id="who">
+      <text x="394" y="452.2" font-size="12" font-weight="600" fill="#5c6a8a" text-anchor="start">回应 宋贤群</text>
+    </g>
+    <g id="q-text">
+      <text x="462" y="452.2" font-size="12" font-weight="400" fill="#8a93a8" text-anchor="start">：@工作秘书 请比较接口方案A和B的风险与实施成本。</text>
+    </g>
+    <g id="ai-context">
+      <text x="379" y="474.7" font-size="12" font-weight="400" fill="#9aa2b5" text-anchor="start">基于施展提出的：“需要先确认接口权限和测试环境……”</text>
+    </g>
+    <g id="ai-text">
+      <text x="379" y="515.9" font-size="14" font-weight="400" fill="#1f2940" text-anchor="start">方案A实施路径更短，适合本期演示；主要风险在于接口权限与环境准备。建议先锁定方案A，同时保留方案B作为后续扩展路径。</text>
+    </g>
+    <g id="avatar-a3">
+      <rect x="1211" y="573" width="29" height="29" rx="50" fill="#4b9fe8"/>
+      <rect x="1211" y="573" width="29" height="29" rx="50" fill="none" stroke="#ffffff" stroke-width="2"/>
+      <text x="1211" y="591.35" font-size="11" font-weight="700" fill="#ffffff" text-anchor="start">宋贤</text>
+    </g>
+    <g id="meta">
+      <text x="1200" y="585.2" font-size="12" font-weight="400" fill="#758097" text-anchor="end">宋贤群 10:23</text>
+    </g>
+    <g id="bubble">
+      <rect x="821" y="594" width="379" height="107" rx="16" fill="#e9efff"/>
+      <text x="821" y="652.4" font-size="14" font-weight="400" fill="#1f2940" text-anchor="start">引用 施展&quot;需要先确认接口权限和测试环境……&quot;我来推动测试环境确认，@陈斌 你协助确认演示范围。</text>
+    </g>
+    <g id="reply-ref">
+      <rect x="835" y="606" width="350" height="52" rx="5" fill="#e4e9f7"/>
+      <text x="835" y="636.2" font-size="12" font-weight="400" fill="#66718a" text-anchor="start">引用 施展&quot;需要先确认接口权限和测试环境……&quot;</text>
+    </g>
+    <g>
+      <text x="846" y="625.2" font-size="12" font-weight="700" fill="#4e5c7a" text-anchor="start">引用 施展</text>
+    </g>
+    <g id="at-mention">
+      <rect x="989" y="667" width="52" height="21" rx="5" fill="#e9efff"/>
+      <text x="989" y="682.4" font-size="14" font-weight="600" fill="#3464e8" text-anchor="start">@陈斌</text>
+    </g>
+    <g id="composer">
+      <rect x="320" y="808" width="920" height="94" rx="12" fill="#f8f9fa"/>
+      <rect x="320" y="808" width="920" height="94" rx="12" fill="none" stroke="#dce1e8" stroke-width="1"/>
+    </g>
+    <g id="input">
+      <text x="339" y="836.9" font-size="14" fill="#9aa2b5">与成员讨论，开启AI参与按钮，或输入 @智能体 让AI参与</text>
+    </g>
+    <g id="toggle">
+      <rect x="331" y="864" width="112" height="29" rx="16" fill="#ffffff"/>
+      <rect x="331" y="864" width="112" height="29" rx="16" fill="none" stroke="#dde3ed" stroke-width="1"/>
+    </g>
+    <g id="toggleText">
+      <text x="382.5" y="882.7" font-size="12" font-weight="400" fill="#5b667c" text-anchor="middle">AI 参与</text>
+    </g>
+    <g id="switch">
+      <rect x="409" y="871" width="24" height="14" rx="8" fill="#c3cbd9"/>
+    </g>
+    <g>
+      <rect x="411" y="873" width="10" height="10" rx="50" fill="#ffffff"/>
+    </g>
+    <g id="atBtnText">
+      <text x="501.5" y="883.05" font-size="13" font-weight="400" fill="#5a6478" text-anchor="middle">@成员 / 智能体</text>
+    </g>
+    <g id="tb-btn">
+      <text x="597.5" y="883.05" font-size="13" font-weight="400" fill="#5a6478" text-anchor="middle">⚙ 技能▾</text>
+    </g>
+    <g id="arrow">
+      <text x="620" y="881.5" font-size="10" font-weight="400" fill="#9aa2b5" text-anchor="middle">▾</text>
+    </g>
+    <g id="send">
+      <rect x="1197" y="862" width="32" height="32" rx="50" fill="#4d70f5"/>
+      <text x="1213" y="883.25" font-size="15" font-weight="400" fill="#ffffff" text-anchor="middle">➤</text>
+    </g>
+  </g>
+  <!-- ===== 右侧面板 ===== -->
+  <g id="right-panel">
+    <rect x="1270" y="0" width="330" height="960" fill="#ffffff"/>
+    <line x1="1270" y1="0" x2="1270" y2="960" stroke="#e7eaf1" stroke-width="1"/>
+    <g id="right">
+      <rect x="1270" y="0" width="330" height="920" rx="0" fill="#ffffff"/>
+    </g>
+    <g id="right-header-title">
+      <rect x="1287" y="12" width="108" height="32" rx="10" fill="#f8f9fa"/>
+      <rect x="1287" y="12" width="108" height="32" rx="10" fill="none" stroke="#e4e8ee" stroke-width="1"/>
+    </g>
+    <g id="right-header-icon">
+      <text x="1298" y="32.9" font-size="14" font-weight="700" fill="#5a6478" text-anchor="start">☰</text>
+    </g>
+    <g>
+      <text x="1324" y="33.25" font-size="15" font-weight="700" fill="#1f2940" text-anchor="start">会话目录</text>
+    </g>
+    <g id="right-header-btn">
+      <text x="1570" y="32.666655" font-size="13.3333" font-weight="400" fill="#8a93a8" text-anchor="middle">⤢</text>
+    </g>
+    <g id="dir-section-line">
+      <rect x="1287" y="83" width="3" height="14" rx="2" fill="#3464e8"/>
+    </g>
+    <g>
+      <text x="1300" y="94.4" font-size="14" font-weight="700" fill="#1f2940" text-anchor="start">会话摘要</text>
+    </g>
+    <g id="dir-chevron">
+      <text x="1573" y="93.35" font-size="11" font-weight="700" fill="#8a93a8" text-anchor="start">▼</text>
+    </g>
+    <g id="update">
+      <rect x="1287" y="111" width="66" height="29" rx="8" fill="#eef2ff"/>
+      <text x="1320" y="129.7" font-size="12" font-weight="400" fill="#4669e9" text-anchor="middle">更新摘要</text>
+    </g>
+    <g id="summaryUpdated">
+      <text x="1489" y="130.2" font-size="12" font-weight="400" fill="#8b95a9" text-anchor="start">更新于今天 10:20</text>
+    </g>
+    <g>
+      <text x="1287" y="167.55" font-size="13" font-weight="800" fill="#1f2940" text-anchor="start">一、工作项</text>
+    </g>
+    <g>
+      <text x="1287" y="208.55" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">推进 630版本工作台改造，完成 Rclaw 接入方案及演示准备。</text>
+    </g>
+    <g>
+      <text x="1317" y="197.05" font-size="13" font-weight="700" fill="#1f2940" text-anchor="start">630版本工作台改造</text>
+    </g>
+    <g>
+      <text x="1475" y="197.05" font-size="13" font-weight="700" fill="#1f2940" text-anchor="start">Rclaw 接入方案</text>
+    </g>
+    <g>
+      <text x="1287" y="257.55" font-size="13" font-weight="800" fill="#1f2940" text-anchor="start">二、当前进展</text>
+    </g>
+    <g>
+      <text x="1305" y="298.55" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">技术方案已完成，正在确认接入方式、权限和演示范围</text>
+    </g>
+    <g>
+      <text x="1305" y="336.55" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">陈斌提出：本期优先使用方案A验证</text>
+    </g>
+    <g>
+      <text x="1287" y="374.55" font-size="13" font-weight="800" fill="#1f2940" text-anchor="start">三、已完成</text>
+    </g>
+    <g>
+      <text x="1305" y="404.55" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">Rclaw 技术方案初稿</text>
+    </g>
+    <g>
+      <text x="1305" y="430.55" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">典型业务场景梳理</text>
+    </g>
+    <g>
+      <text x="1287" y="468.55" font-size="13" font-weight="800" fill="#1f2940" text-anchor="start">四、待推进</text>
+    </g>
+    <g>
+      <text x="1305" y="498.55" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">确认接口权限 @陈斌</text>
+    </g>
+    <g>
+      <text x="1387" y="498.05" font-size="13" font-weight="700" fill="#1f2940" text-anchor="start">@陈斌</text>
+    </g>
+    <g>
+      <text x="1305" y="524.55" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">确定演示范围 @施展</text>
+    </g>
+    <g>
+      <text x="1387" y="524.05" font-size="13" font-weight="700" fill="#1f2940" text-anchor="start">@施展</text>
+    </g>
+    <g>
+      <text x="1287" y="562.55" font-size="13" font-weight="800" fill="#1f2940" text-anchor="start">五、关键结论</text>
+    </g>
+    <g>
+      <text x="1305" y="593.05" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">本期优先使用方案A验证。待确认</text>
+    </g>
+    <g id="status">
+      <rect x="1461" y="579" width="40" height="21" rx="8" fill="#eaf0ff"/>
+      <text x="1461" y="593" font-size="10" font-weight="400" fill="#3464e8" text-anchor="start">待确认</text>
+    </g>
+    <g>
+      <text x="1305" y="630.55" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">主要风险在于接口权限与环境准备，需提前确认。</text>
+    </g>
+    <g>
+      <text x="1305" y="679.55" font-size="13" font-weight="400" fill="#4e5870" text-anchor="start">建议先锁定方案A，同时保留方案B作为后续扩展路径。</text>
+    </g>
+    <g id="dir-section-line">
+      <rect x="1287" y="735" width="3" height="14" rx="2" fill="#3464e8"/>
+    </g>
+    <g>
+      <text x="1300" y="747.4" font-size="14" font-weight="700" fill="#1f2940" text-anchor="start">当前任务</text>
+    </g>
+    <g id="dir-chevron">
+      <text x="1573" y="746.35" font-size="11" font-weight="700" fill="#8a93a8" text-anchor="start">▼</text>
+    </g>
+    <g>
+      <text x="1287" y="784.2" font-size="12" font-weight="400" fill="#8a93a8" text-anchor="start">暂无任务，可在会话中指派或转办任务。</text>
+    </g>
+    <g id="dir-section-line">
+      <rect x="1287" y="826" width="3" height="14" rx="2" fill="#3464e8"/>
+    </g>
+    <g>
+      <text x="1300" y="838.4" font-size="14" font-weight="700" fill="#1f2940" text-anchor="start">协作智能体</text>
+    </g>
+    <g id="dir-chevron">
+      <text x="1573" y="837.35" font-size="11" font-weight="700" fill="#8a93a8" text-anchor="start">▼</text>
+    </g>
+    <g id="agent-avatar">
+      <rect x="1297" y="865" width="28" height="28" rx="50" fill="#4d70f5"/>
+      <text x="1297" y="882.85" font-size="11" font-weight="700" fill="#ffffff" text-anchor="start">工</text>
+    </g>
+    <g id="agent-name">
+      <text x="1335" y="876.05" font-size="13" font-weight="600" fill="#1f2940" text-anchor="start">工作秘书</text>
+    </g>
+    <g id="agent-meta">
+      <text x="1335" y="892.35" font-size="11" font-weight="400" fill="#8a93a8" text-anchor="start">1 条回复</text>
+    </g>
+    <g id="agent-status">
+      <rect x="1566" y="875" width="8" height="8" rx="50" fill="#2ecc71"/>
+    </g>
+    <g id="agent-avatar">
+      <rect x="1297" y="918" width="28" height="28" rx="50" fill="#e84393"/>
+      <text x="1297" y="935.85" font-size="11" font-weight="700" fill="#ffffff" text-anchor="start">创</text>
+    </g>
+    <g id="agent-name">
+      <text x="1335" y="929.05" font-size="13" font-weight="600" fill="#1f2940" text-anchor="start">创意助手</text>
+    </g>
+  </g>
+</g>
+</svg>

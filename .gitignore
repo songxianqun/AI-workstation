@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# GitHub CLI (downloaded tool)
+gh-cli/
+
+# Temp files
+*.log
+doc_fetch_temp.json
+
+# OS files
+Thumbs.db
+.DS_Store

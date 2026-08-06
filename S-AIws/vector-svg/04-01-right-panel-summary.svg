@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="330" height="920" viewBox="0 0 330 920">
+<rect x="0" y="0" width="330" height="920" fill="rgb(255, 255, 255)"/>
+<rect x="0.00" y="0.00" width="330.00" height="920.00" fill="rgb(255, 255, 255)"/>
+<rect x="17.00" y="11.50" width="108.00" height="32.00" fill="rgb(248, 249, 250)" rx="10.00" stroke="rgb(228, 232, 238)" stroke-width="1"/>
+<text x="28.00" y="32.50" fill="rgb(90, 100, 120)" font-size="14" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">☰</text>
+<text x="54.00" y="32.50" fill="rgb(31, 41, 64)" font-size="15" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">会话目录</text>
+<text x="300.00" y="26.83" fill="rgb(138, 147, 168)" font-size="13.3333" font-weight="400" font-family="Arial" text-anchor="middle">⤢</text>
+<rect x="17.00" y="82.50" width="3.00" height="14.00" fill="rgb(52, 100, 232)" rx="1.50"/>
+<text x="30.00" y="94.00" fill="rgb(31, 41, 64)" font-size="14" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">会话摘要</text>
+<text x="303.11" y="93.00" fill="rgb(138, 147, 168)" font-size="11" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">▼</text>
+<rect x="17.00" y="111.00" width="66.00" height="29.00" fill="rgb(238, 242, 255)" rx="8.00"/>
+<text x="50.00" y="123.00" fill="rgb(70, 105, 233)" font-size="12" font-weight="400" font-family="Arial" text-anchor="middle">更新摘要</text>
+<text x="219.41" y="129.50" fill="rgb(139, 149, 169)" font-size="12" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">更新于今天 10:20</text>
+<text x="17.00" y="165.00" fill="rgb(31, 41, 64)" font-size="13" font-weight="800" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">一、工作项</text>
+<text x="17.00" y="195.09" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">推进 ，完成 及演示准备。</text>
+<text x="46.86" y="197.09" fill="rgb(31, 41, 64)" font-size="13" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">630版本工作台改造</text>
+<text x="204.78" y="197.09" fill="rgb(31, 41, 64)" font-size="13" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">Rclaw 接入方案</text>
+<text x="17.00" y="255.28" fill="rgb(31, 41, 64)" font-size="13" font-weight="800" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">二、当前进展</text>
+<text x="35.00" y="285.38" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">技术方案已完成，正在确认接入方式、权限和演示范围</text>
+<text x="35.00" y="333.56" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">陈斌提出：本期优先使用方案A验证</text>
+<text x="17.00" y="371.66" fill="rgb(31, 41, 64)" font-size="13" font-weight="800" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">三、已完成</text>
+<text x="35.00" y="401.75" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">Rclaw 技术方案初稿</text>
+<text x="35.00" y="427.84" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">典型业务场景梳理</text>
+<text x="17.00" y="465.94" fill="rgb(31, 41, 64)" font-size="13" font-weight="800" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">四、待推进</text>
+<text x="35.00" y="496.03" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">确认接口权限</text>
+<text x="116.86" y="498.03" fill="rgb(31, 41, 64)" font-size="13" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">@陈斌</text>
+<text x="35.00" y="522.13" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">确定演示范围</text>
+<text x="116.86" y="524.13" fill="rgb(31, 41, 64)" font-size="13" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">@施展</text>
+<text x="17.00" y="560.22" fill="rgb(31, 41, 64)" font-size="13" font-weight="800" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">五、关键结论</text>
+<text x="35.00" y="590.31" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">本期优先使用方案A验证。</text>
+<rect x="191.16" y="579.31" width="40.00" height="21.00" fill="rgb(234, 240, 255)" rx="8.00"/>
+<text x="191.16" y="589.31" fill="rgb(52, 100, 232)" font-size="10" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">待确认</text>
+<text x="35.00" y="617.31" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">主要风险在于接口权限与环境准备，需提前确认。</text>
+<text x="35.00" y="665.50" fill="rgb(78, 88, 112)" font-size="13" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">建议先锁定方案A，同时保留方案B作为后续扩展路径。</text>
+<rect x="17.00" y="735.19" width="3.00" height="14.00" fill="rgb(52, 100, 232)" rx="1.50"/>
+<text x="30.00" y="746.69" fill="rgb(31, 41, 64)" font-size="14" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">当前任务</text>
+<text x="303.11" y="745.69" fill="rgb(138, 147, 168)" font-size="11" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">▼</text>
+<text x="17.00" y="775.69" fill="rgb(138, 147, 168)" font-size="12" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">暂无任务，可在会话中指派或转办任务。</text>
+<rect x="17.00" y="826.19" width="3.00" height="14.00" fill="rgb(52, 100, 232)" rx="1.50"/>
+<text x="30.00" y="837.69" fill="rgb(31, 41, 64)" font-size="14" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">协作智能体</text>
+<text x="303.11" y="836.69" fill="rgb(138, 147, 168)" font-size="11" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">▼</text>
+<rect x="27.00" y="865.19" width="28.00" height="28.00" fill="rgb(77, 112, 245)" rx="14.00"/>
+<text x="27.00" y="876.19" fill="rgb(255, 255, 255)" font-size="11" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">工</text>
+<text x="65.00" y="875.69" fill="rgb(31, 41, 64)" font-size="13" font-weight="600" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">工作秘书</text>
+<text x="65.00" y="891.69" fill="rgb(138, 147, 168)" font-size="11" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">1 条回复</text>
+<rect x="296.00" y="875.19" width="8.00" height="8.00" fill="rgb(46, 204, 113)" rx="4.00"/>
+<rect x="27.00" y="918.19" width="28.00" height="28.00" fill="rgb(232, 67, 147)" rx="14.00"/>
+<text x="27.00" y="929.19" fill="rgb(255, 255, 255)" font-size="11" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">创</text>
+<text x="65.00" y="928.69" fill="rgb(31, 41, 64)" font-size="13" font-weight="600" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">创意助手</text>
+<text x="65.00" y="944.69" fill="rgb(138, 147, 168)" font-size="11" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">2 条回复</text>
+<rect x="296.00" y="928.19" width="8.00" height="8.00" fill="rgb(46, 204, 113)" rx="4.00"/>
+<rect x="17.00" y="987.19" width="3.00" height="14.00" fill="rgb(52, 100, 232)" rx="1.50"/>
+<text x="30.00" y="998.69" fill="rgb(31, 41, 64)" font-size="14" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">成果物</text>
+<text x="303.11" y="997.69" fill="rgb(138, 147, 168)" font-size="11" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">▼</text>
+<rect x="17.00" y="1015.69" width="297.00" height="56.00" fill="rgb(248, 249, 253)" rx="10.00"/>
+<rect x="27.00" y="1025.69" width="36.00" height="36.00" fill="rgb(232, 234, 255)" rx="8.00"/>
+<text x="27.00" y="1041.69" fill="rgb(108, 92, 231)" font-size="16" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">M</text>
+<text x="73.00" y="1039.19" fill="rgb(31, 41, 64)" font-size="12" font-weight="600" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">任务面板设计方案.md</text>
+<text x="73.00" y="1056.19" fill="rgb(138, 147, 168)" font-size="11" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">07-17 16:00</text>
+<text x="290.00" y="1043.02" fill="rgb(138, 147, 168)" font-size="13.3333" font-weight="400" font-family="Arial" text-anchor="middle">⬇</text>
+<rect x="17.00" y="1102.19" width="3.00" height="14.00" fill="rgb(52, 100, 232)" rx="1.50"/>
+<text x="30.00" y="1113.69" fill="rgb(31, 41, 64)" font-size="14" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">来源</text>
+<text x="303.11" y="1112.69" fill="rgb(138, 147, 168)" font-size="11" font-weight="700" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">▼</text>
+<rect x="17.00" y="1130.69" width="297.00" height="56.00" fill="rgb(248, 249, 253)" rx="10.00"/>
+<rect x="27.00" y="1138.69" width="40.00" height="40.00" fill="rgb(238, 241, 246)" rx="8.00"/>
+<text x="27.00" y="1152.69" fill="rgb(138, 147, 168)" font-size="14" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">🖼</text>
+<text x="77.00" y="1154.19" fill="rgb(31, 41, 64)" font-size="12" font-weight="600" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">接口权限截图.png</text>
+<text x="77.00" y="1171.19" fill="rgb(138, 147, 168)" font-size="11" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">宋贤群 · 07-16 15:42</text>
+<rect x="232.00" y="1150.69" width="72.00" height="16.00" fill="rgb(238, 241, 246)" rx="8.00"/>
+<text x="232.00" y="1160.69" fill="rgb(90, 100, 120)" font-size="10" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">已附加到对话</text>
+<rect x="17.00" y="1194.69" width="297.00" height="56.00" fill="rgb(248, 249, 253)" rx="10.00"/>
+<rect x="27.00" y="1202.69" width="40.00" height="40.00" fill="rgb(238, 241, 246)" rx="8.00"/>
+<text x="27.00" y="1216.69" fill="rgb(138, 147, 168)" font-size="14" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">📊</text>
+<text x="77.00" y="1218.19" fill="rgb(31, 41, 64)" font-size="12" font-weight="600" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">演示范围评估表.xlsx</text>
+<text x="77.00" y="1235.19" fill="rgb(138, 147, 168)" font-size="11" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">宋贤群 · 07-16 15:40</text>
+<rect x="232.00" y="1214.69" width="72.00" height="16.00" fill="rgb(238, 241, 246)" rx="8.00"/>
+<text x="232.00" y="1224.69" fill="rgb(90, 100, 120)" font-size="10" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">已附加到对话</text>
+<rect x="17.00" y="1258.69" width="297.00" height="56.00" fill="rgb(248, 249, 253)" rx="10.00"/>
+<rect x="27.00" y="1266.69" width="40.00" height="40.00" fill="rgb(238, 241, 246)" rx="8.00"/>
+<text x="27.00" y="1280.69" fill="rgb(138, 147, 168)" font-size="14" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">📄</text>
+<text x="77.00" y="1282.19" fill="rgb(31, 41, 64)" font-size="12" font-weight="600" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">Rclaw技术方案v1.docx</text>
+<text x="77.00" y="1299.19" fill="rgb(138, 147, 168)" font-size="11" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">宋贤群 · 07-15 10:18</text>
+<rect x="232.00" y="1278.69" width="72.00" height="16.00" fill="rgb(238, 241, 246)" rx="8.00"/>
+<text x="232.00" y="1288.69" fill="rgb(90, 100, 120)" font-size="10" font-weight="400" font-family="\'Microsoft YaHei\', \'PingFang SC\', Arial, sans-serif" text-anchor="start">已附加到对话</text>
+</svg>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>工作台配置差异对比</title>
+  <style>
+    :root{--blue:#4369f5;--ink:#1f2940;--muted:#7c879e;--line:#e7eaf1;--bg:#f7f8fc;--surface:#fff;--soft:#eef2ff;--accent:#3464e8}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;line-height:1.6}
+    .wrap{max-width:1120px;margin:0 auto;padding:40px 24px 60px}
+    .page-title{font-size:26px;font-weight:800;color:var(--ink);margin:0 0 8px}
+    .page-sub{font-size:14px;color:var(--muted);margin:0 0 32px}
+    .tag{display:inline-block;background:var(--soft);color:var(--accent);font-size:12px;font-weight:700;padding:3px 10px;border-radius:12px;margin-left:8px;vertical-align:middle}
+    .compare-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(42,61,109,.08)}
+    .compare-table th,.compare-table td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}
+    .compare-table thead th{background:#f5f7fb;font-weight:700;color:var(--ink);font-size:14px}
+    .compare-table thead th:first-child{width:160px}
+    .compare-table tbody tr:last-child td{border-bottom:0}
+    .compare-table .cfg-name{font-weight:700;color:var(--ink)}
+    .compare-table .has{color:#16ad69;font-weight:600}
+    .compare-table .none{color:#b0b8cc}
+    .compare-table .diff{background:#f8faff}
+    .note{font-size:12px;color:var(--muted);margin-top:4px;display:block}
+    .pill{display:inline-block;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:600;margin:1px 2px}
+    .pill.blue{background:#eaf0ff;color:#3464e8}
+    .pill.gray{background:#f0f1f5;color:#8a93a8}
+    .explain{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px}
+    .explain-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}
+    .explain-card h3{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--ink)}
+    .explain-card p{margin:0;font-size:13px;color:#4e5870}
+    .explain-card code{background:var(--soft);color:var(--accent);padding:1px 5px;border-radius:4px;font-size:12px}
+    .frame{margin-top:32px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}
+    .frame h3{margin:0 0 16px;font-size:16px;font-weight:800}
+    .frame-grid{display:grid;grid-template-columns:200px 1fr 220px;gap:12px}
+    .frame-col{border:1px dashed var(--line);border-radius:10px;padding:14px;background:#fbfcff}
+    .frame-col h4{margin:0 0 8px;font-size:13px;font-weight:700;color:var(--accent)}
+    .frame-col ul{margin:0;padding-left:18px;font-size:12px;color:#4e5870}
+    .frame-col li{margin:3px 0}
+    .frame-col .opt{color:var(--accent);font-weight:600}
+    .back-bar{text-align:center;margin-top:32px}
+    .back-bar a{display:inline-block;background:#3464e8;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:10px 24px;border-radius:10px;transition:.15s}
+    .back-bar a:hover{background:#2b56d4}
+    @media(max-width:768px){.explain{grid-template-columns:1fr}.frame-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="page-title">标准工作台配置差异对比<span class="tag">一套框架 · 三种形态</span></h1>
+  <p class="page-sub">同一套标准工作台框架，通过配置项适配「贵州白酒交易所」与「华创证券」两个业务版本。下方表格列出全部可配置项及各版本的差异，切换工作台顶部的版本按钮即可实时预览。</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr><th>配置项</th><th>标准AI工作台</th><th>贵州白酒交易所AI</th><th>华创证券AI</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="cfg-name">工作台标题<span class="note">左上角品牌名</span></td>
+        <td>标准AI工作台</td>
+        <td>贵州白酒交易所AI</td>
+        <td>华创证券AI</td>
+      </tr>
+      <tr>
+        <td class="cfg-name">工作空间按钮<span class="note">超过3个时展示前2+更多</span></td>
+        <td>7个：技能 / 任务 / 自动化 / 成果物 / 知识库 / 异常提醒 / 原子模型</td>
+        <td>5个：技能 / 任务 / 自动化 / 知识库 / 成果物</td>
+        <td>4个：任务 / 异常提醒 / 原子模型 / 成果物</td>
+      </tr>
+      <tr>
+        <td class="cfg-name">nav展示规则<span class="note">前2个直接展示，其余收进"更多"</span></td>
+        <td>前2：技能、任务<span class="note">更多：自动化、成果物、知识库、异常提醒、原子模型</span></td>
+        <td>前2：技能、任务<span class="note">更多：自动化、知识库、成果物</span></td>
+        <td>前2：任务、异常提醒<span class="note">更多：原子模型、成果物</span></td>
+      </tr>
+      <tr>
+        <td class="cfg-name">业务支持中心<span class="note">中栏顶部，可选开启</span></td>
+        <td class="none">无（关闭）</td>
+        <td class="none">无（关闭）</td>
+        <td class="has">有（8个智能体）<span class="note">资管 / 回收 / 投行 / 零售 / 销支 / 机构 / 研究 / 信用</span></td>
+      </tr>
+      <tr>
+        <td class="cfg-name">输入框加号菜单<span class="note">附件按钮升级为加号</span></td>
+        <td>附件 / 成果物文件 / 技能</td>
+        <td>附件 / 成果物文件 / 技能</td>
+        <td>附件 / 成果物文件 / 技能</td>
+      </tr>
+      <tr>
+        <td class="cfg-name">个性化按钮区<span class="note">加号右侧，按业务定制</span></td>
+        <td class="none">示例空框占位</td>
+        <td class="has">行情报价 / 交易撮合 / 仓储监管 / 会员服务</td>
+        <td class="has">待办事项(3) / 通知公告(2) / OA邮箱(5) / 智能费控(1)</td>
+      </tr>
+      <tr>
+        <td class="cfg-name">模型选择器<span class="note">发送按钮旁，三版本一致</span></td>
+        <td class="has">有</td>
+        <td class="has">有</td>
+        <td class="has">有</td>
+      </tr>
+      <tr>
+        <td class="cfg-name">右侧面板<span class="note">三版本保持一致</span></td>
+        <td>会话摘要 / 当前任务 / 成果物 / 关联原子模型 / 来源</td>
+        <td>同左</td>
+        <td>同左</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="explain">
+    <div class="explain-card">
+      <h3>配置驱动设计</h3>
+      <p>所有差异项抽象为 <code>WORKBENCH_CONFIGS</code> 配置对象（standard / jiuJiao / huaChuang 三套），页面加载与版本切换时由 <code>applyVersion()</code> 统一渲染标题、nav 按钮、业务支持中心、个性化按钮区，无需改动框架代码即可新增版本。</p>
+    </div>
+    <div class="explain-card">
+      <h3>不变项与可变项</h3>
+      <p><b>不变</b>：三栏布局、左侧工作空间与用户栏、输入框结构（加号 + AI开关 + @提及 + 模型选择 + 发送）、右侧面板模块。<br><b>可变</b>：标题、nav 按钮集合、业务支持中心、个性化按钮区，均为配置开关。</p>
+    </div>
+  </div>
+
+  <div class="frame">
+    <h3>标准工作台框架结构</h3>
+    <div class="frame-grid">
+      <div class="frame-col">
+        <h4>左栏（固定）</h4>
+        <ul>
+          <li><span class="opt">品牌标题（可配置）</span></li>
+          <li>开启新对话</li>
+          <li><span class="opt">工作空间按钮（可配置）</span></li>
+          <li>工作空间列表</li>
+          <li>用户栏 / 铃铛 / 设置</li>
+        </ul>
+      </div>
+      <div class="frame-col">
+        <h4>中栏（核心）</h4>
+        <ul>
+          <li><span class="opt">业务支持中心（可选）</span></li>
+          <li>会话头部 + 成员</li>
+          <li>会话消息流</li>
+          <li>输入框：加号菜单 + <span class="opt">个性化按钮（可配置）</span> + AI开关 + @提及 + 模型选择 + 发送</li>
+        </ul>
+      </div>
+      <div class="frame-col">
+        <h4>右栏（固定）</h4>
+        <ul>
+          <li>会话摘要</li>
+          <li>当前任务</li>
+          <li>成果物</li>
+          <li>关联原子模型</li>
+          <li>来源</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-bar"><a href="AI工作台标准版本.html">返回标准工作台体验版本切换 →</a></div>
+</div>
+</body>
+</html>
