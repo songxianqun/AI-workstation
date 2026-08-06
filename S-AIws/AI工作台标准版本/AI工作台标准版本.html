@@ -1129,6 +1129,7 @@
 
 <!-- 消息通知已移至右侧面板 -->
 
+<script src="avatar-data.js"></script>
 <script>
 
 /* ========== 工作台版本配置（标准/酒交/华创） ========== */
@@ -1203,14 +1204,14 @@ const WORKBENCH_CONFIGS = {
       {name:'原子模型',icon:'atom'},{name:'成果物',icon:'deliver'}
     ],
     supportCenters: [
-      {name:'投行业务助理',img:'images/Avatar1.png',prompts:['帮我梳理IPO申报材料清单','分析近期投行项目合规风险','生成债券发行方案概要','整理投行客户服务指引','汇总近期市场发行情况']},
-      {name:'资管业务助理',img:'images/Avatar2.png',prompts:['汇总资管产品净值变动','生成资管季度报告模板','分析产品持仓集中度','整理资管新规影响分析']},
-      {name:'零售业务助理',img:'images/Avatar3.png',prompts:['统计零售客户活跃度','生成客户经理考核表','推送本月理财产品推荐','分析客户流失风险','生成零售业务周报']},
-      {name:'投资业务助理',img:'images/Avatar4.png',prompts:['分析自营盘持仓敞口','生成投资策略日报','回溯本周交易异常','整理投资授权清单']},
-      {name:'销交业务助理',img:'images/Avatar5.png',prompts:['汇总沪深交易量','生成佣金收入月报','分析客户交易偏好','推送交易所通知公告','生成销交业务简报']},
-      {name:'机构业务助理',img:'images/Avatar6.png',prompts:['梳理机构客户名录','生成定制化服务方案','统计机构资金流向','整理机构客户需求']},
-      {name:'研究业务助理',img:'images/Avatar8.png',prompts:['生成行业研报摘要','汇总宏观数据要点','整理本周策略观点','提炼可转发客户的研报观点','生成研究周报']},
-      {name:'信用业务助理',img:'images/Avatar9.png',prompts:['审查信用债发行资质','生成主体评级报告','分析信用利差走势','整理信用风险预警','生成信用月报']}
+      {name:'投行业务助理',img:'Avatar1',prompts:['帮我梳理IPO申报材料清单','分析近期投行项目合规风险','生成债券发行方案概要','整理投行客户服务指引','汇总近期市场发行情况']},
+      {name:'资管业务助理',img:'Avatar2',prompts:['汇总资管产品净值变动','生成资管季度报告模板','分析产品持仓集中度','整理资管新规影响分析']},
+      {name:'零售业务助理',img:'Avatar3',prompts:['统计零售客户活跃度','生成客户经理考核表','推送本月理财产品推荐','分析客户流失风险','生成零售业务周报']},
+      {name:'投资业务助理',img:'Avatar4',prompts:['分析自营盘持仓敞口','生成投资策略日报','回溯本周交易异常','整理投资授权清单']},
+      {name:'销交业务助理',img:'Avatar5',prompts:['汇总沪深交易量','生成佣金收入月报','分析客户交易偏好','推送交易所通知公告','生成销交业务简报']},
+      {name:'机构业务助理',img:'Avatar6',prompts:['梳理机构客户名录','生成定制化服务方案','统计机构资金流向','整理机构客户需求']},
+      {name:'研究业务助理',img:'Avatar8',prompts:['生成行业研报摘要','汇总宏观数据要点','整理本周策略观点','提炼可转发客户的研报观点','生成研究周报']},
+      {name:'信用业务助理',img:'Avatar9',prompts:['审查信用债发行资质','生成主体评级报告','分析信用利差走势','整理信用风险预警','生成信用月报']}
     ],
     composerPlusMenu: [
       {name:'附件',icon:'attach',action:'attach',separator:'bottom'},
@@ -1578,7 +1579,7 @@ function renderSupportCenters(cfg) {
   bar.classList.remove('placeholder');
   list.innerHTML = centers.map((c, i) =>
     '<div class="sc-card' + (i === 4 ? ' active' : '') + '" onclick="selectSupportCenter(this,\'' + c.name + '\')">' +
-    (c.img ? '<img class="sc-avatar-img" src="' + c.img + '" alt="' + c.name + '">' : '<span class="sc-avatar" style="background:' + c.color + '">' + c.initial + '</span>') +
+    (c.img ? '<img class="sc-avatar-img" src="' + (AVATAR_DATA[c.img] || c.img) + '" alt="' + c.name + '">' : '<span class="sc-avatar" style="background:' + c.color + '">' + c.initial + '</span>') +
     '<span class="sc-name">' + c.name + '</span></div>'
   ).join('');
 }
@@ -1683,7 +1684,14 @@ function renderComposerActions(cfg) {
     (ACTION_ICONS[a.icon] || '') + a.name +
     (a.badge ? '<span class="chip-badge">' + a.badge + '</span>' : '') +
     '</span>'
-  ).join('');
+  ).join('') +
+    '<div class="action-more-wrap"><span class="action-more-btn" onclick="toggleActionMore(event)">更多<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>' +
+    '<div class="action-more-dropdown" id="actionMoreDropdown">' +
+    '<div class="action-more-item">自定义入口</div>' +
+    '<div class="action-more-item">自定义入口</div>' +
+    '<div class="action-more-sep"></div>' +
+    '<div class="action-more-item manage" onclick="manageCustomEntries()">自定义入口管理</div>' +
+    '</div></div>';
 }
 
 function composerAction(name) { showToast(name); }
