@@ -106,6 +106,14 @@
     .atom-model-name{font-size:12px;font-weight:600;color:#1f2940}
     .atom-model-desc{font-size:11px;color:#8a93a8;margin-top:2px}
     .atom-model-empty{font-size:12px;color:#8a93a8;padding:8px 0}
+    /* AI回复中的原子模型引用标签 */
+    .atom-ref-section{margin-top:10px;padding-top:8px;border-top:1px dashed #e0e6f0}
+    .atom-ref-label{font-size:11px;color:#8a93a8;margin-bottom:6px;display:flex;align-items:center;gap:4px}
+    .atom-ref-label svg{width:12px;height:12px;color:#6c5ce7}
+    .atom-ref-tags{display:flex;flex-wrap:wrap;gap:5px}
+    .atom-ref-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;background:linear-gradient(135deg,#f0edff,#e8f0ff);border:1px solid #d4c5ff;font-size:11px;color:#5a4dba;cursor:pointer;transition:.15s;white-space:nowrap}
+    .atom-ref-tag:hover{background:linear-gradient(135deg,#e8e0ff,#dce8ff);border-color:#b89aff;box-shadow:0 2px 8px rgba(108,92,231,.15)}
+    .atom-ref-tag .atom-tag-icon{width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#6c5ce7,#4d70f5);display:grid;place-items:center;color:#fff;font-size:8px;font-weight:700;flex-shrink:0}
     .source-card{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:#f8f9fd;cursor:pointer;transition:.15s}.source-card:hover{background:#f0f3fa}
     .source-thumb{width:40px;height:40px;border-radius:8px;background:#eef1f6;display:grid;place-items:center;font-size:14px;flex-shrink:0;overflow:hidden;color:#8a93a8}.source-thumb img{width:100%;height:100%;object-fit:cover;border-radius:8px}
     .source-info{flex:1;min-width:0}
@@ -664,7 +672,56 @@
     .action-chip .chip-badge{min-width:16px;height:16px;border-radius:8px;background:#e34;color:#fff;font-size:9px;font-weight:700;display:grid;place-items:center;padding:0 4px;margin-left:2px}
     .action-chip.empty{border-style:dashed;color:#b0b8cc;cursor:default}
     .action-chip.empty:hover{border-color:#d8dce8;color:#b0b8cc;background:transparent}
-    
+    /* ===== 自定义入口"更多"下拉 ===== */
+    .custom-more-wrap{position:relative;display:inline-flex}
+    .custom-more-chip{display:inline-flex;align-items:center;gap:5px;border:1px solid #e0e6f0;background:#fff;border-radius:16px;padding:5px 11px;font-size:12px;color:#5a6478;cursor:pointer;transition:.15s;font-weight:500;white-space:nowrap}
+    .custom-more-chip:hover{border-color:#b9c4d8;background:#f8f9ff;color:#3464e8}
+    .custom-more-chip svg{width:14px;height:14px}
+    .custom-more-dropdown{display:none;position:absolute;bottom:calc(100% + 6px);right:0;min-width:180px;background:#fff;border:1px solid #e8ebf0;border-radius:12px;box-shadow:0 10px 30px rgba(30,45,80,.14);z-index:60;padding:6px 0}
+    .custom-more-dropdown.show{display:block}
+    .custom-more-item{display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:13px;color:#343e55;cursor:pointer;transition:.12s;border-radius:6px;margin:0 6px}
+    .custom-more-item:hover{background:#f4f6fb;color:#3464e8}
+    .custom-more-item svg{width:16px;height:16px;color:#5a6478}.custom-more-item:hover svg{color:#3464e8}
+    .custom-more-sep{height:1px;background:#eef0f4;margin:4px 6px}
+    .custom-more-manage{display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:13px;color:#5a6478;cursor:pointer;transition:.12s;border-radius:6px;margin:0 6px;font-weight:500}
+    .custom-more-manage:hover{background:#f4f6fb;color:#3464e8}
+    .custom-more-manage svg{width:16px;height:16px}
+    /* ===== 自定义入口管理弹窗 ===== */
+    .entry-modal{width:560px;max-width:92vw;max-height:80vh;display:flex;flex-direction:column}
+    .entry-modal-header{padding:18px 24px 14px;border-bottom:1px solid #eef0f5}
+    .entry-modal-title{font-size:16px;font-weight:700;color:#1f2940}
+    .entry-modal-sub{font-size:12px;color:#8a93a8;margin-top:4px;line-height:1.6}
+    .entry-modal-body{flex:1;overflow-y:auto;padding:14px 24px}
+    .entry-list{display:flex;flex-direction:column;gap:8px}
+    .entry-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e8ebf0;border-radius:10px;background:#fafbfc;transition:.15s}
+    .entry-row:hover{border-color:#c0c8d8;background:#f8f9ff}
+    .entry-row-icon{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#eef1f6;color:#5a6478;flex-shrink:0}
+    .entry-row-icon svg{width:16px;height:16px}
+    .entry-row-drag{color:#bdc5d3;cursor:grab;font-size:14px}
+    .entry-row-name{flex:1;font-size:13px;font-weight:600;color:#1f2940}
+    .entry-row-actions{display:flex;gap:6px}
+    .entry-btn{width:28px;height:28px;border-radius:6px;border:1px solid #e0e6f0;background:#fff;color:#5a6478;cursor:pointer;display:grid;place-items:center;transition:.15s;font-size:13px;padding:0}
+    .entry-btn:hover{background:#f0f3fa;color:#3464e8;border-color:#a4b8f0}
+    .entry-btn.danger:hover{background:#fef2f2;color:#e34;border-color:#f0b4b4}
+    .entry-btn:disabled{opacity:.4;cursor:not-allowed}
+    .entry-empty{padding:24px;text-align:center;color:#9aa2b5;font-size:13px}
+    .entry-modal-footer{padding:14px 24px;border-top:1px solid #eef0f5;display:flex;justify-content:space-between;align-items:center}
+    .entry-add-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:8px;border:1px dashed #b9c4d8;background:#f8f9ff;color:#3464e8;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
+    .entry-add-btn:hover{background:#eef3ff;border-color:#3464e8}
+    .entry-add-btn:disabled{opacity:.5;cursor:not-allowed}
+    .entry-tips{font-size:11px;color:#9aa2b5}
+    /* 入口编辑子表单 */
+    .entry-edit-form{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px solid #d0d8e8;border-radius:10px;background:#f8f9ff;margin-bottom:8px}
+    .entry-edit-row{display:flex;align-items:center;gap:10px}
+    .entry-edit-label{font-size:12px;font-weight:600;color:#5a6478;width:50px;flex-shrink:0}
+    .entry-edit-input{flex:1;border:1px solid #dce1e8;border-radius:8px;padding:7px 10px;font-size:13px;color:#1f2940;outline:0;transition:.15s}
+    .entry-edit-input:focus{border-color:#3464e8;box-shadow:0 0 0 3px rgba(52,100,232,.1)}
+    .entry-icon-picker{display:flex;gap:6px;flex-wrap:wrap}
+    .entry-icon-option{width:32px;height:32px;border-radius:8px;border:1px solid #dce1e8;background:#fff;display:grid;place-items:center;color:#5a6478;cursor:pointer;transition:.15s}
+    .entry-icon-option:hover{border-color:#b9c4d8;background:#f0f3fa}
+    .entry-icon-option.selected{border-color:#3464e8;background:#eef3ff;color:#3464e8}
+    .entry-icon-option svg{width:16px;height:16px}
+    .entry-edit-actions{display:flex;gap:8px;justify-content:flex-end}
   </style>
 </head>
 <body>
@@ -1178,33 +1235,12 @@
           <div class="dir-section-title">
             <span class="dir-section-line"></span>
             <span>关联原子模型</span>
+            <span class="deliverable-count-badge" id="atomModelCount">0</span>
           </div>
           <span class="dir-chevron">▼</span>
         </div>
         <div class="dir-section-body">
-          <div class="atom-model-list">
-            <div class="atom-model-item" onclick="showToast('打开原子模型: 客户意向评估模型')">
-              <span class="atom-model-icon">原</span>
-              <div>
-                <div class="atom-model-name">客户意向评估模型</div>
-                <div class="atom-model-desc">基于客户对话记录分析意向程度</div>
-              </div>
-            </div>
-            <div class="atom-model-item" onclick="showToast('打开原子模型: 产品对比决策模型')">
-              <span class="atom-model-icon">原</span>
-              <div>
-                <div class="atom-model-name">产品对比决策模型</div>
-                <div class="atom-model-desc">多维度产品方案对比与风险评估</div>
-              </div>
-            </div>
-            <div class="atom-model-item" onclick="showToast('打开原子模型: 会议纪要生成模型')">
-              <span class="atom-model-icon">原</span>
-              <div>
-                <div class="atom-model-name">会议纪要生成模型</div>
-                <div class="atom-model-desc">自动提炼会议要点与待办事项</div>
-              </div>
-            </div>
-          </div>
+          <div class="atom-model-list" id="atomModelList"></div>
         </div>
       </div>
       <!-- 来源 -->
@@ -1429,6 +1465,27 @@
   </div>
 </div>
 
+<!-- 自定义入口管理弹窗 -->
+<div class="modal-overlay" id="entryManageOverlay" onclick="if(event.target===this)closeEntryManageModal()">
+  <div class="modal entry-modal">
+    <button class="modal-close" onclick="closeEntryManageModal()">×</button>
+    <div class="entry-modal-header">
+      <div class="entry-modal-title">自定义入口管理</div>
+      <div class="entry-modal-sub">管理输入框右侧的自定义入口，最多可配置 12 个，前 4 个直接显示，其余在"更多"中展开。</div>
+    </div>
+    <div class="entry-modal-body">
+      <div class="entry-list" id="entryList"></div>
+    </div>
+    <div class="entry-modal-footer">
+      <button class="entry-add-btn" id="entryAddBtn" onclick="startAddEntry()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        添加入口
+      </button>
+      <span class="entry-tips" id="entryTips">共 0 个入口</span>
+    </div>
+  </div>
+</div>
+
 <!-- 消息通知已移至右侧面板 -->
 
 <script>// Auto-generated avatar data URIs (base64 encoded)
@@ -1481,7 +1538,8 @@ const WORKBENCH_CONFIGS = {
       {name:'技能',icon:'skill',action:'skill'},
       {name:'任务',icon:'task',action:'task'}
     ],
-    composerActions: []
+    composerActions: [],
+    showMoreEntry: true
   },
   jiuJiao: {
     label:'酒交', title:'贵州白酒交易所AI', subtitle:'智能协作系统',
@@ -1501,7 +1559,8 @@ const WORKBENCH_CONFIGS = {
     composerActions: [
       {name:'行情报价',icon:'chart'},{name:'交易撮合',icon:'trade'},
       {name:'仓储监管',icon:'warehouse'},{name:'会员服务',icon:'member'}
-    ]
+    ],
+    showMoreEntry: false
   },
   huaChuang: {
     label:'华创', title:'华创证券AI', subtitle:'智能协作系统',
@@ -1531,10 +1590,79 @@ const WORKBENCH_CONFIGS = {
       {name:'通知公告',icon:'notice',badge:2,prompt:'帮我查看最新通知公告，摘要展示重点内容，并标注需我关注或处理的事项',reply:'为您筛选最新通知公告 5 条，摘要如下：<br><br>📌 <b>【重要】关于启用华创证券AI工作台的通知</b><br>发布部门：信息技术总部 | 2025-08-08<br>重点：工作台将于8月10日正式上线，请各部门完成账号激活和权限配置。<br>→ <b>需您关注</b>：请在 8/9 前完成个人账号激活<br><br>📌 <b>【通知】关于多租户数据隔离方案评审</b><br>发布部门：合规风控部 | 2025-08-07<br>重点：多租户权限与数据隔离方案已通过初审，定于8月12日进行终审。<br>→ <b>需您处理</b>：准备评审材料并确认参会<br><br>📌 <b>【公告】8月信息系统维护计划</b><br>发布部门：运维中心 | 2025-08-06<br>重点：8/15 22:00-次日02:00 系统升级维护，期间部分功能不可用。<br><br>📌 <b>【通知】关于规范飞书文档使用流程的提示</b><br>发布部门：行政办公室 | 2025-08-05<br><br>📌 <b>【公告】新员工入职系统操作培训安排</b><br>发布部门：人力资源部 | 2025-08-03<br><br>以上公告中，前2条需您在本周内处理。'},
       {name:'OA邮箱',icon:'mail',badge:5,prompt:'帮我查看OA邮箱未读邮件，按紧急程度排列，列出邮件主题、发件人和关键摘要',reply:'为您查询到 OA 邮箱未读邮件共 12 封，按紧急程度排列：<br><br>🔴 <b>紧急（3封）</b><br>1. 【需审批】关于华创工作台二期预算审批的请示<br>发件人：财务部-张明 | 08/09 09:30<br>摘要：二期开发预算申请￥86万，含智能费控、会话摘要等模块，请于8/12前审批。<br><br>2. 【需回复】多租户权限方案终审会议通知<br>发件人：合规风控部-李芳 | 08/08 16:00<br>摘要：定于8/12 14:00召开终审会议，请确认参会并准备材料。<br><br>3. 【需确认】飞书文档权限调整申请<br>发件人：信息技术部-王强 | 08/08 14:20<br>摘要：申请将需求文档对全员开放只读权限，请确认。<br><br>🟡 <b>重要（5封）</b><br>4. 协作会话功能测试问题汇总 - 宋贤群 | 08/07<br>5. 8月版本迭代计划征求意见 - 项目管理部 | 08/07<br>6. 关于工作台命名规范统一的建议 - 产品部-陈静 | 08/06<br>7. 智能费控接口联调进展周报 - 研发部-刘伟 | 08/06<br>8. 会话摘要功能方案反馈 - 测试组-赵敏 | 08/05<br><br>🟢 <b>普通（4封，已折叠）</b><br>系统通知、培训邀请、行政通知等<br><br>建议优先处理前3封紧急邮件。'},
       {name:'智能费控',icon:'fee',badge:1,prompt:'帮我查看智能费控相关审批流程，展示待我审批的费用申请及本月费用统计概览',reply:'为您查询智能费控相关流程，当前状态如下：<br><br>📋 <b>待我审批（3项）</b><br>1. 差旅费报销 - 申请金额￥3,280<br>申请人：宋贤群 | 提交：08/08 | 用途：北京客户拜访<br>状态：待审批 | 截止：08/11<br><br>2. 团队建设费用申请 - 申请金额￥8,500<br>申请人：产品部-陈静 | 提交：08/07 | 用途：Q3团建活动<br>状态：待审批 | 截止：08/10<br><br>3. 设备采购申请 - 申请金额￥12,000<br>申请人：研发部-刘伟 | 提交：08/06 | 用途：2台开发用显示器<br>状态：待审批 | 截止：08/09<br><br>📊 <b>本月费用统计概览</b><br>本月已审批总额：￥45,680<br>待审批总额：￥23,780<br>预算使用率：57.1%（月度预算￥80,000）<br>同比上月：+12.3%<br><br>⚠️ 提醒：第3项设备采购审批将于明天到期，建议优先处理。'}
-    ]
+    ],
+    showMoreEntry: false
   }
 };
 let currentVersion = 'standard';
+
+/* ========== 自定义入口数据（标准版专用） ========== */
+const ENTRY_ICON_SET = Object.assign({}, ACTION_ICONS, NAV_ICONS);
+let customEntries = [];
+let entryEditingId = null; // null=未编辑 'new'=新增 id=编辑已有
+
+/* ========== 华创版原子模型引用数据 ========== */
+// 每个 composerAction 名称对应的原子模型引用列表
+const ATOM_MODELS_BY_ACTION = {
+  '待办事项': [
+    {name:'任务优先级评估模型', desc:'基于任务紧急度与重要度双维度评估优先级'},
+    {name:'工作流程编排模型', desc:'分析任务依赖关系与最优执行路径'}
+  ],
+  '通知公告': [
+    {name:'信息摘要提取模型', desc:'从公告文本中自动提取核心要点'},
+    {name:'关键事项标注模型', desc:'识别需用户关注或处理的事项并标注'}
+  ],
+  'OA邮箱': [
+    {name:'邮件分类与优先级模型', desc:'按紧急程度和业务类型对邮件分类排序'},
+    {name:'邮件内容摘要模型', desc:'自动生成邮件关键内容摘要'}
+  ],
+  '智能费控': [
+    {name:'费用审批流程模型', desc:'管理费用申请的审批流转与风险控制'},
+    {name:'预算分析模型', desc:'分析预算使用率与趋势，预警超支风险'}
+  ]
+};
+// 华创版自由对话默认引用的原子模型
+const HUACHUANG_DEFAULT_ATOM_MODELS = [
+  {name:'业务知识推理模型', desc:'基于华创证券业务知识库进行语义推理'},
+  {name:'合规风险校验模型', desc:'校验回复内容的合规性与风险边界'}
+];
+// 标准版/酒交版初始展示的原子模型
+const DEFAULT_ATOM_MODELS = [
+  {name:'客户意向评估模型', desc:'基于客户对话记录分析意向程度'},
+  {name:'产品对比决策模型', desc:'多维度产品方案对比与风险评估'},
+  {name:'会议纪要生成模型', desc:'自动提炼会议要点与待办事项'}
+];
+// 右侧面板当前会话引用的原子模型列表（动态更新）
+let currentAtomModels = [];
+
+/* ========== 右侧面板原子模型动态渲染 ========== */
+function renderAtomModels(models) {
+  currentAtomModels = models || [];
+  var listEl = $('atomModelList');
+  var countEl = $('atomModelCount');
+  if (!listEl) return;
+  if (countEl) countEl.textContent = currentAtomModels.length;
+  if (!currentAtomModels.length) {
+    listEl.innerHTML = '<div class="atom-model-empty">暂无关联原子模型</div>';
+    return;
+  }
+  var html = currentAtomModels.map(function(m) {
+    return '<div class="atom-model-item" onclick="showToast(\'查看原子模型: ' + m.name + '\')" title="' + m.desc + '">' +
+      '<span class="atom-model-icon">原</span>' +
+      '<div><div class="atom-model-name">' + m.name + '</div>' +
+      '<div class="atom-model-desc">' + m.desc + '</div></div></div>';
+  }).join('');
+  listEl.innerHTML = html;
+}
+
+function addAtomModelsToPanel(newModels) {
+  if (!newModels || !newModels.length) return;
+  newModels.forEach(function(m) {
+    var exists = currentAtomModels.some(function(c) { return c.name === m.name; });
+    if (!exists) currentAtomModels.push({name: m.name, desc: m.desc});
+  });
+  renderAtomModels(currentAtomModels);
+}
 
 /* ========== 左侧栏数据与渲染 ========== */
 let activeChatId = 'chat-630';
@@ -1832,13 +1960,66 @@ function applyVersion(ver) {
   renderSupportCenters(cfg);
   renderComposerActions(cfg);
   renderPlusMenu(cfg);
+  const cmd = $('customMoreDropdown');
+  if (cmd) cmd.classList.remove('show');
   document.querySelectorAll('.vs-option').forEach(o => o.classList.toggle('active', o.dataset.ver === ver));
   const vsdd = $('vsDropdown');
   if (vsdd) vsdd.classList.remove('show');
   const vst = $('vsTrigger');
   if (vst) vst.classList.remove('open');
-  resetNewChatView();
+  // 原子模型面板：华创版清空等待动态填充，其他版本显示默认模型
+  if (ver === 'huaChuang') {
+    renderAtomModels([]);
+    initHuaChuangDemo();
+  } else {
+    renderAtomModels(DEFAULT_ATOM_MODELS.slice());
+    resetNewChatView();
+  }
   updateAICards();
+}
+
+/* 华创版演示会话：展示原子模型引用 */
+function initHuaChuangDemo() {
+  // 退出新会话视图，进入对话模式
+  $('chatMain').classList.remove('new-chat-mode');
+  // 切换到单人模式
+  sessionMode = 'solo';
+  messages.classList.add('hide');
+  soloMessages.classList.remove('hide');
+  // 清空并填充演示会话
+  soloMessages.innerHTML = '<div class="system"><span>与 AI 智能体对话 · 由「华创证券 AI」回复</span></div>';
+
+  // 演示：用户提问 + AI回复（带原子模型标签）
+  var demoQ = '帮我梳理近期投行项目的合规风险要点';
+  var demoR = '基于投行业务知识模型和合规风险校验模型的分析，近期投行项目的主要合规风险点如下：<br><br>' +
+    '1. <b>IPO申报材料完整性风险</b>：近期申报项目中，部分招股说明书对关联交易披露不够充分，需补充关联方资金往来明细。<br><br>' +
+    '2. <b>债券发行合规风险</b>：某债券发行项目中，承销协议条款与监管要求存在差异，建议法务部复核协议条款。<br><br>' +
+    '3. <b>投资者适当性管理</b>：非公开发行项目中，部分合格投资者认定材料缺少资产证明文件，需补充完善。<br><br>' +
+    '4. <b>信息披露及时性</b>：存量项目中，有2个项目的信息披露存在滞后情况，建议建立披露提醒机制。<br><br>' +
+    '建议优先处理第1、2项风险，我可以协助您制定具体的整改方案。';
+  var demoModels = [
+    {name:'投行业务知识模型', desc:'基于投行业务规则与案例库进行风险识别'},
+    {name:'合规风险校验模型', desc:'校验业务流程与监管要求的合规性'}
+  ];
+
+  appendHuman(demoQ, soloMessages);
+  appendAI(demoQ, null, soloMessages, demoR, demoModels);
+  addAtomModelsToPanel(demoModels);
+
+  // 更新UI状态
+  aiOn = true;
+  sendBtn.classList.add('ai');
+  composer.classList.add('ai-on');
+  toggle.classList.add('hide');
+  if(atBtnText) atBtnText.textContent = '@智能体';
+  input.placeholder = '向「华创证券 AI」提问……';
+  // 更新标题栏
+  var st = $('sessionTitle');
+  if (st) st.textContent = '投行项目合规风险梳理';
+  var mp = $('modePill');
+  if (mp) { mp.textContent = '● AI 对话'; mp.style.background = '#eaf0ff'; mp.style.color = '#3464e8'; }
+  var pb = $('peopleBar');
+  if (pb) pb.innerHTML = '<span class="solo-badge">✦ 华创证券 AI</span>';
 }
 
 function renderNav(cfg) {
@@ -2166,6 +2347,44 @@ function showPlaceholderPrompts(el) {
 function renderComposerActions(cfg) {
   const el = $('composerActions');
   if (!el) return;
+
+  /* 标准版：自定义入口 + 更多 + 入口管理 */
+  if (cfg.showMoreEntry) {
+    const entries = customEntries || [];
+    const MAX_VISIBLE = 4;
+    const visible = entries.slice(0, MAX_VISIBLE);
+    const more = entries.slice(MAX_VISIBLE);
+    let html = '';
+    visible.forEach(a => {
+      html += '<span class="action-chip" onclick="composerAction(\'' + a.name + '\')">' +
+        (ACTION_ICONS[a.icon] || '') + a.name + '</span>';
+    });
+    /* 不足4个时补占位 */
+    const emptySlots = MAX_VISIBLE - visible.length;
+    if (emptySlots > 0) {
+      html += '<span class="action-chip empty">自定义入口</span>'.repeat(emptySlots);
+    }
+    /* 更多按钮 */
+    html += '<div class="custom-more-wrap"><span class="custom-more-chip" onclick="toggleCustomMore(event)">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>更多</span>' +
+      '<div class="custom-more-dropdown" id="customMoreDropdown">';
+    if (more.length === 0) {
+      html += '<div class="custom-more-item" onclick="openEntryManageModal()">自定义入口</div>';
+    } else {
+      more.forEach(a => {
+        html += '<div class="custom-more-item" onclick="customEntryClick(\'' + a.name + '\')">' +
+          (ACTION_ICONS[a.icon] || '') + a.name + '</div>';
+      });
+      html += '<div class="custom-more-sep"></div>';
+    }
+    html += '<div class="custom-more-manage" onclick="openEntryManageModal()">' +
+      settingsSvg + '入口管理</div>';
+    html += '</div></div>';
+    el.innerHTML = html;
+    return;
+  }
+
+  /* 酒交/华创：按配置渲染，无“更多” */
   const actions = cfg.composerActions || [];
   if (!actions.length) {
     el.innerHTML = '<span class="action-chip empty">自定义入口</span>'.repeat(4);
@@ -2191,6 +2410,157 @@ function composerAction(name) {
     }
   }
   showToast(name);
+}
+
+/* ========== 自定义入口“更多”下拉与入口管理 ========== */
+function toggleCustomMore(e) {
+  if (e) e.stopPropagation();
+  const dd = $('customMoreDropdown');
+  if (dd) dd.classList.toggle('show');
+}
+
+function customEntryClick(name) {
+  const dd = $('customMoreDropdown');
+  if (dd) dd.classList.remove('show');
+  composerAction(name);
+}
+
+function openEntryManageModal() {
+  const dd = $('customMoreDropdown');
+  if (dd) dd.classList.remove('show');
+  entryEditingId = null;
+  renderEntryList();
+  $('entryManageOverlay').classList.add('show');
+}
+
+function closeEntryManageModal() {
+  $('entryManageOverlay').classList.remove('show');
+  entryEditingId = null;
+}
+
+function renderEntryList() {
+  const el = $('entryList');
+  if (!el) return;
+  const tips = $('entryTips');
+  if (tips) tips.textContent = '共 ' + customEntries.length + ' 个入口';
+  const addBtn = $('entryAddBtn');
+  if (addBtn) addBtn.disabled = customEntries.length >= 12;
+
+  let html = '';
+  if (entryEditingId === 'new') {
+    html += renderEntryEditForm(null);
+  }
+  if (customEntries.length === 0 && entryEditingId !== 'new') {
+    el.innerHTML = '<div class="entry-empty">暂无自定义入口，点击下方“添加入口”创建</div>';
+    return;
+  }
+  customEntries.forEach((a, i) => {
+    if (entryEditingId === a.id) {
+      html += renderEntryEditForm(a);
+    } else {
+      html += renderEntryRow(a, i);
+    }
+  });
+  el.innerHTML = html;
+}
+
+function renderEntryRow(a, i) {
+  return '<div class="entry-row">' +
+    '<span class="entry-row-drag">≡</span>' +
+    '<span class="entry-row-icon">' + (ENTRY_ICON_SET[a.icon] || '') + '</span>' +
+    '<span class="entry-row-name">' + a.name + '</span>' +
+    '<div class="entry-row-actions">' +
+      '<button class="entry-btn" onclick="moveEntry(\'' + a.id + '\',-1)"' + (i === 0 ? ' disabled' : '') + ' title="上移">↑</button>' +
+      '<button class="entry-btn" onclick="moveEntry(\'' + a.id + '\',1)"' + (i === customEntries.length - 1 ? ' disabled' : '') + ' title="下移">↓</button>' +
+      '<button class="entry-btn" onclick="startEditEntry(\'' + a.id + '\')" title="编辑">✎</button>' +
+      '<button class="entry-btn danger" onclick="deleteEntry(\'' + a.id + '\')" title="删除">🗑</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderEntryEditForm(a) {
+  const name = a ? a.name : '';
+  const icon = a ? a.icon : 'chart';
+  let iconHtml = '';
+  Object.keys(ENTRY_ICON_SET).forEach(key => {
+    iconHtml += '<div class="entry-icon-option' + (key === icon ? ' selected' : '') + '" data-icon="' + key + '" onclick="selectEntryIcon(this)">' + ENTRY_ICON_SET[key] + '</div>';
+  });
+  return '<div class="entry-edit-form" id="entryEditForm">' +
+    '<div class="entry-edit-row">' +
+      '<span class="entry-edit-label">名称</span>' +
+      '<input type="text" class="entry-edit-input" id="entryNameInput" placeholder="入口名称（最多10字）" value="' + name + '" maxlength="10">' +
+    '</div>' +
+    '<div class="entry-edit-row">' +
+      '<span class="entry-edit-label">图标</span>' +
+      '<div class="entry-icon-picker" id="entryIconPicker">' + iconHtml + '</div>' +
+    '</div>' +
+    '<div class="entry-edit-actions">' +
+      '<button class="btn-cancel" onclick="cancelEntryEdit()">取消</button>' +
+      '<button class="btn-confirm" onclick="saveEntryEdit(' + (a ? "'" + a.id + "'" : 'null') + ')">确定</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function startAddEntry() {
+  if (customEntries.length >= 12) { showToast('最多可配置12个自定义入口'); return; }
+  entryEditingId = 'new';
+  renderEntryList();
+  setTimeout(() => { const inp = $('entryNameInput'); if (inp) inp.focus(); }, 50);
+}
+
+function startEditEntry(id) {
+  entryEditingId = id;
+  renderEntryList();
+  setTimeout(() => { const inp = $('entryNameInput'); if (inp) inp.focus(); }, 50);
+}
+
+function cancelEntryEdit() {
+  entryEditingId = null;
+  renderEntryList();
+}
+
+function selectEntryIcon(el) {
+  document.querySelectorAll('.entry-icon-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function saveEntryEdit(editId) {
+  const name = $('entryNameInput').value.trim();
+  if (!name) { showToast('请输入入口名称'); return; }
+  const selected = document.querySelector('.entry-icon-option.selected');
+  const icon = selected ? selected.dataset.icon : 'chart';
+  if (!editId) {
+    /* 新增 */
+    if (customEntries.length >= 12) { showToast('最多可配置12个自定义入口'); return; }
+    customEntries.push({ id: 'ce-' + Date.now(), name: name, icon: icon });
+  } else {
+    /* 编辑 */
+    const entry = customEntries.find(e => e.id === editId);
+    if (entry) { entry.name = name; entry.icon = icon; }
+  }
+  entryEditingId = null;
+  renderEntryList();
+  renderComposerActions(WORKBENCH_CONFIGS[currentVersion]);
+}
+
+function deleteEntry(id) {
+  const idx = customEntries.findIndex(e => e.id === id);
+  if (idx >= 0) {
+    customEntries.splice(idx, 1);
+    renderEntryList();
+    renderComposerActions(WORKBENCH_CONFIGS[currentVersion]);
+  }
+}
+
+function moveEntry(id, dir) {
+  const idx = customEntries.findIndex(e => e.id === id);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= customEntries.length) return;
+  const tmp = customEntries[idx];
+  customEntries[idx] = customEntries[newIdx];
+  customEntries[newIdx] = tmp;
+  renderEntryList();
+  renderComposerActions(WORKBENCH_CONFIGS[currentVersion]);
 }
 
 
@@ -3231,6 +3601,10 @@ document.addEventListener('click', function(e) {
     const nd = $('navMoreDropdown');
     if (nd) nd.classList.remove('show');
   }
+  if (!e.target.closest('.custom-more-wrap')) {
+    const cmd = $('customMoreDropdown');
+    if (cmd) cmd.classList.remove('show');
+  }
 
   if (!e.target.closest('.info-toggle') && !e.target.closest('.framework-popup')) {
     const fp = $('frameworkPopup');
@@ -3714,15 +4088,28 @@ function sendMessage() {
 
   if (willAI) {
     var customReply = '';
+    var atomModels = null;
     var cfg = WORKBENCH_CONFIGS[currentVersion];
     if (cfg && cfg.composerActions) {
       var action = cfg.composerActions.find(function(a) { return a.prompt === text; });
       if (action && action.reply) {
         customReply = action.reply;
+        // 华创版：根据 action 名称查找关联的原子模型
+        if (ATOM_MODELS_BY_ACTION[action.name]) {
+          atomModels = ATOM_MODELS_BY_ACTION[action.name];
+        }
       }
     }
+    // 华创版自由对话：使用默认原子模型
+    if (!atomModels && currentVersion === 'huaChuang') {
+      atomModels = HUACHUANG_DEFAULT_ATOM_MODELS;
+    }
     setTimeout(() => {
-      appendAI(text, null, targetMsgs, customReply);
+      appendAI(text, null, targetMsgs, customReply, atomModels);
+      // 更新右侧面板的关联原子模型
+      if (atomModels && atomModels.length) {
+        addAtomModelsToPanel(atomModels);
+      }
       targetMsgs.scrollTop = targetMsgs.scrollHeight;
     }, 300);
   }
@@ -3784,14 +4171,26 @@ function getAIAvatarHTML(agentName) {
   return { name: name, avatarInner: avatarInner };
 }
 
-function appendAI(question, extraContext, target, customReply) {
+function appendAI(question, extraContext, target, customReply, atomModels) {
   const t = target || (sessionMode === 'solo' ? soloMessages : messages);
   const ai = getAIAvatarHTML(selectedAgent);
   const agentName = ai.name;
   const aiReply = customReply || '我已结合当前会话中的方案、成员意见和待推进事项进行分析。建议先明确负责人和验证时间，再将结果同步到会话摘要。';
   var replyText = aiReply.replace(/<[^>]*>/g, '');
+  // 构建原子模型引用标签 HTML
+  var atomRefHtml = '';
+  if (atomModels && atomModels.length) {
+    var tagsHtml = atomModels.map(function(m) {
+      return '<span class="atom-ref-tag" onclick="showToast(\'查看原子模型: ' + m.name + '\')" title="' + m.desc + '">' +
+        '<span class="atom-tag-icon">原</span>' + m.name + '</span>';
+    }).join('');
+    atomRefHtml = '<div class="atom-ref-section">' +
+      '<div class="atom-ref-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>基于以下原子模型</div>' +
+      '<div class="atom-ref-tags">' + tagsHtml + '</div>' +
+    '</div>';
+  }
   t.insertAdjacentHTML('beforeend',
-    '<div class="msg ai-msg" data-ai-time="刚刚"><span class="ai-avatar">' + ai.avatarInner + '</span><div><div class="meta">' + agentName + ' 刚刚</div><div class="bubble"><div class="ai-quote"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：' + question + '</span></div>' + (extraContext || '') + '<div class="ai-text">' + aiReply + '</div></div></div><div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="quoteMsg(\'' + agentName + '\',\' ' + replyText + '\')">引用</span></div></div>');
+    '<div class="msg ai-msg" data-ai-time="刚刚"><span class="ai-avatar">' + ai.avatarInner + '</span><div><div class="meta">' + agentName + ' 刚刚</div><div class="bubble"><div class="ai-quote"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：' + question + '</span></div>' + (extraContext || '') + '<div class="ai-text">' + aiReply + '</div>' + atomRefHtml + '</div></div><div class="msg-actions"><span onclick="copyMsg(this)">复制</span><span onclick="quoteMsg(\'' + agentName + '\',\' ' + replyText + '\')">引用</span></div></div>');
 }
 
 /* 版本切换时更新已有 AI 消息的头像和名称 */
