@@ -346,11 +346,8 @@
     .ft-count{display:flex;align-items:center;gap:6px;color:#9aa2b5;font-size:11px;margin-bottom:8px;padding-left:24px}
     .ft-count svg{width:12px;height:12px;stroke-width:1.8}
     .ft-sep{height:1px;background:#f0f2f7;margin:8px 0}
-    .ft-row{display:flex;align-items:center;gap:8px;color:#5a6478;font-size:12px;word-break:break-all}
-    .ft-path{color:#9aa2b5}
     .ft-actions{display:flex;align-items:center;gap:4px}
     .ft-action{display:flex;align-items:center;gap:5px;padding:5px 8px;border-radius:6px;cursor:pointer;color:#3464e8;font-size:12px;transition:.12s}.ft-action:hover{background:#f4f6fb}
-    .ft-action-open{padding:5px;color:#5a6478}.ft-action-open:hover{color:#3464e8}
     .ft-collab{display:flex;flex-direction:column;gap:8px;font-size:12px;color:#5a6478}
     .ft-collab-row{display:flex;align-items:center;gap:8px}
     .ft-collab-label{min-width:42px;color:#9aa2b5;font-size:11px}
@@ -420,9 +417,9 @@
     .workspace-option.selected{color:#3464e8;background:#eef3ff}
     .workspace-option svg{width:14px;height:14px;color:#8a93a8;flex-shrink:0}
     .workspace-option.selected svg{color:#3464e8}
-    .workspace-option.workspace-create,.workspace-option.workspace-open-local{color:#5a6478}
-    .workspace-option.workspace-create:hover,.workspace-option.workspace-open-local:hover{background:#f4f6fb}
-    .workspace-option.workspace-create svg,.workspace-option.workspace-open-local svg{color:#5a6478}
+    .workspace-option.workspace-create{color:#5a6478}
+    .workspace-option.workspace-create:hover{background:#f4f6fb}
+    .workspace-option.workspace-create svg{color:#5a6478}
     .workspace-none{padding:9px 14px;font-size:13px;color:#9aa2b5}
     .workspace-dropdown-sep{height:1px;background:#f0f2f7;margin:6px 0}
 
@@ -551,8 +548,9 @@
     .vs-option.active .vs-dot{background:#3464e8}
     /* ===== nav 更多下拉 ===== */
     .nav-more-wrap{position:relative}
-    .nav-more-dropdown{display:none;position:absolute;left:0;top:calc(100% + 4px);min-width:160px;background:#fff;border:1px solid #e8ebf0;border-radius:10px;box-shadow:0 10px 30px rgba(30,45,80,.14);z-index:50;padding:6px 0}
+    .nav-more-dropdown{display:none;position:absolute;left:0;top:calc(100% + 4px);min-width:168px;background:#fff;border:1px solid #e8ebf0;border-radius:10px;box-shadow:0 10px 30px rgba(30,45,80,.14);z-index:50;padding:6px 0}
     .nav-more-dropdown.show{display:block}
+    .nav-more-dropdown .nav-item{display:flex;align-items:center;padding:9px 14px;margin:2px 6px;border-radius:6px;gap:10px;font-size:13px;cursor:pointer;transition:.12s}.nav-more-dropdown .nav-item:hover{background:#f4f6fb;color:#3464e8}.nav-more-dropdown .nav-item svg{width:17px;height:17px;color:#5a6478;flex-shrink:0}.nav-more-dropdown .nav-item:hover svg{color:#3464e8}
     .nav-more-item{display:flex;align-items:center;gap:10px;padding:8px 14px;font-size:14px;color:#343e55;cursor:pointer;transition:.12s;border-radius:6px;margin:0 6px}.nav-more-item:hover{background:#f4f6fb;color:#3464e8}
     .nav-more-item svg{width:18px;height:18px;color:#5a6478}.nav-more-item:hover svg{color:#3464e8}
     .nav-more-sep{height:1px;background:#eef0f4;margin:4px 6px}
@@ -1107,10 +1105,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 <span>新建工作空间</span>
               </div>
-              <div class="workspace-option workspace-open-local" onclick="openLocalFolderPlaceholder()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                <span>打开本地文件夹</span>
-              </div>
+
             </div>
           </div>
         </div>
@@ -2370,6 +2365,7 @@ function renderComposerActions(cfg) {
       '<div class="custom-more-dropdown" id="customMoreDropdown">';
     if (more.length === 0) {
       html += '<div class="custom-more-item" onclick="openEntryManageModal()">自定义入口</div>';
+      html += '<div class="custom-more-sep"></div>';
     } else {
       more.forEach(a => {
         html += '<div class="custom-more-item" onclick="customEntryClick(\'' + a.name + '\')">' +
@@ -2702,12 +2698,9 @@ function attachFolderTooltipEvents() {
       $('folderTooltipIcon').innerHTML = isMulti ? folderMultiIconSvg : folderIconSvg;
       $('folderTooltipName').textContent = name;
       $('folderTooltipCount').innerHTML = chatCountSvg + '<span>' + count + ' 个对话</span>';
-      $('folderTooltipPathIcon').innerHTML = folderIconSvg;
-      $('folderTooltipPath').textContent = path;
       renderFolderTooltipCollab(folder);
       renderFolderTooltipPin(folder, folderId);
       $('folderTooltipRenameIcon').innerHTML = settingsSvg;
-      $('folderTooltipOpenIcon').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
       folderTooltipTargetId = folderId;
       positionFolderTooltip(this);
       $('folderTooltip').classList.add('show');
@@ -2843,13 +2836,6 @@ function renameFolderFromTooltip() {
   openRenameFolder(folderTooltipTargetId);
 }
 
-function openFolderFromTooltip() {
-  $('folderTooltip').classList.remove('show');
-  if (!folderTooltipTargetId) return;
-  const f = leftData.folders.find(x => x.id === folderTooltipTargetId);
-  const path = f ? (f.path || 'D:\\AIworkstation\\' + f.name) : '';
-  showToast('打开项目文件夹：' + path);
-}
 
 /* ===== 文件夹操作按钮 ===== */
 function toggleFolderMoreDropdown(e, folderId) {
@@ -3333,10 +3319,6 @@ function openCreateFolderFromDropdown() {
   openCreateFolder();
 }
 
-function openLocalFolderPlaceholder() {
-  $('workspaceDropdown').classList.remove('show');
-  showToast('打开本地文件夹功能开发中');
-}
 
 /* ===== 模型选择器 ===== */
 let selectedModel = 'auto';
@@ -4742,11 +4724,6 @@ document.querySelectorAll('.messages .bubble').forEach(el => highlightMentions(e
     <span class="ft-name" id="folderTooltipName"></span>
   </div>
   <div class="ft-count" id="folderTooltipCount"></div>
-  <div class="ft-sep"></div>
-  <div class="ft-row">
-    <span class="ft-icon" id="folderTooltipPathIcon"></span>
-    <span class="ft-path" id="folderTooltipPath"></span>
-  </div>
   <div class="ft-sep" id="folderTooltipCollabSep"></div>
   <div class="ft-collab" id="folderTooltipCollab"></div>
   <div class="ft-sep"></div>
@@ -4759,10 +4736,7 @@ document.querySelectorAll('.messages .bubble').forEach(el => highlightMentions(e
       <span class="ft-icon" id="folderTooltipRenameIcon"></span>
       <span>重命名</span>
     </div>
-    <div class="ft-action ft-action-open" onclick="openFolderFromTooltip()">
-      <span class="ft-icon" id="folderTooltipOpenIcon"></span>
-      <span>打开项目文件夹</span>
-    </div>
+
   </div>
 </div>
 
