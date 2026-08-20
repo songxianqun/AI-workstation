@@ -735,47 +735,6 @@
     .main.app-center-mode #appCenterView{display:flex}
     .app.app-center-active{grid-template-columns:290px 1fr}
     .app.app-center-active .right{display:none}
-    /* ========== 右侧面板 Tab 切换 ========== */
-    .right-tabs{height:44px;display:flex;align-items:center;gap:2px;padding:0 8px;border-bottom:1px solid #eff1f5;flex-shrink:0;background:#fbfcfd}
-    .right-tab{padding:6px 12px;font-size:13px;font-weight:600;color:#8a93a8;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
-    .right-tab:hover{color:#5a6478}
-    .right-tab.active{color:#3464e8;border-bottom-color:#3464e8}
-    .right-tab-pane{display:none;flex:1;flex-direction:column;min-height:0}
-    .right-tab-pane.active{display:flex}
-    .right-tab-pane.dir-pane{overflow-y:auto;padding:12px 0}
-    .right-collapse-btn{margin-left:auto;width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:#8a93a8;cursor:pointer;display:grid;place-items:center;transition:.15s;flex-shrink:0}
-    .right-collapse-btn:hover{background:#f0f3fa;color:#3464e8}
-    .yixin-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;border-bottom:1px solid #eef0f5;flex-shrink:0}
-    .yixin-title{font-size:15px;font-weight:800;color:#1f2940}
-    .yixin-back{display:flex;align-items:center;gap:4px;border:0;background:transparent;color:#5a6478;font-size:12px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.15s;font-weight:600}
-    .yixin-back:hover{background:#f0f3fa;color:#3464e8}
-    .yixin-back svg{width:14px;height:14px}
-    /* 会话列表 */
-    .yixin-conv-list{flex:1;overflow-y:auto;min-height:0}
-    .yixin-conv-item{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:.12s}
-    .yixin-conv-item:hover{background:#f0f3fa}
-    .yixin-conv-item.active{background:#eaf0ff}
-    .yixin-conv-avatar{width:36px;height:36px;border-radius:8px;flex-shrink:0;display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff}
-    .yixin-conv-info{flex:1;min-width:0}
-    .yixin-conv-name{font-size:13px;font-weight:600;color:#1f2940;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .yixin-conv-preview{font-size:11px;color:#8a93a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
-    .yixin-conv-time{font-size:10px;color:#b0b8c9;flex-shrink:0}
-    .yixin-conv-badge{min-width:16px;height:16px;border-radius:10px;background:#e34;color:#fff;font-size:9px;font-weight:700;display:grid;place-items:center;padding:0 4px;flex-shrink:0}
-    /* 消息历史 */
-    .yixin-msg-area{flex:1;overflow-y:auto;padding:12px 14px;min-height:0;border-top:1px solid #eef0f5;border-bottom:1px solid #eef0f5}
-    .yixin-msg{display:flex;gap:8px;margin:8px 0;max-width:90%}
-    .yixin-msg.mine{margin-left:auto;flex-direction:row-reverse}
-    .yixin-msg-avatar{width:26px;height:26px;border-radius:6px;flex-shrink:0;display:grid;place-items:center;font-size:10px;font-weight:700;color:#fff}
-    .yixin-msg-bubble{padding:8px 11px;border-radius:4px 12px 12px 12px;background:#f4f6fa;font-size:13px;line-height:1.5;color:#1f2940;word-break:break-word}
-    .yixin-msg.mine .yixin-msg-bubble{background:#e9efff;border-radius:12px 4px 12px 12px}
-    .yixin-msg-time{font-size:10px;color:#b0b8c9;margin-top:3px}
-    /* 底部输入 */
-    .yixin-input-bar{display:flex;align-items:center;gap:8px;padding:8px 10px;flex-shrink:0}
-    .yixin-input{flex:1;border:1px solid #dce1e8;border-radius:8px;padding:8px 10px;font-size:13px;outline:none;resize:none;height:36px;font-family:inherit}
-    .yixin-input:focus{border-color:#3464e8;box-shadow:0 0 0 2px rgba(52,100,232,.1)}
-    .yixin-send{border:0;border-radius:8px;background:#4d70f5;color:#fff;font-size:13px;font-weight:600;padding:8px 14px;cursor:pointer;transition:.15s}
-    .yixin-send:hover{background:#3b5de7}
-    .yixin-tab-badge{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;border-radius:10px;background:#e34;color:#fff;font-size:9px;font-weight:700;padding:0 4px;margin-left:4px;flex-shrink:0}
     .app-center-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px 12px;background:#fff;border-bottom:1px solid #eef0f5;flex-shrink:0}
     .app-center-back{display:flex;align-items:center;gap:6px;border:0;background:transparent;color:#5a6478;font-size:13px;cursor:pointer;padding:6px 10px;border-radius:8px;transition:.15s;font-weight:600}
     .app-center-back:hover{background:#f0f3fa;color:#3464e8}
@@ -1236,23 +1195,16 @@
   </main>
 
   <aside class="right">
-    <div class="right-tabs">
-      <div class="right-tab active" onclick="switchRightTab('yixin')">易信消息</div>
-      <div class="right-tab" onclick="switchRightTab('directory')">会话目录</div>
-      <button class="right-collapse-btn" title="收起侧边栏">⤢</button>
-    </div>
-    <!-- Tab: 易信消息 -->
-    <div class="right-tab-pane active" id="paneYixin">
-      <div class="yixin-conv-list" id="yixinConvList"></div>
-      <div class="yixin-msg-area" id="yixinMsgArea"></div>
-      <div class="yixin-input-bar">
-        <textarea class="yixin-input" id="yixinInput" placeholder="输入消息..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendYixinMsg()}"></textarea>
-        <button class="yixin-send" onclick="sendYixinMsg()">发送</button>
+    <div class="right-header">
+      <div class="right-header-title">
+        <span class="right-header-icon">☰</span>
+        <span>会话目录</span>
+      </div>
+      <div style="display:flex;gap:4px;align-items:center">
+        <button class="right-header-btn" title="收起侧边栏">⤢</button>
       </div>
     </div>
-    <!-- Tab: 会话目录 -->
-    <div class="right-tab-pane dir-pane" id="paneDirectory">
-      <div class="dir">
+    <div class="dir">
       <!-- 会话摘要：可展开/收起 -->
       <div class="dir-section" id="summarySection">
         <div class="dir-section-header" onclick="toggleSummary()">
@@ -1380,7 +1332,6 @@
             </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   </aside>
@@ -1604,8 +1555,7 @@ const NAV_ICONS = {
   alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
   atom:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>',
   custom:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
-  app:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
-  message:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>'
+  app:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>'
 };
 const ACTION_ICONS = {
   chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg>',
@@ -1796,7 +1746,6 @@ const alertData = [
   {id:'alert-4',level:'low',title:'零售客户活跃度异常下降提醒',desc:'本月零售高净值客户活跃度环比下降 18%，主要集中在华南区域，建议排查原因并制定挽回方案。',source:'零售业务数据平台',time:'2小时前',detail:'统计周期：2026年7月\n下降幅度：-18%（环比）\n影响区域：华南区域\n涉及客户数：约 320 人\n\n初步分析可能与近期 APP 改版后部分功能入口调整有关。建议零售金融部联合产品部排查用户体验问题，并针对性开展客户回访。',handler:'零售业务助理',status:'未处理'}
 ];
 let alertUnreadCount = alertData.length;
-let yixinUnreadCount = 5;
 
 /* ========== 应用中心数据 ========== */
 var APP_CATEGORIES = ['全部','办公协同','客户管理','研发管理','产品管理','人力与行政','其他'];
@@ -1850,219 +1799,6 @@ function openAppCenter() {
 function closeAppCenter() {
   $('chatMain').classList.remove('app-center-mode');
   document.querySelector('.app').classList.remove('app-center-active');
-}
-
-/* ========== 易信消息面板 ========== */
-/* --- Mock 数据层：模拟桌面壳 IPC 桥接，后续接入真实 window.yixin 后可整体删除 --- */
-var YIXIN_MOCK_CONVS = [
-  {id:'conv-1',name:'华创易信运营专员沟通群',type:'group',color:'#4369f5',initial:'营',lastMessage:'@邓立昭 邓老师，可以帮忙看看么…',time:'13:28',unread:3},
-  {id:'conv-2',name:'通知助手',type:'bot',color:'#f0a030',initial:'通',lastMessage:'您有一条新的审批待处理',time:'13:20',unread:1},
-  {id:'conv-3',name:'财富条线易信使用沟通',type:'group',color:'#16a085',initial:'财',lastMessage:'彭雪梅：错了。是电脑端',time:'11:29',unread:1},
-  {id:'conv-4',name:'邓立昭',type:'person',color:'#8b72e8',initial:'邓',lastMessage:'好的，我下午看一下',time:'10:45',unread:0},
-  {id:'conv-5',name:'彭雪梅',type:'person',color:'#e34',initial:'彭',lastMessage:'收到，谢谢',time:'09:30',unread:0}
-];
-var YIXIN_MOCK_MSGS = {
-  'conv-1':[
-    {senderId:'u1',senderName:'曾娇',senderInitial:'曾',color:'#e3875d',text:'各位，易信新版本的需求文档我已经发到群里了，大家看看方案可行吗？',time:'08/17 11:15:02',isMine:false},
-    {senderId:'me',senderName:'宋贤群',senderInitial:'宋',color:'#4369f5',text:'我看了一下，整体思路没问题，但消息推送那块能不能做成增量同步？全量拉取数据量太大了。',time:'08/17 11:16:30',isMine:true},
-    {senderId:'u2',senderName:'易真娟',senderInitial:'易',color:'#8b72e8',text:'同意，增量同步更合理。另外@邓立昭 邓老师，可以帮忙看看么，安全这块的权限设计我拿不准。',time:'08/17 11:18:38',isMine:false},
-    {senderId:'u1',senderName:'曾娇',senderInitial:'曾',color:'#e3875d',text:'好的，那我们等邓老师的反馈再推进。',time:'08/17 11:19:05',isMine:false}
-  ],
-  'conv-2':[
-    {senderId:'bot',senderName:'通知助手',senderInitial:'通',color:'#f0a030',text:'您有一条新的审批待处理：智能费控模块预算申请￥86,000，申请人：研发部-刘伟，请于08/12前完成审批。',time:'13:20',isMine:false}
-  ],
-  'conv-3':[
-    {senderId:'u3',senderName:'彭雪梅',senderInitial:'彭',color:'#e34',text:'刚才试了一下新版本，消息撤回功能在手机端有问题，撤回后对方还能看到内容。',time:'11:25',isMine:false},
-    {senderId:'u3',senderName:'彭雪梅',senderInitial:'彭',color:'#e34',text:'错了。是电脑端',time:'11:26',isMine:false},
-    {senderId:'me',senderName:'宋贤群',senderInitial:'宋',color:'#4369f5',text:'收到，我记录一下这个 bug，下午让研发排查。',time:'11:28',isMine:true},
-    {senderId:'u3',senderName:'彭雪梅',senderInitial:'彭',color:'#e34',text:'好的，谢谢',time:'11:29',isMine:false}
-  ],
-  'conv-4':[
-    {senderId:'me',senderName:'宋贤群',senderInitial:'宋',color:'#4369f5',text:'邓老师，易信集成方案的需求文档我发您了，帮忙看看有没有遗漏的地方。',time:'10:30',isMine:true},
-    {senderId:'u4',senderName:'邓立昭',senderInitial:'邓',color:'#8b72e8',text:'收到，我下午看一下',time:'10:45',isMine:false}
-  ],
-  'conv-5':[
-    {senderId:'me',senderName:'宋贤群',senderInitial:'宋',color:'#4369f5',text:'雪梅，测试环境搭建好了吗？',time:'09:20',isMine:true},
-    {senderId:'u3',senderName:'彭雪梅',senderInitial:'彭',color:'#e34',text:'收到，谢谢',time:'09:30',isMine:false}
-  ]
-};
-/* Mock window.yixin — 桌面壳环境下由 preload.js 替换为真实 IPC */
-window.yixin = window.yixin || {
-  getConversations: function() { return Promise.resolve(YIXIN_MOCK_CONVS.map(function(c){return Object.assign({},c);})); },
-  getMessages: function(convId) { return Promise.resolve((YIXIN_MOCK_MSGS[convId]||[]).map(function(m){return Object.assign({},m);})); },
-  sendText: function(convId, text) {
-    if (!YIXIN_MOCK_MSGS[convId]) YIXIN_MOCK_MSGS[convId] = [];
-    YIXIN_MOCK_MSGS[convId].push({senderId:'me',senderName:'宋贤群',senderInitial:'宋',color:'#4369f5',text:text,time:new Date().toLocaleTimeString('zh-CN',{hour12:false}).slice(0,5),isMine:true});
-    return Promise.resolve({success:true});
-  },
-  markRead: function(convId) {
-    var c = YIXIN_MOCK_CONVS.find(function(c){return c.id===convId;});
-    if (c) c.unread = 0;
-    return Promise.resolve({success:true});
-  },
-  getUnreadCount: function() { return Promise.resolve(yixinUnreadCount); },
-  searchContacts: function(keyword) {
-    var r = YIXIN_MOCK_CONVS.filter(function(c){return c.name.indexOf(keyword)>=0;});
-    return Promise.resolve(r);
-  },
-  onNewMessage: function() {}
-};
-
-var yixinActiveConvId = null;
-var yixinUnreadTotal = 5;
-
-/* 切换右侧面板 Tab */
-function switchRightTab(tab) {
-  document.querySelectorAll('.right-tab').forEach(function(t){t.classList.remove('active');});
-  document.querySelectorAll('.right-tab-pane').forEach(function(p){p.classList.remove('active');});
-  var btn = document.querySelector('.right-tab[onclick*="'+tab+'"]');
-  if (btn) btn.classList.add('active');
-  var pane = tab === 'yixin' ? $('paneYixin') : $('paneDirectory');
-  if (pane) pane.classList.add('active');
-  if (tab === 'yixin' && !yixinActiveConvId) loadYixinConversations();
-}
-
-/* 初始化易信面板（版本切换时调用） */
-function initYixinPanel() {
-  if (window.yixin) loadYixinConversations();
-}
-
-/* AI 指令识别：解析“给XXX发消息说YYY”等模式 */
-function handleYixinCommand(text) {
-  if (!window.yixin) return null;
-  // 消息摘要请求
-  var summaryMatch = text.match(/^(今天|近期|最近)?易信有(什么|哪些).*(新消息|消息)/) ||
-                       text.match(/^帮我.*(总结|摘要|汇总).*(消息|易信)/) ||
-                       text.match(/^(消息|易信)摘要$/);
-  if (summaryMatch) return { type: 'summary' };
-  // 发消息指令
-  var patterns = [
-    /给(.+?)发消息[说：:]\s*(.+)/,
-    /发消息给(.+?)[，,]?(?:说|内容[:：])?\s*(.+)/,
-    /通知(.+?)[说：:]\s*(.+)/,
-    /告诉(.+?)[，,]\s*(.+)/
-  ];
-  for (var i = 0; i < patterns.length; i++) {
-    var m = text.match(patterns[i]);
-    if (m) return { type: 'send', recipient: m[1].trim(), message: m[2].trim() };
-  }
-  return null;
-}
-
-/* 执行发消息指令 */
-async function executeYixinSend(recipient, message, targetMsgs) {
-  var contacts = await window.yixin.searchContacts(recipient);
-  if (!contacts.length) {
-    appendAI(recipient, null, targetMsgs, '未找到易信联系人“' + recipient + '”，请确认姓名后重试。');
-    return;
-  }
-  var conv = contacts[0];
-  await window.yixin.sendText(conv.id, message);
-  // 切换到易信面板并选中会话
-  switchRightTab('yixin');
-  selectYixinConv(conv.id);
-  // 更新会话预览
-  conv.lastMessage = message;
-  conv.time = '刚刚';
-  loadYixinConversations();
-  // AI 回复
-  var reply = '已通过易信向 <b>' + conv.name + '</b> 发送消息：<br><br>' +
-    '<div style="background:#f4f6fa;border-radius:8px;padding:10px 14px;margin:4px 0;">' + escapeHtml(message) + '</div>' +
-    '<br>消息已送达，可在右侧易信消息面板查看完整对话。';
-  appendAI(recipient, null, targetMsgs, reply);
-}
-
-/* 生成消息摘要 */
-async function executeYixinSummary(targetMsgs) {
-  var convs = await window.yixin.getConversations();
-  var unread = convs.filter(function(c){return c.unread > 0;});
-  if (!unread.length) {
-    appendAI('消息摘要', null, targetMsgs, '当前没有未读的易信消息。所有会话均已查看。');
-    return;
-  }
-  var summary = '为您整理易信未读消息 <b>' + unread.length + '</b> 个会话，摘要如下：<br><br>';
-  for (var i = 0; i < unread.length; i++) {
-    var c = unread[i];
-    var msgs = await window.yixin.getMessages(c.id, 1);
-    var recentMsg = msgs.length ? msgs[msgs.length - 1] : null;
-    summary += '<b>' + (i+1) + '. ' + c.name + '</b>' +
-      '（' + c.unread + '条未读，' + c.time + '）<br>' +
-      '　' + (recentMsg ? recentMsg.senderName + '：' + (recentMsg.text.length > 50 ? recentMsg.text.slice(0,50) + '…' : recentMsg.text) : c.lastMessage) + '<br><br>';
-  }
-  summary += '建议优先处理加粗项。需要我帮您回复或跟进某条消息吗？';
-  switchRightTab('yixin');
-  appendAI('消息摘要', null, targetMsgs, summary);
-}
-
-async function loadYixinConversations() {
-  var list = await window.yixin.getConversations();
-  var el = $('yixinConvList');
-  if (!el) return;
-  el.innerHTML = list.map(function(c) {
-    return '<div class="yixin-conv-item' + (c.id === yixinActiveConvId ? ' active' : '') +
-      '" onclick="selectYixinConv(\'' + c.id + '\')">' +
-      '<span class="yixin-conv-avatar" style="background:' + (c.color||'#4d70f5') + '">' + (c.initial||c.name[0]) + '</span>' +
-      '<div class="yixin-conv-info"><div class="yixin-conv-name">' + c.name + '</div>' +
-      '<div class="yixin-conv-preview">' + (c.lastMessage||'') + '</div></div>' +
-      '<span class="yixin-conv-time">' + (c.time||'') + '</span>' +
-      (c.unread ? '<span class="yixin-conv-badge">' + c.unread + '</span>' : '') +
-    '</div>';
-  }).join('');
-}
-
-async function selectYixinConv(convId) {
-  yixinActiveConvId = convId;
-  loadYixinConversations();
-  var msgs = await window.yixin.getMessages(convId, 1);
-  renderYixinMessages(msgs);
-  await window.yixin.markRead(convId);
-  updateYixinBadge();
-  loadYixinConversations();
-}
-
-function renderYixinMessages(msgs) {
-  var el = $('yixinMsgArea');
-  if (!el) return;
-  el.innerHTML = msgs.map(function(m) {
-    var mine = m.isMine;
-    return '<div class="yixin-msg' + (mine ? ' mine' : '') + '">' +
-      '<span class="yixin-msg-avatar" style="background:' + (mine ? '#4d70f5' : (m.color||'#8b72e8')) + '">' + (m.senderInitial||'?') + '</span>' +
-      '<div><div class="yixin-msg-bubble">' + escapeHtml(m.text) + '</div>' +
-      '<div class="yixin-msg-time">' + m.senderName + ' ' + m.time + '</div></div>' +
-    '</div>';
-  }).join('') || '<div style="text-align:center;color:#b0b8c9;font-size:12px;padding:20px">选择会话查看消息</div>';
-  el.scrollTop = el.scrollHeight;
-}
-
-function escapeHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-async function sendYixinMsg() {
-  var input = $('yixinInput');
-  if (!input) return;
-  var text = input.value.trim();
-  if (!text || !yixinActiveConvId) return;
-  input.value = '';
-  await window.yixin.sendText(yixinActiveConvId, text);
-  var msgs = await window.yixin.getMessages(yixinActiveConvId, 1);
-  renderYixinMessages(msgs);
-  var conv = YIXIN_MOCK_CONVS.find(function(c){return c.id===yixinActiveConvId;});
-  if (conv) { conv.lastMessage = text; conv.time = '刚刚'; }
-  loadYixinConversations();
-}
-
-function updateYixinBadge() {
-  yixinUnreadTotal = YIXIN_MOCK_CONVS.reduce(function(sum,c){return sum+(c.unread||0);},0);
-  var tab = document.querySelector('.right-tab[onclick*="yixin"]');
-  if (!tab) return;
-  var existing = tab.querySelector('.yixin-tab-badge');
-  if (yixinUnreadTotal > 0) {
-    if (existing) { existing.textContent = yixinUnreadTotal; }
-    else { tab.insertAdjacentHTML('beforeend','<span class="yixin-tab-badge">' + yixinUnreadTotal + '</span>'); }
-  } else {
-    if (existing) existing.remove();
-  }
 }
 
 function renderAppCenterTabs() {
@@ -2396,7 +2132,6 @@ function applyVersion(ver) {
   if (ver === 'huaChuang') {
     renderAtomModels([]);
     initHuaChuangDemo();
-    initYixinPanel();
   } else {
     renderAtomModels(DEFAULT_ATOM_MODELS.slice());
     resetNewChatView();
@@ -4480,28 +4215,9 @@ function sendMessage() {
   let text = input.value.trim();
   if (!text && !quoteData && !uploadedFiles.length) return;
 
-  // 易信指令拦截：给XXX发消息说YYY / 消息摘要
-  var yixinCmd = handleYixinCommand(text);
-
-  // 新会话界面：发送后创建会话并切换（必须在易信指令执行之前）
+  // 新会话界面：发送后创建会话并切换
   if (!activeChatId && text) {
     startNewChatFromComposer(generateChatTitle(text));
-  }
-
-  if (yixinCmd) {
-    var ymTarget = sessionMode === 'solo' ? soloMessages : messages;
-    appendHuman(text, ymTarget);
-    input.value = '';
-    clearContext();
-    clearUploads();
-    updateSendBtn();
-    if (yixinCmd.type === 'send') {
-      executeYixinSend(yixinCmd.recipient, yixinCmd.message, ymTarget);
-    } else if (yixinCmd.type === 'summary') {
-      executeYixinSummary(ymTarget);
-    }
-    ymTarget.scrollTop = ymTarget.scrollHeight;
-    return;
   }
 
   const isSolo = sessionMode === 'solo';
