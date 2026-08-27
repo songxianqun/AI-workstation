@@ -2400,7 +2400,7 @@ function handleAlertEntry() {
 function appendAlertListCard(target) {
   const t = target || (sessionMode === 'solo' ? soloMessages : messages);
   const cfg = WORKBENCH_CONFIGS[currentVersion] || {};
-  const agentName = cfg.aiName || '异常提醒助手';
+  const agentName = '异常提醒助手';
   const avatarInner = cfg.aiAvatar
     ? '<img class="ai-avatar-img" src="' + cfg.aiAvatar + '" alt="' + agentName + '">'
     : '⚠';
@@ -2462,7 +2462,7 @@ function drillDownAlert(alertId) {
 function appendAlertDetailCard(alert, target) {
   var t = target || (sessionMode === 'solo' ? soloMessages : messages);
   var cfg = WORKBENCH_CONFIGS[currentVersion] || {};
-  var agentName = cfg.aiName || '异常提醒助手';
+  var agentName = '异常提醒助手';
   var avatarInner = cfg.aiAvatar
     ? '<img class="ai-avatar-img" src="' + cfg.aiAvatar + '" alt="' + agentName + '">'
     : '⚠';
@@ -2525,7 +2525,7 @@ function handleAlertAction(alertId) {
 
   setTimeout(function() {
     var cfg = WORKBENCH_CONFIGS[currentVersion] || {};
-    var agentName = cfg.aiName || '异常提醒助手';
+    var agentName = '异常提醒助手';
     var avatarInner = cfg.aiAvatar
       ? '<img class="ai-avatar-img" src="' + cfg.aiAvatar + '" alt="' + agentName + '">'
       : '⚠';
