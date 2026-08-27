@@ -9,7 +9,7 @@
     *{box-sizing:border-box} body{margin:0;background:#edf0f7;color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;height:100vh;overflow:hidden}.app{width:100%;height:100vh;background:var(--surface);overflow:hidden;display:grid;grid-template-columns:290px 1fr 330px;position:relative}
     .left{border-right:1px solid var(--line);padding:22px 14px 0;background:#fbfcff;display:flex;flex-direction:column;overflow:hidden;min-height:0}.brand{font-size:20px;font-weight:800;color:#3963ec;flex-shrink:0}.brand-sub{font-size:13px;color:#677289;margin-top:4px;flex-shrink:0}.new{height:48px;border:1px solid #dfe4ee;border-radius:12px;margin-top:26px;padding:0 15px;display:flex;align-items:center;gap:12px;font-size:15px;flex-shrink:0}.nav{display:flex;flex-direction:column;gap:2px;margin:22px 8px 0;color:#263149;flex-shrink:0}.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:14px;color:#1f2940;cursor:pointer;transition:.15s}.nav-item:hover{background:#f0f3fa}.nav-item svg{width:18px;height:18px;color:#5a6478;flex-shrink:0}.work{display:flex;align-items:center;justify-content:space-between;margin-top:28px;font-size:14px;flex-shrink:0;padding:0 10px}.work-title{display:flex;align-items:center;gap:8px;font-weight:600;color:#1f2940}.work-title svg{width:16px;height:16px;color:#5a6478}.work-add{width:24px;height:24px;border:0;border-radius:6px;background:transparent;color:#5a6478;cursor:pointer;display:grid;place-items:center;transition:.15s;font-size:18px;line-height:1}.work-add:hover{background:#f0f3fa;color:#3464e8}.chat-list{flex:1;overflow-y:auto;padding-right:4px;margin-top:10px}.chat{display:flex;align-items:flex-start;gap:10px;padding:10px 11px;margin-top:2px;border-radius:10px;cursor:pointer;transition:.12s;position:relative}.chat:hover{background:#f0f3fa}.chat.active{background:#eaf0ff;color:#4268ee}.chat-icon{width:18px;height:18px;margin-top:1px;color:#9aa2b5;flex-shrink:0;display:grid;place-items:center}.chat-icon svg{width:16px;height:16px}.chat.active .chat-icon{color:#4268ee}.chat-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.chat-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.chat-title{font-size:14px;font-weight:600;color:#1f2940;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat.active .chat-title{color:#4268ee}.chat-preview{font-size:12px;color:#79849b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat.active .chat-preview{color:#6b7fd0}.chat-time{font-size:11px;color:#9aa2b5;flex-shrink:0}.chat.active .chat-time{color:#7b93f0}.chat-meta{display:flex;align-items:center;gap:5px;flex-shrink:0}
     .chat .pending-dot{width:8px;height:8px;border-radius:50%;background:#3464e8;flex-shrink:0;box-shadow:0 0 0 2px #eaf0ff;animation:pulse 1.5s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}.collab-icon{position:relative;width:18px;height:18px;border-radius:5px;background:#eaf0ff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}.collab-icon svg{width:13px;height:13px;fill:none;stroke:#3464e8;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.chat.active .collab-icon{background:#d4dfff}.main{position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden}.header{height:72px;padding:0 22px;border-bottom:1px solid #f0f1f5;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}.title{font-size:21px;font-weight:800}.mode-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:20px;background:#eaf0ff;color:#3464e8;font-size:12px;font-weight:700}.people{display:flex;align-items:center;gap:7px}.avatar{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;border:2px solid #fff}.a1{background:#8b72e8}.a2{background:#e3875d}.a3{background:#4b9fe8}.invite{border:0;border-radius:18px;background:#eaf0ff;color:#4166e9;font-weight:700;padding:8px 13px;margin-left:7px}.messages{padding:24px 30px 170px;overflow-y:auto;background:linear-gradient(#fff,#fcfcfe);flex:1;min-height:0}.system{text-align:center;color:#6e7891;font-size:12px;margin:2px 0 24px}.system span{background:#f1f4fa;padding:7px 12px;border-radius:14px}.msg{display:flex;gap:11px;margin:17px 0;max-width:82%;position:relative}.msg.mine{margin-left:auto;flex-direction:row-reverse}.msg .bubble{padding:12px 14px;border-radius:4px 16px 16px 16px;background:#f4f6fa;font-size:14px;line-height:1.65;position:relative}.msg.mine .bubble{background:#e9efff;border-radius:16px 4px 16px 16px}.meta{font-size:12px;color:#758097;margin-bottom:5px}.msg.mine .meta{text-align:right}.tiny{font-size:11px;color:#9aa2b5;margin-top:6px}.reply-ref{border-left:3px solid #9bacef;background:#e4e9f7;border-radius:5px;padding:6px 8px;margin-bottom:8px;font-size:12px;color:#66718a;max-width:350px}.reply-ref b{color:#4e5c7a}.at-mention{color:#3464e8;background:#e9efff;padding:1px 5px;border-radius:5px;font-weight:600}
-    .ai-card{margin:20px 0 22px 42px;max-width:630px;border:1px solid #dce2f0;border-radius:12px;background:#fff;box-shadow:0 4px 14px rgba(42,61,150,.05);padding:12px 16px}.ai-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#3464e8}.ai-icon{width:28px;height:28px;border-radius:50%;background:#4d70f5;color:#fff;display:grid;place-items:center;font-size:12px;flex-shrink:0;overflow:hidden}.ai-avatar-img{width:100%;height:100%;object-fit:cover;border-radius:50%}.ai-avatar{width:29px;height:29px;border-radius:50%;background:#4d70f5;color:#fff;display:grid;place-items:center;font-size:13px;flex-shrink:0;border:2px solid #fff;overflow:hidden}.ai-quote{margin-top:0;font-size:12px;color:#8a93a8;line-height:1.5;cursor:pointer;display:flex;align-items:baseline;gap:4px}.ai-quote:hover{color:#3464e8}.ai-quote .arrow{color:#b0b8cc;font-size:11px;flex-shrink:0}.ai-quote .who{color:#5c6a8a;font-weight:600}.ai-quote .q-text{color:#8a93a8}.ai-context{margin-top:4px;font-size:12px;color:#9aa2b5;line-height:1.4;padding-left:15px}.ai-text{font-size:14px;line-height:1.7;margin:8px 0 4px}.ai-actions{display:flex;gap:14px;color:#60708e;font-size:12px}.ai-reply-footer,.human-reply-footer{display:flex;align-items:center;gap:12px;margin-top:8px;font-size:12px;color:#9aa2b5;visibility:hidden;opacity:0;transition:opacity .2s,visibility .2s}.ai-msg:hover .ai-reply-footer,.msg:hover .human-reply-footer{visibility:visible;opacity:1}.ai-reply-footer svg,.human-reply-footer svg{width:16px;height:16px;cursor:pointer;transition:.15s}.ai-reply-footer svg:hover,.human-reply-footer svg:hover{color:#3464e8}.human-reply-footer{justify-content:flex-end}.msg-action-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;color:#9aa2b5;cursor:pointer;transition:.15s;padding:1px}.msg-action-icon:hover{color:#3464e8}.msg-action-icon svg{width:14px;height:14px;display:block}.msg-action-icon::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%) translateY(2px);padding:3px 7px;background:#26314d;color:#fff;font-size:11px;line-height:1.4;border-radius:4px;white-space:nowrap;opacity:0;visibility:hidden;transition:opacity .12s,visibility .12s,transform .12s;pointer-events:none;z-index:100}.msg-action-icon:hover::after{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .ai-card{margin:20px 0 22px 42px;max-width:630px;border:1px solid #dce2f0;border-radius:12px;background:#fff;box-shadow:0 4px 14px rgba(42,61,150,.05);padding:12px 16px}.ai-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#3464e8}.ai-icon{width:28px;height:28px;border-radius:50%;background:#4d70f5;color:#fff;display:grid;place-items:center;font-size:12px;flex-shrink:0;overflow:hidden}.ai-avatar-img{width:100%;height:100%;object-fit:cover;border-radius:50%}.ai-avatar{width:29px;height:29px;border-radius:50%;background:#4d70f5;color:#fff;display:grid;place-items:center;font-size:13px;flex-shrink:0;border:2px solid #fff;overflow:hidden}.ai-quote{margin-top:0;font-size:12px;color:#8a93a8;line-height:1.5;cursor:pointer;display:flex;align-items:baseline;gap:4px}.ai-quote:hover{color:#3464e8}.ai-quote .arrow{color:#b0b8cc;font-size:11px;flex-shrink:0}.ai-quote .who{color:#5c6a8a;font-weight:600}.ai-quote .q-text{color:#8a93a8}.ai-context{margin-top:4px;font-size:12px;color:#9aa2b5;line-height:1.4;padding-left:15px}.ai-text{font-size:14px;line-height:1.7;margin:8px 0 4px}.ai-actions{display:flex;gap:14px;color:#60708e;font-size:12px}.ai-reply-footer,.human-reply-footer{display:flex;align-items:center;gap:12px;margin-top:4px;font-size:12px;color:#9aa2b5;visibility:hidden;opacity:0;transition:opacity .2s,visibility .2s}.ai-msg:hover .ai-reply-footer,.msg:hover .human-reply-footer{visibility:visible;opacity:1}.ai-reply-footer svg,.human-reply-footer svg{width:16px;height:16px;cursor:pointer;transition:.15s}.ai-reply-footer svg:hover,.human-reply-footer svg:hover{color:#3464e8}.human-reply-footer{justify-content:flex-end}.msg-action-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;color:#9aa2b5;cursor:pointer;transition:.15s;padding:1px}.msg-action-icon:hover{color:#3464e8}.msg-action-icon svg{width:14px;height:14px;display:block}.msg-action-icon::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%) translateY(2px);padding:3px 7px;background:#26314d;color:#fff;font-size:11px;line-height:1.4;border-radius:4px;white-space:nowrap;opacity:0;visibility:hidden;transition:opacity .12s,visibility .12s,transform .12s;pointer-events:none;z-index:100}.msg-action-icon:hover::after{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
     
     
     .composer-wrap{position:absolute;bottom:0;left:0;right:0;padding:12px 30px 18px;background:linear-gradient(transparent 0,#fff 18%)}
@@ -1025,13 +1025,13 @@
       <div class="system"><span>会话已进入多人协作模式 · 可通过输入框AI开关或 @工作秘书 让AI参与</span></div>
 
       <!-- 陈斌消息 -->
-      <div class="msg"><span class="avatar a1">陈斌</span><div><div class="meta">陈斌</div><div class="bubble"><div class="human-text">Rclaw技术方案初稿已经完成，接下来需要确认接入方式和演示范围。</div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('陈斌','Rclaw技术方案初稿已经完成，接下来需要确认接入方式和演示范围。')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>10:12</span></div></div></div></div>
+      <div class="msg"><span class="avatar a1">陈斌</span><div><div class="meta">陈斌</div><div class="bubble"><div class="human-text">Rclaw技术方案初稿已经完成，接下来需要确认接入方式和演示范围。</div></div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('陈斌','Rclaw技术方案初稿已经完成，接下来需要确认接入方式和演示范围。')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>10:12</span></div></div></div>
 
       <!-- 我的消息 -->
-      <div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群</div><div class="bubble"><div class="human-text">我建议先按接口方案A验证，大家看看是否有风险？</div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('宋贤群','我建议先按接口方案A验证，大家看看是否有风险？')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>10:16</span></div></div></div></div>
+      <div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群</div><div class="bubble"><div class="human-text">我建议先按接口方案A验证，大家看看是否有风险？</div></div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('宋贤群','我建议先按接口方案A验证，大家看看是否有风险？')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>10:16</span></div></div></div>
 
       <!-- 施展消息 -->
-      <div class="msg" id="shiZhanMsg"><span class="avatar a2">施展</span><div><div class="meta">施展</div><div class="bubble"><div class="human-text">需要先确认接口权限和测试环境，演示范围可以先限定在酒店和酒交两个场景。</div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('施展','需要先确认接口权限和测试环境，演示范围可以先限定在酒店和酒交两个场景。')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>10:18</span></div></div></div></div>
+      <div class="msg" id="shiZhanMsg"><span class="avatar a2">施展</span><div><div class="meta">施展</div><div class="bubble"><div class="human-text">需要先确认接口权限和测试环境，演示范围可以先限定在酒店和酒交两个场景。</div></div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('施展','需要先确认接口权限和测试环境，演示范围可以先限定在酒店和酒交两个场景。')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>10:18</span></div></div></div>
 
       <!-- §7 AI回复（带引用上下文） -->
       <div class="msg ai-msg" data-ai-time="10:20">
@@ -1042,27 +1042,27 @@
             <div class="ai-quote quote-clickable" onclick="scrollToMsg('shiZhanMsg')"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：@工作秘书 请比较接口方案A和B的风险与实施成本。</span></div>
             <div class="ai-context">基于施展提出的：“需要先确认接口权限与测试环境……”</div>
             <div class="ai-text">方案A实施路径更短，适合本期演示；主要风险在于接口权限与环境准备。建议先锁定方案A，同时保留方案B作为后续扩展路径。</div>
-            <div class="ai-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="quoteMsg('工作秘书',' 方案A实施路径更短，适合本期演示；主要风险在于接口权限与环境准备。建议先锁定方案A，同时保留方案B作为后续扩展路径。')" title="引用"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyAIReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>10:20</span></div>
           </div>
+          <div class="ai-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="quoteMsg('工作秘书',' 方案A实施路径更短，适合本期演示；主要风险在于接口权限与环境准备。建议先锁定方案A，同时保留方案B作为后续扩展路径。')" title="引用"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyAIReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>10:20</span></div>
         </div>
       </div>
 
       <!-- 我的引用回复消息 -->
-      <div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群</div><div class="bubble"><div class="human-text"><div class="reply-ref"><b>引用 施展</b><br>"需要先确认接口权限和测试环境……"</div>我来推动测试环境确认，@陈斌 你协助确认演示范围。</div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('宋贤群','我来推动测试环境确认，@陈斌 你协助确认演示范围。')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>10:23</span></div></div></div></div>
+      <div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群</div><div class="bubble"><div class="human-text"><div class="reply-ref"><b>引用 施展</b><br>"需要先确认接口权限和测试环境……"</div>我来推动测试环境确认，@陈斌 你协助确认演示范围。</div></div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('宋贤群','我来推动测试环境确认，@陈斌 你协助确认演示范围。')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>10:23</span></div></div></div>
     </section>
 
     <!-- 单人会话消息区 -->
     <section class="messages hide" id="soloMessages">
       <div class="system"><span>与 AI 智能体对话 · 默认由「工作秘书」回复</span></div>
-      <div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群</div><div class="bubble"><div class="human-text">明天贵阳天气怎么样？</div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('宋贤群','明天贵阳天气怎么样？')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>昨天 14:02</span></div></div></div></div>
+      <div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群</div><div class="bubble"><div class="human-text">明天贵阳天气怎么样？</div></div><div class="human-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyHumanReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess('宋贤群','明天贵阳天气怎么样？')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg><span>昨天 14:02</span></div></div></div>
       <div class="msg ai-msg" data-ai-time="昨天 14:03">
         <span class="ai-avatar">✦</span>
         <div>
           <div class="meta">工作秘书</div>
           <div class="bubble">
             <div class="ai-text">明天贵阳预计晴转多云，气温 22°C ~ 31°C，东南风 2-3 级。适合出行，但下午可能有短时阵雨，建议带伞。</div>
-            <div class="ai-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="quoteMsg('工作秘书',' 明天贵阳预计晴转多云，气温 22°C ~ 31°C。')" title="引用"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyAIReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>昨天 14:03</span></div>
           </div>
+          <div class="ai-reply-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="quoteMsg('工作秘书',' 明天贵阳预计晴转多云，气温 22°C ~ 31°C。')" title="引用"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="copyAIReply(this)" title="复制"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>昨天 14:03</span></div>
         </div>
       </div>
     </section>
@@ -1083,9 +1083,9 @@
       <div class="at-panel" id="atPanel">
         <div class="at-section" id="atAgentSection">
           <div class="at-label">智能体</div>
-          <div class="at-item selected" data-name="工作秘书" data-type="agent" onclick="pickAt('工作秘书','agent')">
+          <div class="at-item selected" id="atAgentItem" data-name="工作秘书" data-type="agent" onclick="pickAt('工作秘书','agent')">
             <span class="at-icon" style="background:#4d70f5;color:#fff">✦</span>
-            <span class="at-name">工作秘书</span>
+            <span class="at-name" id="atAgentName">工作秘书</span>
             <span class="at-default">默认</span>
           </div>
         </div>
@@ -1646,7 +1646,7 @@ const WORKBENCH_CONFIGS = {
       {name:'异常提醒',icon:'alert'},{name:'成果物',icon:'deliver'}
     ],
     supportCenters: [
-      {name:'投行支持中心',img:'Avatar1',prompts:['帮我梳理IPO申报材料清单','分析近期投行项目合规风险','生成债券发行方案概要','整理投行客户服务指引','汇总近期市场发行情况']},
+      {name:'投行支持中心',img:'Avatar1',prompts:['梳理IPO申报材料清单','分析近期投行项目合规风险','生成债券发行方案概要','整理投行客户服务指引','汇总近期市场发行情况']},
       {name:'资管支持中心',img:'Avatar2',prompts:['汇总资管产品净值变动','生成资管季度报告模板','分析产品持仓集中度','整理资管新规影响分析']},
       {name:'零售支持中心',img:'Avatar3',prompts:['统计零售客户活跃度','生成客户经理考核表','推送本月理财产品推荐','分析客户流失风险','生成零售业务周报']},
       {name:'固收支持中心',img:'Avatar4',prompts:['分析自营盘持仓敞口','生成投资策略日报','回溯本周交易异常','整理投资授权清单']},
@@ -1674,10 +1674,11 @@ const WORKBENCH_CONFIGS = {
     aiName:'华创证券 AI', aiAvatar:'data:image/png;base64,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', brandLogo:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABaCAYAAAA8XZE/AAAfqUlEQVR4nO19d3Cc93nmA2wvwC7qooNoBEGCBQTBXsQuFlGkSFGymiXHdhzFV+IrM5m7uZu5m5vkn2R8zpxtOU5GUaG6xN472EES7CSI3jt2ge0V97w/WLob25FEiRCZDF4NBiDw7Yf9nu/9PeX97UJxoyxM1LhV/KN+Av/aS/uon8BX1eD5c2j/8AP0Hj+G0VAIcRoNsjY+heyt25A8p0odE/F60fnWm+jduwf+pia2TTyM2dnI/ZMfInXlKujT0gEu1Kh7BMGODn52q8fF8Tgdf6ZLT0e82YzRcBgxlwuhtjb1tTrGaIQuIwPa1FSiNQbXKH9ftKkFoz4fRqNRuIKj6IYRTkeO+nlZdgIcNqP6+rEEWJ50xONB197dGKiuxsjdO4iLiyNoOcjZ8gyS582HtbgYsYAfvuYW9Hz8EVyXLyHU0wOtzQbb7EqkP7UJCdNnQJtoQ4xABBoa0M/jgm2tiPkD0NhtSOBxybxZcXo9Iv398F+9CvfevYgMDAB8Drq8PFgWL4Zx8mR10xCJIHLnHgJHjiF09jxGI1FcSy7AsaTJuGjKQUA/rJ7/z9aX4MmZDlgM2scPYOlGb3MTBk6fRt/J4/CwIzXsouSqKqQtXYa0JctgZEeFhwbhPFOtPob4EWFXmgiIff4CJC9eAlvlHMSbTAh1d8Fz+TKG5UadO6vANghwM2bANGUKNBYLgnfvwnfhAnznzsFXUzN2M/lzfVER9AUFAG/AqGsYoUuXETxxCv5zFzDc3ImzmeU4EdTjghdoNPgQG/Wpa3jeGUAkOiZtjw/AXMJBdo50q4DbtW8PogTbmJEJe0UF0p5YDgeXuxwX4BJ2nj+LgaNH4aq5pECylk1FyvIVSF21GubCQnZ3AIH6egyfPQPX0SPwsDs1CQkwl5fDzuPsy56AnjcqWFcH98GD8Jw6hUh7OzRJSTBMm4bETZtgnjcPGq6IaFs7wjVXENi5B+4bt9EVjMdVx3TsmLQUt/RpGIaOz+uPX9YjB1hMTFwspiih/9RJdO7eBeeVy4gn3+lTUpC9eQsca5+ElZ0UCwXh7+hE5ztvYejkCYS4rDVWKxKmTkPO91+FbS4BYddGhRLY+X3vvI0Rdm7EOaTAtfJGOV55FZZZswDyeeDmTQz8/OcI3run+F241rSAK+CHP4QuJ2eMt5ua4f9sF/wffAK/y40WcyoOZ03HLwtWwR2NQ/QrPNijB5i8FujtQeMbv8bQpUvqay1BspaUoOjPXkciO1OflIzw8DBcFy+g/c1/VEIm3S0d6Fi/EY4tW2DIzEI8qSQyOMCOPYa+93cgyI4cZSfrKXgpT29WfCuPCXMFeNi1ro8+QszpVJxvJPj2rVthWbkS8bwZ4OOEDnzvfoBw7TVSVwAncivxqaMC1cYcjETiEPsa1/dIAQ4O9LNbr6Brz26M3LqJEC/WlEUwKCwZq9ciYUopNAYjPHduY+DYMQxVn6aoNSn1T1q4EGlr18E2Z44SP+k2DzvfeegQ3OfPE9w25QASSQdJa9bAOqtCCaDnyBF4T5yA/9o1RPv6EE9KSHySK2T5chimTkV8YiKi9Q0I7DuI0Klq+Oqb0E9K+HDKelTbinBPnwJXvPFrX+OjAZgdM3zvLjv2IgbIkU6KkAKtYjZSFi1GCpdp4pQyJVxDpI0hcrJwbaCjHXqHA0kUshRysgiZjgCFSRUj/PnwyZNwcxVE+vtgIKUkLlhIrl0G0+RSxHiukc8+g4fgBm/fVivHQKqw8maaeYyhqHisa4+Sek6eQujMeQz2unDHnIGjGaU4mj4T7fFW+EcfLDp8pwDLUpSl7ab49Bw6gAGqv4/LWC9dxO7JkmVcNRdaawICnR0Yqa1Fz87P4CZXiopYSibDTvDTNzwFC63TaCQMP88loA7t2wsfb1q8Vgfz9OljQkbB09ntCDU2wnv2LNy7dyM6OIh4drKJx1hXrYJ1xQpFLbGePiVkPvJtsOYqujUWXE0qwpHUcuxKKUcoNopvknm/M4AF3DBNvLiEhr/7BdwN9crMG6Uj585F8U9eV45BrsJPryqhoeejDxEh94pwWUrLkPW9F5CyYqWybeIS/HX3McAQ4jx0kN7WrwTPMnMmMn74I9qwmer8Poqc68MP4SPAcRRODYUzYe1a2LZvh6G0VImbhIbAzt3wffQpQr1cDToL9pQsxKcpM3ADNnylkn1JfWcAexob2LUH0cllGqKHHaVzSCIvZjEQpBE0PbtKXMIQ7VLPZ59iRDjS64GOgKTRRWRsfgYmLnslZENDcJJLB9ndvvt1Clxjfj6S1q1HighZdhY7dQiuHTvgIXeHmd4kAYq3tT33HMzkb21amgoOwQOH4PvwE0Su3YDXF0SLPRt/V7YJNYYMkGi+9XWPL8DsxlgwiL4TxxkaTsBF0ELkRxEbx+o1SKMXtdFiGbiMfVT2AdKGCJmXIhP1eZFITk5jt9mZ3Ex5+aoDPZdr4CK47osXlZDR0cPOG5TE5W7h8VpGXt8Z0sH+/Qjw90UoZFpSkIVUYKVDMJSVKcsm9kt8bfDMOYpaI1rjLDhTUIXd1hLcMmRjOF6P8NexCV9R4wawABvo7VU8KwCP0AnI9xJou9KWLEHq0idgZVICeXSICct55owCN9DVSd5Moog9gaTFSxV96FJTEWYIcVPIRk6JkNWQOlzQZ2Uhcf582HijzExlMacLbgqdj+fyUTilJDSYKWRWETIeMzriRohJLHj8FILH6CZ6+nEzeRJOp03FKbqEK3oHIsIIDwFcqYcOsASHyMgw424zBulbO5j/QwRHy65JouqnU3wyuJSFR6WbhQr6D+yDkzFVypSbqzo2Y8tWmOmFZRlLaPAQ3P5PaPZJCRKBzex8G4FLZuLSkntD7EixYO7Dh5XP1aanq24VvpXO1djsKqmFGXcD+0kL5y5iJBqPO7ZJ+DR/ibJg7WHtP5vIvmk9VICFV6PkQ+eVq+giP/YcPTw2saK3FGBztj2LxPLpyqYFu7vQRyHr/vQT2q8OxDPvW4pLkLF1G9LJo3JDRIB89ylk5GTngf2IjowgTm9AwpwqpD6zFbalS5WQCRUM/SMDSE2NeozEWyu9r23bNhila0kjsZ5e+N96V4Eb7OjCkNmOK1ml+NuiJ9EwakEg/DCR+H/18AAmuOIS2t7bQUo4pjpYwLVQmPJffBkpCxcpxyCAuOh/xSEMX72iHiMuwbFhI9JovxLE7JNHxc6JiDnJpb66e8o1aJOT4Xj1NQWsnuEi3NmJkV274D5wAJGuLtV8Btqv5FdfhamyUjmGmMeL8OWr8L7x94jcu4/osBt3Mkuxa9JC7NTkYjBqQuihgfCH9VAAjrCzhsmx3fSiksz87E5ZtukUHxEz2/QZMBCcYHc3+o8cUnzrrb+vut1KPyu+1j5vHkz5k9RN8d25g8Hdu5SgBVtbEWcwIJGAJa/fAOtsAsd/y+TLw9QmiUyAFldgIbcnsHONtGqSyCJ19eTak4prw7fvwhOLx5HCRTiaVo7L5NpumL6Rt32Q+lYAi7f1UckF1IEzpzHIiBqlkFkLC5HMtCXjRfvv/KhbljFFbJBuwtfSrAY5MrdNXrIUyTLZSqOQ9fXDe/0ahpnchilmEUZnI1eAtaqKfEvwGEKiFE4Pfy6JTOa3o/x9JgJqpthZ2NkSd+OiMYROUMROnaGgnYe3pQMdCek4aS/B4YyZuGFwwBWJe1gYfml9M4BlyhTw84m3ov/0SfQdPUKXcEd1rW1aORxr1sJB22R0ZIyp/62b6D9IC3b6FCI+H4xZ2apjP58lSNcGWlrgPn8BzsOH4L1WqwbcptIpSFq9GjbGYgMdQ4hi5z1+XI0XxdtKlxpJCYlPPw3LokWKe2O8SaGbt+D7p3f5+TZc5Nb61CJUO6bh/eQZ6IkZEI58d9uQDwywCJnYLQ/jZ9Pf/waDF84rvpSZrJ0dWfDaD2CfOUt5VklhfXQIPZ98DB/Bke8ZMjKQ/corSFm5CgbeAOlA2cbp/tWv4Oayl9FiPM9lKi5G1r//C1ho66TX/Fwlg7/+NQK3bqk5gqIEuoiU11+HLjtbuZdoYxOCFDHvb99U20I+Xt6lkvl4r3g5Dnqt5DJ1BQ8dxC+rBwY4SOPee+woOqn+Qg9Rio8IWQ6TVhrtkOw2iOCNsAu73n0bw7W1CDP/a9ltNqq/zG3NRcXKJcg2zQgjbN97VPfmFsSY3AyTJjE0rEbK5i3QZWYg2t2jQsPI3r2qa8UlyCA8YeNGWOhtVSIjJQT2H0RgF4+puYyI24NemwPvFq/AIdtkNPu+/vTrYdfXBliAdBG0vuPH1BTMQ5egY6elUsjSCYjEXmNmJoI9PXCePYMB0oZQg7iEhCllSCYfy4e1bAridHp46CCGT5zECFdAoKlR0Y6dN0jowMJz6eljfdVnxriWoSHC80pnJ27froKDBAgtE2C0qxvBTz5DsPocwhQ1V2gU16cswk5zMWqseegQC/YIX5nwlQCLkIWY/YdqLqpENkSvKcHBMqkAycKjBEQoQZTdffMGXOfPYVBESDYqtTqkUMSSKFBJCxbSJeSrpStpy0XgxCXIqFF2EhJ5Lpl+mUomq7Hh8M6d8J46hcD166pr9Qwd4hLE38ooMubzI3yhBoHT1QgeOIwQubfVkoaLeeU4kToV1fHpGIlpEPsWg5qHUV8KcNTvg58d4rxSgw5SgoemX8aBMlpMX74SGU8+CRP9qIAmIteze6fahBTu1TPeJlDwMp//Hqz8rGGQCMpOAgHrf/cd1bXCybLxKHPbVAYMDf1vmGnLW12N4Y8+QpQ3UvbIjOXlsDA627ZsUSlOaENtQB46Av+hYwjoDGixZuJofhX2ZlXihjueT16u4NG/puaPAyxDGlorL0Wj7YP30bN/LyIyDpQlSktU9KMffyFkwq/Oc2fR9ps31JhRHiu7uynsxrw/+ZEarKgRpHhbJrd+nk+9vkGnU/YrlelOOFeESzpWgPVyBQiPxxFMibqJBFYmYZLIBHRxCIG9+xl9OxFismvImYJf5i/HSV0WXO7odwzhl9cfBTg8MoxecmgXzb77Xh0iXLLmnFxk0ujLHMGcl6uirZueVea24m1F/KRkZzedqcxOzyrgiuMYZNR1HT4MH2lDwJVElsbOtvFYAx1AhN7W+c47anYbol2DRgMdvXTKj3+s9sp0kgApXOEbN+H9FRMZQ0OUtNWbnIkjlevxXsSBplgC3MHHC1ypPwDYSfGR3V2xX15asRg7K408KqlMXkljpB+V2NpPVR9kcPDQNoUGB1RwcGzcpHYcrPSvspT9DfUY2r0bIwwgAYYLmckmLlo8tkdG/6sxmdUcQV7sIZ/D8sIRnsc0dy4ShH5mzVIbkDJaDJ48rbZzIrfuIBCLQ21+BQ5mV+KMJgcNMSOCo3F4HF9m9wcAB7j8IrVXoWe213OZSqfah31IYBoCPwdGY4h6PPAzNIA3wMSvzTot9P4IEgaHoau9idDt++zcAEKMsCEGA83QIMzhCDSJCTC7/dC39yDqOokQI3aorg4huoU42f3lubVWelyXG3ENBLW5fWybiRYudPkqInfuqufYUjQTx/PmYLdlMrq8n3ft4weuVNzvv7qyJ7PgUT2Xr137F2/D28kVOOl5dP72y+oXr8zEK0vyYDPrJl5dOd41AfA41wTA41wTAI9zTQA8zjUB8DjXBMDjXBMAj3NNADzONQHwONcEwONcEwCPc00APM41AfA41wTA41wTAI9zTQA8zjUB8DjXBMDjXBMAj3NNADzONQHwONcEwONcEwCPc00APM41AfA41wTA41wTAI9zPfK/2fNAFRen3pSYmZ6IOQUpGPWbMOgOoG/Yh0h07N3bGnn7l16DvLQEGPVa9ZJWTyCCjkEvQuEYYrGx4ww6LZITDEizGaCNH+szTzCChh4vhrwhRGNjr4nUaeKRbNWjJMOizisv4hzlfxGe5m7nCIY8IYR/9zYFPj04Eg1Isuj4uLH34f3LAVijUW+C0RQVYvrcUiRPKUSZNw4X7vXgWrMP/mCMoGmQygssybJjbWUeEkx6ON1B3G534diNCJyeAAHXwGrU8QZYUFWShtlFKdBr4zHsC+Nm+wjeO9cBN29INBZVgOYkmzC/OBnPzc9BaoIeMd4wtz+C5n4v/uFkGN5glGBHoSegafzdK6eloTQzAWbDGLT/YgCOtyVCv3ABEv7Dv4MlKxtXbvdi59m7OHGj44tum5xtx8LSHPybjTNhNWnR1OPG8WvteOdUI3pdfvW2WRMvfM2sbPxgRRGWTstgx8fB6Q3j40sdePdsO251jKjz8duYmZeI7y/Jx8tL8mDQalSHSseevDuAnx9oRMuAD0G2sjRrscOKn64pxOY5WQroz+vxB1ing76yAsYN66BdshhtxkTsOHAHh2rbUdfpZPeMqg7cNK8Am+YWYF6pg9Sgwd6adnx6oRUX7/ehfzigTlWUkYAXlhVh9cwsfp2owL3WOoy3q1tx5FYfWvp9qkOlU7+3IBdPzc7E9NxEmPUa9dcALzUOYeflbuyt7Sa4XgVuGmnmyRkOvLgoFzPybHysQZ3383p8X4BNXoxPTYHhiaUwrHgCnsllqA3osO9yK07d7ERz74i66NxUK9ZX5WP1rDyU5SbDH4oS/E4cuNKO2uZBdlyQnGjAvMlpWF+Zg2XTMvkYC1y+CE7c6cP+6704UzeAjiE/jKSY0kwrts7NxurydLXULUYtvKSMA9d7cPCGHDuIpj6vevdpZQGpaGaGOrZikk39rcrfr8evg0XILGZoCwqgm1sJzYb16HTk4SL5cV9NI45wyXv8YSVQ5fkpWD49B1sXFSHBrEczKeHYzW58cq4FjT0jXOZxKM5MxAJ29cY5uQTXAR2XeiMBOnmnn7TQiUtNTgQpfllJRsyeZMfq6enYNjdHLfNgOErR8+Ds/UG8c6YNta0uxc+pFL3KwiQ8VZGBNezeSWlm9bv+WD1eAFPI4qxW6KZOgWHzU8DategMa7DrUjPeP12P221D0JLwUm1GLJ6ahe2Li7GxqoCiE8LlxgF8UN2M3TVtdA1hLmstCkkJm+fl47nFhSh0JCiXcLfTjQ8uCN+2odMZoDDGI5dCtm6WAy8tysPCySnqqQiQ9QR3/7Ue/O+DDYqntVz62bwRS0pT8RfrijE1J1F1/ZfVYwVwnJVWaNMGmF96HqMlk3Gl1Ylf7LmKU7c64fIGVZc47Bb82fpyxbf56QmkhAj+6UQD3q9uwt2OYVqmqLJdi8oceH1dGbs3XQlemDbuEOngjePNuFA/CF8oprhSxOlnBGvdrAzFp1KimUfJyW+eauHnfvjZyUKk5Tkienl4aXGesm7xX+MvIjweAHPZasumwPzsVugWL0SHKQl7jtVh54Vm3GsfUuAmmoVH0/HaqqmoKEpTNugKu/atE424QCFr6/dAHGopncSziwqwekYW6SFBCd69LjeFrE0JWUOvl+BGkcFVsIEitq0q6wtxEjHqdPrxxrFmHCOw97rdCBBcK3/Xdtq0p2Zn0H8nKXA1XwddPGqRY6dpMhy0X/OhX7YEoVkVuO7V4OD1Thy73o677U5l6stykrFiRjZWzsolyBkYGAngXF0fDlxtR/WdXgzR6yZZeQNKxoRsKYUsP92ivO2F+iGqfg/B7UX7oJ+OQ4OKfBvWs2NX0LMql0AAB2m/altc2HWlG4cpZu0UPQGxNMOKTZWZWFXuICUkwG7WPdAlPrIOjjOboC0shG7hPOjXr8PwpGJcbHFi96V6HKEFk3RmY9fOKkzFk7PzsKYiD0WZdtKACydudVPw2nCpYUAlKxGy+XQJG6vyKGQZCrBmWq6zdAcC2LHbfeTlKDLtRqX8T1dmKc6VfwsdNLKrLzQMYR9vxM7Lncp+ZSaZMIudLX/JWkLGg3Tt/1/fPcDsWuFabUkxjFs3Q0Nwh7RmnLjZgTcO3kJt0xhoqYkmVBWn4yfrpytvK+tMwP3Vgbs4wg7vdQUYGpi0Uix4+YliJWaT0q0KnJYBP3YwNLx3rg33KVQSd7OTjVhHS/WDZfm0VHb1PXEP3TzPhxS9j+gortElCH/L319fR2DFCy8rS/1GwH5e3y3AYsGMRpiefgqm7VsRN6UU9wjGbw9fxWcXmjDo9st7wJGXLoFgMl5dOQUZSRZG3CBvQDf+ZtcttPR54KMbEOFaSAH7z8/MwNRcu4q/wpeXGpz4q911uNzsxAgjrYAj4vQfN0zGivI0JFv0yomIXxYL9l8+us0A4VQUIaBLV/+PbVPxxNQ0fm34VuBKfWcAyzvntQTU/Pyzyt86E1Nx9EonPjnfiCsN/eRVP4VMj6XlWXhmQRG51qHAvdo0iD2X2nD4WicBGVHetIxCtrGKSYuUMCXHTkrQKPO/5yo98KUu3KJndtOqZdhNTFnpaolL136+zBt7PTh8sw/vnxuLxiO0ZGlMb8umpOE1driIXgpF7/OBzbep7wRgTWYGdPPmwrh6BeIWzMctL3CEMVa49lrzgOpINaAh166mkE2flKICwc6LPIbAnqegtbJzZY6waibFbkYmlpRl0DHYGJVjTGT9FMZecm0/btOqYTQOC0qSGRocTFkOzKKoyU0IRUZRfa8fhyhix/mYq80uMlYcnYEdK6elU8jS1eP0v5s7PIwaP4CFDvRcjsWFClzd2tXwTJ2O20xbe2tasf9yC62VW0285pNjVxHYzfOLkJlsRjet0vl7Hdhxugk3WocQJq9OIm3MpZBtpwWbU5yqur13JIjLTGLvn2/HqbsDGHCHVAITl7BlTpYCODfFrG5CnzrWhQ94rNwQ4V67RadEbzNFT8AtpmN42DU+AEsiMzPuTsqD6fsvIX7ZUrisdjVa/OW+m7h0v1dNrCTuziUV/OmT5VhYlqkGLXWdw9h7uR2/OVyHYW8IJiaykiwb1s3OwZ+vL+MyN6j5a9uAV3Xs3+yrV6NDmQPLaHE5ufNn64tRQrBkCCSi183EJi7hr3bdQz0dQ4y/W6JxFePuX24qJeUkqg4fjxoXgOOT7NAvXQzrn/8Emvw8NPACd+y/xbRVj85Br0pVhY5EvPhEKb63rARZyRaV0j4jJew43Ygzd3vhD0bVMl1bkY0XlhYxGjsoZFp13Hl627eqW2mpujDECCs3a06hDa8wYT0zN1sJGfVKBYfrMi0704Z3z7QyKsd4bEzNHF5kLH6ZxyeatV8M3MejHi7AvHjdvCoY16xSAIdycnHkZg8dAuPpvW50DXkV522snIQt8wtV16YmGvl9H948Xo9Tt3tUBwslyED8tZUlamY7OWtsUiWu4F2CJRMwCQUuBgn5kwEvLcrF2hnCtXaVyIQ+R/xhfHyxE7spfFfItcN8rBy7lcIoY8jZBWOi97C49p+F5KEkOYpCvN0Ow/JlarwYmzkT7YZEClQHDlPIrjT0wRsMo4Bdu3JmrhKy2cVppIQ41DLuHqjtwNFrXQpoOy96dmGKGorLh3Cy/F9VJO5KIpPhS133WCyeyqW9sSJThYHJmVYksMMlBouj2H2lCwd4I8RRhHjDZObwdOXYsdNo22wPmMi+aX3rDo5PsCI+Nxe6qtnKgnmy8nB3KICjNQ34sLqB6u9Wo8SqkjEh27awCDmpVrVHdr6uH/vItweudihelOnXwinpjLu5dAtZahehZziAay3Dah77Hm2VdG2GfWy0KGHguQU5BEuvuraXx95oG1Ezhx1n29DPCJ1CzpYtHxGxFxbmIt327b3tg9Q3B5hrK56JTDNtKkwb18OwfRs8cRoKWB/ePnGPLqFVeVYBdyEt1cvLp5BP89SSHKTav0eH8OmFFlLCiBoZZqda8OqKEmyam4cCJjLZwxTzL/ZLZrGn7w2oxwoFyBIXsBaVpihghYMHPWE1oHmLx4oNk9Ag0zGhju8vzVeJ7FHUNwP4d7u7xme3MpVtRDxBdkXj8dtDd/Apg8P9Tpfa5U23mfDTjTOwrjIfhZk2BUQdfepff3IDNfUMF+4AE5kOFQXJ+MttM1Gel6SWruzYdtGq/a+ddfSrfWq3QUvA8lNN+G9byhSwkrgEXHEePbRcPz/YgF0UvbbBsSFNYboZ/3ZtkRrqZCWZHi5qD1APDLAkMs2kfDWzFX/rTXPgOr3oOyfrcLGul0vfo4Yt80qlayejojANGXQJ4h6O3ejGx+ebcVvtDIRVxF0/O1dZMElkAnY//aps4bxV3abESZa5gLmC9uv5hTmYyZQl4iQdKivhXP0gdpA6LtKGddGtyJa5+N9tdBMiZA6bQR37qOrrA8yu1eRkQ1dZQSFbAj29bVNIg7OMnIeutqqh+Aj5cVpeMpU/S4nZ4mmZqptq6gdw9HqXmoLJMMdi0Cn7JSK2WBJZViKkHW+0DXOZ96kYKyBLx3/OnzJanFuUrHYV5Pu3GXFlKH7oRp8CWVbMLPLymunpCuDZk2xqV2O8XcJX1VcDLM9Qp4O2qBCGJQuhX70K0dkVuCV5ng5hz6Vmxt1+GHVahoZ0cmgh1rArizJsSpCuEdAPzzbj9O1edlxQJTJ5LcILS4pUMktk18pWzq12Nz673KmU/363m52oVx34/PxchodU5KWa1URNjr1NZyA7uzKKvNPpVrvA84qS1Ja5uIrclEdHCb9fXwmw/PHkOBuTzovPwbBuLWLpDvQ4vfg/TGSHa9v4tU9RggD6X7dXobIkXam6kwJ1rWkQ//29WtzvGlbTKxktikP46YYyLnvzF1Ot1gEf/ufOu1zmTjiZ3mSoLbu0f/1cubJf6hU1gAoJrf0+/OJQg9rhlX0yGcjIsf9pw2QsLk1Vgvk41R/44Il6uPV43e5/hTUB8DjXBMDjXP8XNe7Quwga1xwAAAAASUVORK5CYII=',
     navButtons: [
       {name:'任务',icon:'task'},{name:'异常提醒',icon:'alert'},
-      {name:'原子模型',icon:'atom'},{name:'成果物',icon:'deliver'}
+      {name:'成果物',icon:'deliver'}
     ],
+    navFlat: true,
     supportCenters: [
-      {name:'投行支持中心',img:'Avatar1',prompts:['帮我梳理IPO申报材料清单','分析近期投行项目合规风险','生成债券发行方案概要','整理投行客户服务指引','汇总近期市场发行情况']},
+      {name:'投行支持中心',img:'Avatar1',prompts:['梳理IPO申报材料清单','分析近期投行项目合规风险','生成债券发行方案概要','整理投行客户服务指引','汇总近期市场发行情况']},
       {name:'资管支持中心',img:'Avatar2',prompts:['汇总资管产品净值变动','生成资管季度报告模板','分析产品持仓集中度','整理资管新规影响分析']},
       {name:'零售支持中心',img:'Avatar3',prompts:['统计零售客户活跃度','生成客户经理考核表','推送本月理财产品推荐','分析客户流失风险','生成零售业务周报']},
       {name:'固收支持中心',img:'Avatar4',prompts:['分析自营盘持仓敞口','生成投资策略日报','回溯本周交易异常','整理投资授权清单']},
@@ -1687,7 +1688,9 @@ const WORKBENCH_CONFIGS = {
       {name:'信用支持中心',img:'Avatar9',prompts:['审查信用债发行资质','生成主体评级报告','分析信用利差走势','整理信用风险预警','生成信用月报']}
     ],
     supportCenterPlaceholder: false,
-    hideComposerActions: true,
+    composerActions: [
+      {name:'通知公告', icon:'notice'}
+    ],
     showMoreEntry: false
   }
 };
@@ -1859,7 +1862,6 @@ const alertData = [
   {id:'alert-3',level:'medium',title:'资管产品净值异常波动提醒',desc:'“华创稳增3号”资管产品近3日净值回撤 2.8%，超过预警线 2%，需排查原因并向投委会报告。',source:'资管风控系统',time:'1小时前',detail:'产品名称：华创稳增3号\n近3日回撤：-2.8%\n预警线：-2.0%\n产品规模：3.2 亿元\n\n初步分析回撤主要原因为债券市场短期调整，10年期国债收益率上行约 8bp。建议资管部核实持仓结构并评估是否需要调整久期敞口。',handler:'资管业务助理',status:'处理中'},
   {id:'alert-4',level:'low',title:'零售客户活跃度异常下降提醒',desc:'本月零售高净值客户活跃度环比下降 18%，主要集中在华南区域，建议排查原因并制定挽回方案。',source:'零售业务数据平台',time:'2小时前',detail:'统计周期：2026年7月\n下降幅度：-18%（环比）\n影响区域：华南区域\n涉及客户数：约 320 人\n\n初步分析可能与近期 APP 改版后部分功能入口调整有关。建议零售金融部联合产品部排查用户体验问题，并针对性开展客户回访。',handler:'零售业务助理',status:'未处理'}
 ];
-let alertUnreadCount = alertData.length;
 
 /* ========== 应用中心数据 ========== */
 var APP_CATEGORIES = ['全部','办公协同','客户管理','研发管理','产品管理','人力与行政','其他'];
@@ -2268,6 +2270,20 @@ function applyVersion(ver) {
     }
   }
   updateAICards();
+  updateAtAgentName();
+}
+
+/* 根据当前版本更新 @面板 默认智能体名称 */
+function updateAtAgentName() {
+  const cfg = WORKBENCH_CONFIGS[currentVersion] || {};
+  const agentName = cfg.aiName || '工作秘书';
+  const item = $('atAgentItem');
+  const nameEl = $('atAgentName');
+  if (item) {
+    item.dataset.name = agentName;
+    item.setAttribute('onclick', "pickAt('" + agentName + "','agent')");
+  }
+  if (nameEl) nameEl.textContent = agentName;
 }
 
 /* 华创版演示会话：展示原子模型引用 */
@@ -2311,23 +2327,28 @@ function initHuaChuangDemo() {
   var mp = $('modePill');
   if (mp) { mp.textContent = '● AI 对话'; mp.style.background = '#eaf0ff'; mp.style.color = '#3464e8'; }
   var pb = $('peopleBar');
-  if (pb) pb.innerHTML = '<span class="solo-badge">✦ 华创证券 AI</span>';
+  if (pb) pb.innerHTML = '<button class="invite" onclick="openMembersModal()">邀请</button>';
 }
 
 function renderNav(cfg) {
   const el = $('navList');
   if (!el) return;
   const btns = cfg.navButtons || [];
-  const visible = btns.slice(0, 2);
-  const more = btns.slice(2);
   let html = '';
   function renderNavItem(b) {
-    let badge = '';
-    if (b.name === '异常提醒' && alertUnreadCount > 0) {
-      badge = '<span class="nav-alert-badge" id="navAlertBadge">' + alertUnreadCount + '</span>';
-    }
-    return '<div class="nav-item" onclick="navAction(\'' + b.name + '\')">' + (NAV_ICONS[b.icon] || '') + b.name + badge + '</div>';
+    return '<div class="nav-item" onclick="navAction(\'' + b.name + '\')">' + (NAV_ICONS[b.icon] || '') + b.name + '</div>';
   }
+
+  /* 平铺模式：无“更多”下拉，全部直接显示 */
+  if (cfg.navFlat) {
+    btns.forEach(b => { html += renderNavItem(b); });
+    el.innerHTML = html;
+    return;
+  }
+
+  /* 默认模式：前2个平铺，其余收入“更多” */
+  const visible = btns.slice(0, 2);
+  const more = btns.slice(2);
   visible.forEach(b => { html += renderNavItem(b); });
   if (more.length) {
     html += '<div class="nav-more-wrap"><div class="nav-item" onclick="toggleNavMore(event)" style="cursor:pointer">' +
@@ -2369,11 +2390,6 @@ function handleAlertEntry() {
   // 发送用户提示词
   appendHuman('查看异常提醒', targetMsgs);
 
-  // 更新角标为已读状态
-  alertUnreadCount = 0;
-  const badge = document.getElementById('navAlertBadge');
-  if (badge) { badge.classList.add('read'); badge.textContent = '0'; }
-
   // AI 回复
   setTimeout(function() {
     appendAlertListCard(targetMsgs);
@@ -2384,7 +2400,7 @@ function handleAlertEntry() {
 function appendAlertListCard(target) {
   const t = target || (sessionMode === 'solo' ? soloMessages : messages);
   const cfg = WORKBENCH_CONFIGS[currentVersion] || {};
-  const agentName = '异常提醒助手';
+  const agentName = cfg.aiName || '异常提醒助手';
   const avatarInner = cfg.aiAvatar
     ? '<img class="ai-avatar-img" src="' + cfg.aiAvatar + '" alt="' + agentName + '">'
     : '⚠';
@@ -2423,7 +2439,7 @@ function appendAlertListCard(target) {
     '<div class="msg ai-msg" data-ai-time="刚刚">' +
       '<span class="ai-avatar">' + avatarInner + '</span>' +
       '<div><div class="meta">' + agentName + '</div>' +
-      '<div class="bubble">' + quoteHtml + textHtml + cardHtml + replyFooter + '</div></div>' +
+      '<div class="bubble">' + quoteHtml + textHtml + cardHtml + '</div>' + replyFooter + '</div>' +
     '</div>'
   );
 }
@@ -2446,7 +2462,7 @@ function drillDownAlert(alertId) {
 function appendAlertDetailCard(alert, target) {
   var t = target || (sessionMode === 'solo' ? soloMessages : messages);
   var cfg = WORKBENCH_CONFIGS[currentVersion] || {};
-  var agentName = '异常提醒助手';
+  var agentName = cfg.aiName || '异常提醒助手';
   var avatarInner = cfg.aiAvatar
     ? '<img class="ai-avatar-img" src="' + cfg.aiAvatar + '" alt="' + agentName + '">'
     : '⚠';
@@ -2495,7 +2511,7 @@ function appendAlertDetailCard(alert, target) {
     '<div class="msg ai-msg" data-ai-time="刚刚">' +
       '<span class="ai-avatar">' + avatarInner + '</span>' +
       '<div><div class="meta">' + agentName + '</div>' +
-      '<div class="bubble">' + quoteHtml + textHtml + cardHtml + replyFooter + '</div></div>' +
+      '<div class="bubble">' + quoteHtml + textHtml + cardHtml + '</div>' + replyFooter + '</div>' +
     '</div>'
   );
 }
@@ -2509,7 +2525,7 @@ function handleAlertAction(alertId) {
 
   setTimeout(function() {
     var cfg = WORKBENCH_CONFIGS[currentVersion] || {};
-    var agentName = '异常提醒助手';
+    var agentName = cfg.aiName || '异常提醒助手';
     var avatarInner = cfg.aiAvatar
       ? '<img class="ai-avatar-img" src="' + cfg.aiAvatar + '" alt="' + agentName + '">'
       : '⚠';
@@ -2522,7 +2538,7 @@ function handleAlertAction(alertId) {
       '<div class="msg ai-msg" data-ai-time="刚刚">' +
         '<span class="ai-avatar">' + avatarInner + '</span>' +
         '<div><div class="meta">' + agentName + '</div>' +
-        '<div class="bubble">' + textHtml + replyFooter + '</div></div>' +
+        '<div class="bubble">' + textHtml + '</div>' + replyFooter + '</div>' +
       '</div>'
     );
     targetMsgs.scrollTop = targetMsgs.scrollHeight;
@@ -2652,7 +2668,7 @@ function showPlaceholderPrompts(el) {
 function renderComposerActions(cfg) {
   const el = $('composerActions');
   if (!el) return;
-  /* 华创830版本：不显示底部快捷入口 */
+  /* 兼容旧配置：如明确隐藏则清空 */
   if (cfg.hideComposerActions) { el.innerHTML = ''; return; }
 
   /* 标准版：自定义入口 + 更多 + 入口管理 */
@@ -2707,6 +2723,7 @@ function renderComposerActions(cfg) {
 }
 
 function composerAction(name) {
+  if (name === '通知公告') { toggleNotifPanel(); return; }
   var cfg = WORKBENCH_CONFIGS[currentVersion];
   if (cfg && cfg.composerActions) {
     var action = cfg.composerActions.find(function(a) { return a.name === name; });
@@ -3457,7 +3474,7 @@ function switchSessionById(id) {
     modePill.textContent = '● AI 对话';
     modePill.style.background = '#eaf0ff';
     modePill.style.color = '#3464e8';
-    peopleBar.innerHTML = '<span class="solo-badge">✦ 工作秘书</span>';
+    peopleBar.innerHTML = '<button class="invite" onclick="openMembersModal()">邀请</button>';
     messages.classList.add('hide');
     soloMessages.classList.remove('hide');
     toggle.classList.add('hide');
@@ -3974,7 +3991,7 @@ function switchSession(el) {
     modePill.textContent = '● AI 对话';
     modePill.style.background = '#eaf0ff';
     modePill.style.color = '#3464e8';
-    peopleBar.innerHTML = '<span class="solo-badge">✦ 工作秘书</span>';
+    peopleBar.innerHTML = '<button class="invite" onclick="openMembersModal()">邀请</button>';
     messages.classList.add('hide');
     soloMessages.classList.remove('hide');
     // 隐藏AI开关（单人模式AI始终在线）
@@ -4063,19 +4080,22 @@ function updateSendBtn() {
 
 function onInput() {
   const val = input.value;
-  // 检测@后输入文字，触发过滤
-  const atMatch = val.match(/@([^\s@]*)$/);
-  if (atMatch) {
-    const query = atMatch[1].toLowerCase();
-    atSearchActive = true;
-    atPanel.classList.add('show');
-    filterAtItems(query);
-  } else {
-    atSearchActive = false;
-    if (atPanel.classList.contains('show') && !atPanel._manualOpen) {
-      atPanel.classList.remove('show');
+  // 单人AI会话不触发@调起
+  if (sessionMode !== 'solo') {
+    // 检测@后输入文字，触发过滤
+    const atMatch = val.match(/@([^\s@]*)$/);
+    if (atMatch) {
+      const query = atMatch[1].toLowerCase();
+      atSearchActive = true;
+      atPanel.classList.add('show');
+      filterAtItems(query);
+    } else {
+      atSearchActive = false;
+      if (atPanel.classList.contains('show') && !atPanel._manualOpen) {
+        atPanel.classList.remove('show');
+      }
+      resetAtFilter();
     }
-    resetAtFilter();
   }
   updateSendBtn();
 }
@@ -4448,7 +4468,7 @@ function appendHuman(html, target) {
   const aiIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="aiProcess(\'宋贤群\',\'' + plainText + '\')" title="AI 处理"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg>';
   const humanFooter = '<div class="human-reply-footer">' + copyIcon + aiIcon + '<span>' + sendTime + '</span></div>';
   t.insertAdjacentHTML('beforeend',
-    '<div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群</div><div class="bubble"><div class="human-text">' + html + '</div>' + humanFooter + '</div></div></div>');
+    '<div class="msg mine"><span class="avatar a3">宋贤</span><div><div class="meta">宋贤群</div><div class="bubble"><div class="human-text">' + html + '</div></div>' + humanFooter + '</div></div>');
   const inserted = t.lastElementChild;
   if (inserted) highlightMentions(inserted.querySelector('.bubble'));
 }
@@ -4520,7 +4540,7 @@ function appendAI(question, extraContext, target, customReply, atomModels) {
   const isSolo = t.id === 'soloMessages';
   const quoteHtml = isSolo ? '' : '<div class="ai-quote"><span class="arrow">←</span><span class="who">回应 宋贤群</span><span class="q-text">：' + question + '</span></div>';
   t.insertAdjacentHTML('beforeend',
-    '<div class="msg ai-msg" data-ai-time="刚刚"><span class="ai-avatar">' + ai.avatarInner + '</span><div><div class="meta">' + agentName + '</div><div class="bubble">' + quoteHtml + (extraContext || '') + '<div class="ai-text">' + aiReply + '</div>' + atomRefHtml + replyFooter + '</div></div></div>');
+    '<div class="msg ai-msg" data-ai-time="刚刚"><span class="ai-avatar">' + ai.avatarInner + '</span><div><div class="meta">' + agentName + '</div><div class="bubble">' + quoteHtml + (extraContext || '') + '<div class="ai-text">' + aiReply + '</div>' + atomRefHtml + '</div>' + replyFooter + '</div></div>');
 }
 
 /* 版本切换时更新已有 AI 消息的头像和名称 */
