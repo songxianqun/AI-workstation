@@ -648,6 +648,8 @@
     .sc-expand-arrow:hover{color:#3464e8}
     /* 华创830：常规聊天模式隐藏业务支持中心栏，新会话模式保留 */
     .main.sc-hide-in-chat:not(.new-chat-mode) .support-center-bar{display:none!important}
+    /* 消息通知面板打开时隐藏底层业务支持中心，避免半隐半现 */
+    .main.notif-view-open .support-center-bar{display:none!important}
     /* 新会话模式：绝对定位到顶部，居中760px */
     .main.new-chat-mode .support-center-bar.show{display:flex!important;position:absolute;top:0;left:50%;transform:translateX(-50%);width:760px;max-width:92%;z-index:5;border-radius:0 0 12px 12px;border:1px solid #e8ebf0;border-top:0}
     .main.new-chat-mode .support-center-bar.placeholder .sc-placeholder-text{display:none}
@@ -1111,7 +1113,7 @@
           <div class="uploads" id="uploads"></div>
           <!-- 已选技能标签 -->
           <div class="skill-tags" id="skillTags"></div>
-          <div class="textline"><textarea id="input" placeholder="与成员讨论，开启AI参与按钮，或输入 @智能体 让AI参与" oninput="onInput()"></textarea></div>
+          <div class="textline"><textarea id="input" placeholder="输入信息，开启工作" oninput="onInput()"></textarea></div>
           <div class="toolbar-sep"></div>
           <div class="tools">
             <div class="tool-left">
@@ -1689,12 +1691,14 @@ const WORKBENCH_CONFIGS = {
     ],
     supportCenterPlaceholder: false,
     composerActions: [
-      {name:'通知公告', icon:'notice'}
+      {name:'通知公告', icon:'notice', prompt:'帮我查看最新通知公告，摘要展示重点内容，并标注需我关注或处理的事项', reply:'今日通知公告共 3 条：<br><br>1. <b>系统维护通知</b>：今晚 23:00-02:00 进行核心交易系统升级，期间部分服务可能受影响。<br>2. <b>合规培训提醒</b>：请于本周五前完成《投行业务合规指引》在线学习及测试。<br>3. <b>部门会议通知</b>：明日 10:00 召开 830 项目迭代评审会，请相关同事准时参加。<br><br>需要我帮您逐条处理或转发给相关人员吗？'}
     ],
     showMoreEntry: false
   }
 };
 let currentVersion = 'huaChuang830';
+let notifViewOpen = false;  // 消息通知面板是否打开（提前声明避免 TDZ）
+let currentNotifTab = 'all'; // 消息通知当前标签页
 
 /* ========== 自定义入口数据（标准版专用） ========== */
 const ENTRY_ICON_SET = Object.assign({}, ACTION_ICONS, NAV_ICONS);
@@ -1915,6 +1919,18 @@ function openAppCenter() {
 function closeAppCenter() {
   $('chatMain').classList.remove('app-center-mode');
   document.querySelector('.app').classList.remove('app-center-active');
+}
+
+/* 关闭所有覆盖层视图（应用中心、消息通知面板），确保能切回会话 */
+function resetOverlayViews() {
+  closeAppCenter();
+  const chatMain = $('chatMain');
+  const notifView = $('notifView');
+  if (notifView) {
+    notifView.classList.remove('active');
+    notifViewOpen = false;
+  }
+  if (chatMain) chatMain.classList.remove('notif-view-open');
 }
 
 function renderAppCenterTabs() {
@@ -2320,7 +2336,7 @@ function initHuaChuangDemo() {
   composer.classList.add('ai-on');
   toggle.classList.add('hide');
   if(atBtnText) atBtnText.textContent = '@智能体';
-  input.placeholder = '向「华创证券 AI」提问……';
+  input.placeholder = '追加需求或提问';
   // 更新标题栏
   var st = $('sessionTitle');
   if (st) st.textContent = '投行项目合规风险梳理';
@@ -2723,7 +2739,6 @@ function renderComposerActions(cfg) {
 }
 
 function composerAction(name) {
-  if (name === '通知公告') { toggleNotifPanel(); return; }
   var cfg = WORKBENCH_CONFIGS[currentVersion];
   if (cfg && cfg.composerActions) {
     var action = cfg.composerActions.find(function(a) { return a.name === name; });
@@ -3463,6 +3478,7 @@ function switchSessionById(id) {
   const chat = findChat(id);
   if (!chat) return;
   activeChatId = id;
+  resetOverlayViews();
   renderLeftPanel();
   const mode = chat.mode;
   const title = chat.title;
@@ -3481,7 +3497,7 @@ function switchSessionById(id) {
     if(atBtnText) atBtnText.textContent = '@智能体';
     atSections.members.classList.add('hide');
     atSections.sep.classList.add('hide');
-    input.placeholder = '请输入信息，开启智能工作';
+    input.placeholder = '追加需求或提问';
     aiOn = true;
   } else {
     modePill.textContent = '● 多人协作';
@@ -3580,6 +3596,7 @@ function scrollToFolder(folderId) {
 function startNewChat(folderId) {
   folderId = folderId || '';
   activeChatId = '';
+  resetOverlayViews();
   renderLeftPanel();
   input.value = '';
   clearContext();
@@ -3591,7 +3608,7 @@ function startNewChat(folderId) {
   selectWorkspaceForNewChat(folderId);
   sessionMode = 'solo';
   aiOn = true;
-  input.placeholder = '请输入信息，开启智能工作';
+  input.placeholder = '输入信息，开启工作';
   sendBtn.classList.add('ai');
   composer.classList.add('ai-on');
   // 新会话等同人与AI单聊：隐藏AI参与开关，@仅智能体
@@ -4002,7 +4019,7 @@ function switchSession(el) {
     atSections.members.classList.add('hide');
     atSections.sep.classList.add('hide');
     // 更新占位提示
-    input.placeholder = '请输入信息，开启智能工作';
+    input.placeholder = '追加需求或提问';
     aiOn = true; // 单人模式AI始终在线
   } else {
     // 多人+AI模式
@@ -4054,7 +4071,7 @@ function showToast(msg) {
 /* ========== 输入框占位提示 §8 ========== */
 function updatePlaceholder() {
   if (sessionMode === 'solo') {
-    input.placeholder = '请输入信息，开启智能工作';
+    input.placeholder = '追加需求或提问';
   } else {
     input.placeholder = aiOn
       ? '向AI提问，每条消息均由AI处理'
@@ -4953,7 +4970,8 @@ function initSectionStates() {
   });
 }
 
-// 初始化
+// 初始化：先应用版本配置，再加载会话
+applyVersion('huaChuang830');
 initSummaryState();
 initSectionStates();
 renderLeftPanel();
@@ -4964,6 +4982,8 @@ if (activeChatId) {
   $('chatMain').classList.add('new-chat-mode');
   initAIForCurrentSession();
 }
+// 高亮历史消息中的 @提及
+document.querySelectorAll('.messages .bubble').forEach(el => highlightMentions(el));
 
 /* ========== AI开关初始化 ========== */
 function initAIForCurrentSession() {
@@ -4985,19 +5005,21 @@ function initAIForCurrentSession() {
 }
 
 /* ========== 消息通知面板（右侧面板切换） ========== */
-let notifViewOpen = false;
-let currentNotifTab = 'all';
+/* notifViewOpen / currentNotifTab 已在上方状态区声明，避免 TDZ 错误 */
 
 function toggleNotifPanel() {
   notifViewOpen = !notifViewOpen;
   const notifView = $('notifView');
+  const chatMain = $('chatMain');
   if (notifViewOpen) {
     const appRect = document.querySelector('.app').getBoundingClientRect();
     notifView.style.left = (appRect.left + 290) + 'px';
     notifView.classList.add('active');
+    if (chatMain) chatMain.classList.add('notif-view-open');
     filterNotifCards();
   } else {
     notifView.classList.remove('active');
+    if (chatMain) chatMain.classList.remove('notif-view-open');
   }
 }
 
@@ -5072,10 +5094,7 @@ function updateUnreadCount() {
   if (unreadTab) unreadTab.textContent = total;
 }
 
-/* 初始化高亮历史消息中的 @提及 */
-applyVersion('huaChuang830');
-startNewChat();
-document.querySelectorAll('.messages .bubble').forEach(el => highlightMentions(el));
+/* 版本与 @提及高亮已在上方统一初始化 */
 </script>
 
 <!-- 全局会话悬停浮窗 -->
