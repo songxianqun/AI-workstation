@@ -4077,10 +4077,19 @@ function updatePlaceholder() {
   }
 }
 
+/* ========== 智能体名称集合（静态列表 + 各版本配置的 aiName/atAgentDisplay） ========== */
+function getAgentNames() {
+  const agents = ['工作秘书','客户经理','财富管家','创意助手','薯 expert','原子模型测试'];
+  Object.values(WORKBENCH_CONFIGS).forEach(function(cfg) {
+    if (cfg.aiName && agents.indexOf(cfg.aiName) < 0) agents.push(cfg.aiName);
+    if (cfg.atAgentDisplay && agents.indexOf(cfg.atAgentDisplay) < 0) agents.push(cfg.atAgentDisplay);
+  });
+  return agents;
+}
+
 /* ========== 检测文本是否提及任何智能体 ========== */
 function hasAgentMention(text) {
-  const agents = ['工作秘书','客户经理','财富管家','创意助手','薯 expert','原子模型测试'];
-  return agents.some(name => text.includes('@' + name));
+  return getAgentNames().some(name => text.includes('@' + name));
 }
 
 /* ========== 发送按钮状态 ========== */
@@ -4131,7 +4140,7 @@ function toggleAtPanel(e, forceOpen) {
 
 /* 检查输入框中是否已经 @ 了某个智能体（单条消息仅限一个智能体） */
 function getAgentMention() {
-  const agents = ['工作秘书','客户经理','财富管家','创意助手','薯 expert','原子模型测试'];
+  const agents = getAgentNames();
   for (const a of agents) {
     const escaped = a.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const regex = new RegExp('@' + escaped + '(?=\\s|$)');
