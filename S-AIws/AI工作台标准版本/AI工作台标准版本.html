@@ -785,6 +785,61 @@
     .app-card-badge{position:absolute;top:8px;right:8px;min-width:16px;height:16px;border-radius:10px;background:#e34;color:#fff;font-size:9px;font-weight:700;display:grid;place-items:center;padding:0 4px}
     .app-card-ai-tag{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;color:#3464e8;background:#eaf0ff;border-radius:4px;padding:1px 4px;letter-spacing:.5px}
     .app-center-empty{text-align:center;padding:40px 10px;color:#9aa2b8;font-size:13px}
+
+    /* ===== 通知公告卡片（AI 回复内，华创/华创830） ===== */
+    .notice-card{margin:2px 0 4px;border:1px solid #e7eaf1;border-radius:12px;background:#fafbfd;overflow:hidden;max-width:560px}
+    .notice-card-head{display:flex;align-items:center;justify-content:space-between;padding:11px 16px 7px}
+    .notice-card-title{font-size:14px;font-weight:800;color:#1f2940}
+    .notice-card-count{font-size:11px;color:#9aa2b5}
+    .notice-card-item{display:flex;align-items:flex-start;gap:10px;padding:10px 16px;border-top:1px solid #f0f2f7;cursor:pointer;transition:.15s}
+    .notice-card-item:hover{background:#f4f7ff}
+    .notice-card-dot{width:7px;height:7px;border-radius:50%;background:#e34;margin-top:6px;flex-shrink:0}
+    .notice-card-item.read .notice-card-dot{visibility:hidden}
+    .notice-card-item.read .notice-item-title{font-weight:400;color:#5a6478}
+    .notice-item-body{flex:1;min-width:0}
+    .notice-item-title{font-size:13px;font-weight:700;color:#1f2940;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .notice-item-meta{font-size:11px;color:#9aa2b5;margin-top:3px}
+    .notice-item-req{font-size:12px;color:#5a6478;margin-top:2px}
+    .notice-card-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid #f0f2f7}
+    .notice-card-unread-tip{font-size:11px;color:#9aa2b5}
+    .notice-more-btn{border:1px solid #c5d0f0;background:#fff;color:#3464e8;font-size:12px;font-weight:600;padding:6px 16px;border-radius:8px;cursor:pointer;transition:.15s}
+    .notice-more-btn:hover{background:#eaf0ff}
+
+    /* ===== 通知公告完整列表（右侧面板展开态） ===== */
+    .app.notice-list-expanded{grid-template-columns:290px 0 1fr}
+    .app.notice-list-expanded .main{overflow:hidden}
+    .right-view.notice-list-view{display:none}
+    .right-view.notice-list-view.active{display:flex;flex-direction:column}
+    .notice-list-header{display:flex;align-items:center;justify-content:space-between;padding:13px 20px 11px;border-bottom:1px solid #eef0f5;flex-shrink:0}
+    .notice-list-header-left{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:#1f2940}
+    .notice-list-header-right{display:flex;align-items:center;gap:10px}
+    .notice-mark-read-btn{border:0;background:transparent;color:#3464e8;font-size:12px;font-weight:600;cursor:pointer;padding:6px 10px;border-radius:6px;transition:.15s}
+    .notice-mark-read-btn:hover{background:#eaf0ff}
+    .notice-list-search{display:flex;align-items:center;gap:6px;background:#f4f6fb;border:1px solid #e8ebf0;border-radius:8px;padding:0 10px;width:210px}
+    .notice-list-search svg{color:#9aa2b5;flex-shrink:0}
+    .notice-list-search input{flex:1;border:0;background:transparent;font-size:12px;color:#1f2940;padding:6px 0;outline:none;font-family:inherit;min-width:0}
+    .notice-list-search input::placeholder{color:#b0b8c9}
+    .notice-table-wrap{flex:1;overflow:auto}
+    .notice-table{width:100%;border-collapse:collapse;min-width:1000px}
+    .notice-table th{position:sticky;top:0;background:#f9fafc;font-size:11px;font-weight:700;color:#7c879e;text-align:left;padding:9px 10px;border-bottom:1px solid #e7eaf1;white-space:nowrap;z-index:2}
+    .notice-table td{font-size:12px;color:#3a4560;padding:9px 10px;border-bottom:1px solid #f0f2f7;white-space:nowrap}
+    .notice-table tbody tr{cursor:pointer;transition:.12s}
+    .notice-table tbody tr:hover{background:#f4f7ff}
+    .notice-doc-cell{display:flex;align-items:center;gap:6px;min-width:0;max-width:280px}
+    .notice-doc-icon{width:15px;height:15px;flex-shrink:0;display:grid;place-items:center}
+    .notice-doc-icon svg{width:15px;height:15px}
+    .notice-doc-name{overflow:hidden;text-overflow:ellipsis;font-weight:600;color:#1f2940}
+    .notice-row-unread .notice-doc-name{font-weight:800}
+    .notice-table-dot{width:7px;height:7px;border-radius:50%;background:#e34;flex-shrink:0}
+    .notice-table tr.notice-row-read .notice-table-dot{visibility:hidden}
+    .notice-list-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-top:1px solid #eef0f5;flex-shrink:0}
+    .notice-list-total{font-size:12px;color:#7c879e}
+    .notice-pagination{display:flex;align-items:center;gap:4px;font-size:12px;color:#5a6478}
+    .notice-page-btn{min-width:26px;height:26px;border:1px solid #e8ebf0;background:#fff;border-radius:6px;display:grid;place-items:center;cursor:pointer;padding:0 4px;transition:.15s}
+    .notice-page-btn:hover{border-color:#c5d0f0;color:#3464e8}
+    .notice-page-btn.active{background:#3464e8;border-color:#3464e8;color:#fff;cursor:default}
+    .notice-jump{font-size:12px;color:#7c879e;display:flex;align-items:center;gap:4px;margin-left:10px}
+    .notice-jump input{width:36px;height:26px;border:1px solid #e8ebf0;border-radius:6px;text-align:center;font-size:12px;outline:none}
   </style>
 </head>
 <body>
@@ -1689,8 +1744,10 @@ const WORKBENCH_CONFIGS = {
     ],
     supportCenterPlaceholder: false,
     composerActions: [
+      {name:'待办事项', icon:'todo', prompt:'帮我查看今日待办事项，并按优先级排序，突出显示已逾期和即将到期的任务', reply:'为您查询到今日待办事项共 5 项，已按优先级排序：<br><br>🔴 <b>已逾期（1项）</b><br>1. 【P0】830项目迭代评审材料准备 - 截止 8/28<br><br>🟡 <b>今日截止（2项）</b><br>2. 【P1】投行项目合规风险排查反馈 - 截止 18:00<br>3. 【P1】客户尽调资料复核 - 截止 17:00<br><br>🟢 <b>待办（2项）</b><br>4. 【P2】债券发行方案文档更新 - 明天 10:00<br>5. 【P2】周报填报 - 本周五<br><br>建议优先处理已逾期事项，需要我帮您逐项推进吗？'},
       {name:'通知公告', icon:'notice', prompt:'帮我查看最新通知公告，摘要展示重点内容，并标注需我关注或处理的事项', reply:'今日通知公告共 3 条：<br><br>1. <b>系统维护通知</b>：今晚 23:00-02:00 进行核心交易系统升级，期间部分服务可能受影响。<br>2. <b>合规培训提醒</b>：请于本周五前完成《投行业务合规指引》在线学习及测试。<br>3. <b>部门会议通知</b>：明日 10:00 召开 830 项目迭代评审会，请相关同事准时参加。<br><br>需要我帮您逐条处理或转发给相关人员吗？'}
     ],
+    /* 通知公告/待办事项入口：仅@智能体开启的会话不展示，其余场景常驻显示 */
     showMoreEntry: false
   }
 };
@@ -1710,10 +1767,7 @@ const ATOM_MODELS_BY_ACTION = {
     {name:'任务优先级评估模型', desc:'基于任务紧急度与重要度双维度评估优先级', positioning:'用于对会话或业务中产生的待办任务进行优先级排序，确保关键事项优先推进。', dimensions:[{title:'紧急程度', desc:'根据截止时间、阻塞影响判断任务是否需要立即处理'},{title:'重要程度', desc:'结合业务目标与关联方影响评估任务价值'},{title:'资源匹配', desc:'根据当前人力与权限判断任务可执行性'}]},
     {name:'工作流程编排模型', desc:'分析任务依赖关系与最优执行路径', positioning:'用于识别任务之间的先后依赖，生成可执行的工作流路径。', dimensions:[{title:'依赖关系', desc:'梳理前置任务与后置任务的衔接条件'},{title:'执行路径', desc:'基于依赖与资源约束计算最优执行顺序'},{title:'风险节点', desc:'标记可能导致流程阻塞的关键节点'}]}
   ],
-  '通知公告': [
-    {name:'信息摘要提取模型', desc:'从公告文本中自动提取核心要点', positioning:'用于快速提炼通知公告中的关键信息，降低阅读成本。', dimensions:[{title:'主题识别', desc:'判断公告所属业务领域与核心议题'},{title:'关键信息', desc:'提取时间、范围、责任人等关键要素'},{title:'行动建议', desc:'根据内容生成需要用户执行的后续动作'}]},
-    {name:'关键事项标注模型', desc:'识别需用户关注或处理的事项并标注', positioning:'用于在公告内容中标记需要重点关注或处理的事项。', dimensions:[{title:'关注等级', desc:'按重要与紧急程度对事项进行分级'},{title:'处理对象', desc:'明确事项的责任人或处理部门'},{title:'截止时间', desc:'识别事项的有效期与响应时限'}]}
-  ],
+  /* 通知公告不基于原子模型，无关联配置 */
   'OA邮箱': [
     {name:'邮件分类与优先级模型', desc:'按紧急程度和业务类型对邮件分类排序', positioning:'用于对收件箱邮件进行智能分类，帮助用户优先处理高价值邮件。', dimensions:[{title:'业务类型', desc:'识别邮件所属的业务条线或流程类型'},{title:'紧急程度', desc:'根据发件人、关键词与截止时间判断优先级'},{title:'处理建议', desc:'推荐回复、转发、归档等后续动作'}]},
     {name:'邮件内容摘要模型', desc:'自动生成邮件关键内容摘要', positioning:'用于快速提炼邮件正文中的核心诉求与关键信息。', dimensions:[{title:'发件意图', desc:'判断邮件的发起目的与期望响应'},{title:'核心诉求', desc:'提取需要收件人处理或回复的关键点'},{title:'背景信息', desc:'汇总邮件中涉及的项目、合同或客户信息'}]}
@@ -1728,6 +1782,297 @@ const HUACHUANG_DEFAULT_ATOM_MODELS = [
   {name:'投行业务知识模型', desc:'基于投行业务规则与案例库进行风险识别', positioning:'用于在投行项目沟通、尽调、申报等环节识别潜在业务与合规风险，辅助判断项目关键问题。', dimensions:[{title:'IPO 申报材料完整性', desc:'核查招股说明书、募集说明书等披露文件是否完整充分，关联交易、资金往来等是否披露到位。'},{title:'债券发行合规性', desc:'核查承销协议、募集条款是否符合监管要求，是否存在与现行法规冲突的条款。'},{title:'投资者适当性管理', desc:'核查合格投资者认定材料是否齐全，风险承受能力与产品风险等级是否匹配。'},{title:'信息披露及时性', desc:'核查定期报告、临时公告、重大事项等披露是否及时，是否存在滞后或遗漏。'},{title:'关联交易与利益冲突', desc:'核查关联方识别是否完整，利益冲突防范机制是否到位，相关方资金往来是否披露。'}], dataSource:{tag:'图库', name:'agentcorpus-discovery', text:'业务对象：投行业务知识模型真实数据示例 -- 按投行业务知识模型的五个客观维度（IPO 申报材料完整性、债券发行合规性、投资者适当性管理、信息披露及时性、关联交易与利益冲突）从投行项目管理系统、投行知识库和监管法规库匹配真实项目数据与案例。\n\n数据覆盖：项目基础信息来自 ib_dev.V_I_IB_PROJECT_BASE（投行项目基础信息视图，MYSQL，domain=ib_dev），监管法规来自 compliance_dev.V_I_REGULATION_BASE（监管法规视图，MYSQL，domain=compliance_dev），案例数据来自 knowledge_dev.V_I_IB_CASE_BASE（投行案例库视图，MYSQL，domain=knowledge_dev）。关键字段：PROJECTCODE（项目编码）、PROJECTNAME（项目名称）、PROJECTTYPE（项目类型，IPO/再融资/债券/并购）、UNDERWRITER（承销商）、DISCLOSURESTATUS（披露状态）、RISKLEVEL（风险等级）、REGULATIONCODE（法规编号）、REGULATIONTITLE（法规标题）、CASEID（案例编号）、CASERISKPOINT（案例风险点），证据等级 SYSTEM_DEFINED。\n\n表关系：项目基础信息 left join 监管法规 on 项目类型匹配法规适用范围；left join 案例库 on 风险类型匹配案例标签。\n\n取数步骤：\n步骤1 投行项目真实数据示例，domain=ib_dev，方言=MYSQL，涉及表=V_I_IB_PROJECT_BASE，left join V_I_REGULATION_BASE，left join V_I_IB_CASE_BASE，过滤条件=项目状态为在审或存续，聚合维度=无，聚合指标=无，输出字段=[PROJECTCODE, PROJECTNAME, PROJECTTYPE, UNDERWRITER, DISCLOSURESTATUS, RISKLEVEL, REGULATIONCODE, REGULATIONTITLE, CASEID, CASERISKPOINT]，输出粒度=每行代表一个项目风险点，下游流向=示例卡片展示。\n\n跨域关联键映射：ib_dev.V_I_IB_PROJECT_BASE.PROJECTTYPE ↔ compliance_dev.V_I_REGULATION_BASE.APPLYSCOPE；ib_dev.V_I_IB_PROJECT_BASE.RISKTYPE ↔ knowledge_dev.V_I_IB_CASE_BASE.RISKTAG。'}},
   {name:'合规风险校验模型', desc:'校验业务流程与监管要求的合规性', positioning:'用于对 AI 生成内容、业务流程、项目材料进行合规性审查，识别潜在合规风险并给出处置建议。', dimensions:[{title:'敏感信息识别', desc:'识别客户隐私、内部数据、未公开信息、交易细节等敏感内容。'},{title:'监管条款对照', desc:'对照证监会、交易所、行业协会等监管规则进行合规校验。'},{title:'风险等级评定', desc:'对识别出的潜在风险按高、中、低进行分级。'},{title:'内部制度匹配', desc:'对照公司内部合规制度、风控要求与业务规范进行校验。'},{title:'处置建议生成', desc:'针对识别出的风险给出整改、复核或风险提示建议。'}], dataSource:{tag:'图库', name:'agentcorpus-discovery', text:'业务对象：合规风险校验模型真实数据示例 -- 按合规风险校验模型的五个客观维度（敏感信息识别、监管条款对照、风险等级评定、内部制度匹配、处置建议生成）从合规知识库、监管法规库和内部制度库匹配校验规则与案例。\n\n数据覆盖：合规规则来自 compliance_dev.V_I_COMPLIANCE_RULE（合规规则视图，MYSQL，domain=compliance_dev），监管法规来自 compliance_dev.V_I_REGULATION_BASE（监管法规视图，MYSQL，domain=compliance_dev），内部制度来自 internal_dev.V_I_POLICY_BASE（内部制度视图，MYSQL，domain=internal_dev）。关键字段：RULEID（规则编号）、RULENAME（规则名称）、RULETYPE（规则类型，敏感信息/监管条款/风险等级/内部制度/处置建议）、REGULATIONCODE（法规编号）、REGULATIONTITLE（法规标题）、POLICYID（制度编号）、POLICYTITLE（制度标题）、RISKLEVEL（风险等级，高/中/低）、SUGGESTION（处置建议），证据等级 SYSTEM_DEFINED。\n\n表关系：合规规则 left join 监管法规 on 规则关联法规编号；left join 内部制度 on 规则关联制度编号。\n\n取数步骤：\n步骤1 合规规则真实数据示例，domain=compliance_dev，方言=MYSQL，涉及表=V_I_COMPLIANCE_RULE，left join V_I_REGULATION_BASE，left join internal_dev.V_I_POLICY_BASE，过滤条件=规则状态为生效，聚合维度=无，聚合指标=无，输出字段=[RULEID, RULENAME, RULETYPE, REGULATIONCODE, REGULATIONTITLE, POLICYID, POLICYTITLE, RISKLEVEL, SUGGESTION]，输出粒度=每行代表一条合规校验规则，下游流向=示例卡片展示。\n\n跨域关联键映射：compliance_dev.V_I_COMPLIANCE_RULE.REGULATIONCODE ↔ compliance_dev.V_I_REGULATION_BASE.REGULATIONCODE；compliance_dev.V_I_COMPLIANCE_RULE.POLICYID ↔ internal_dev.V_I_POLICY_BASE.POLICYID。'}}
 ];
+
+/* ========== 通知公告数据与交互（华创/华创830专用） ========== */
+const NOTICE_ITEMS = [
+  {id:1, unread:true, title:'关于参加创金合信大健康混合型证券投资基金销售的通知', dept:'各部门', date:'2025-07-04', desc:'落实要求：组织办理。', type:'通知', owner:'宋贤群', fileType:'docx', implement:'各部门', require:'组织办理', dir:'通知公告', attach:0, status:'正常', created:'2025-07-04', replies:0, docNo:'华创证券〔2025〕48号', signDate:'二〇二五年七月四日',
+    body:['各部门、各分支机构：','根据中国证监会相关批复及基金合同约定，创金合信大健康混合型证券投资基金（基金代码：012345）定于 2025 年 7 月 10 日起正式开展销售业务。现将有关事项通知如下：','一、销售安排。本基金销售期间为 2025 年 7 月 10 日至 2025 年 7 月 31 日，投资者可通过公司柜台及网上交易系统办理认购申请。','二、落实要求。各部门应组织做好客户告知、投资者适当性匹配及风险揭示等准备工作，确保销售行为合规有序。','三、其他事项。销售过程中如遇问题，请及时与财富管理部联系。','特此通知。']},
+  {id:2, unread:true, title:'测试2025年7月3日09点01分', dept:'各部门', date:'2025-07-03', desc:'落实要求：组织办理。', type:'通知', owner:'宋贤群', fileType:'docx', implement:'各部门', require:'组织办理', dir:'通知公告', attach:0, status:'正常', created:'2025-07-03', replies:0, docNo:'华创证券〔2025〕47号', signDate:'二〇二五年七月三日',
+    body:['各部门：','本通知为通知公告发布流程测试内容，发布于 2025 年 7 月 3 日 09 时 01 分，用于验证通知公告的发布与传达链路。','请各部门收到本通知后按组织办理要求进行传达确认，并将确认结果反馈至信息技术总部。','特此通知。']},
+  {id:3, unread:true, title:'测试2025年7月2日15点13分', dept:'各部门', date:'2025-07-02', desc:'落实要求：个人浏览。', type:'通知', owner:'宋贤群', fileType:'docx', implement:'各部门', require:'个人浏览', dir:'通知公告', attach:0, status:'正常', created:'2025-07-02', replies:0, docNo:'华创证券〔2025〕46号', signDate:'二〇二五年七月二日',
+    body:['各部门：','本通知为通知公告发布流程测试内容，发布于 2025 年 7 月 2 日 15 时 13 分。','请相关人员个人浏览知悉即可，无需组织传达。','特此通知。']},
+  {id:4, unread:true, title:'测试MQ2025年6月30日14点31分', dept:'各部门', date:'2025-06-30', desc:'落实要求：学习传达。', type:'通知', owner:'宋贤群', fileType:'docx', implement:'各部门', require:'学习传达', dir:'通知公告', attach:0, status:'正常', created:'2025-06-30', replies:0, docNo:'华创证券〔2025〕42号', signDate:'二〇二五年六月三十日',
+    body:['各部门：','本通知为消息队列（MQ）通道通知公告测试内容，发布于 2025 年 6 月 30 日 14 时 31 分，用于验证消息队列推送通知的稳定性与及时性。','请各部门组织学习传达，并关注接收时效情况。','特此通知。']},
+  {id:5, unread:false, title:'测试MQ17点44分', dept:'各部门', date:'2025-06-09', desc:'落实要求：个人浏览。', type:'通知', owner:'宋贤群', fileType:'docx', implement:'各部门', require:'个人浏览', dir:'通知公告', attach:0, status:'正常', created:'2025-06-09', replies:0, docNo:'华创证券〔2025〕31号', signDate:'二〇二五年六月九日',
+    body:['各部门：','本通知为消息队列（MQ）通道通知公告测试内容，发布于 2025 年 6 月 9 日 17 时 44 分。','请相关人员个人浏览知悉即可。','特此通知。']},
+  {id:6, unread:false, title:'易信功能测试文档数据2', dept:'未标注', date:'2025-01-06', desc:'易信功能测试类文档通知，未标注落实要求。', type:'通知', owner:'宋贤群', fileType:'docx', implement:'未标注', require:'未标注', dir:'通知公告', attach:0, status:'正常', created:'2025-01-06', replies:0, docNo:'华创证券〔2025〕3号', signDate:'二〇二五年一月六日',
+    body:['各部门：','易信功能测试类文档通知，未标注落实要求。','本通知用于易信文档同步功能的验证测试。','特此通知。']}
+];
+
+/* 生成 AI 回复中的通知公告卡片 HTML（图一形态） */
+function buildNoticeCardReply() {
+  var items = NOTICE_ITEMS.slice(0, 5);
+  var html = '为您展示最新通知公告 5 条（其中 4 条未读），重点内容如下：<br><br>';
+  html += '<div class="notice-card">';
+  html += '<div class="notice-card-head"><span class="notice-card-title">通知公告</span><span class="notice-card-count">最新 5 条</span></div>';
+  items.forEach(function(n) {
+    html += '<div class="notice-card-item' + (n.unread ? '' : ' read') + '" onclick="openNoticeDetail(' + n.id + ')" title="点击查看通知详情">' +
+      '<span class="notice-card-dot"></span>' +
+      '<div class="notice-item-body">' +
+        '<div class="notice-item-title">' + n.title + '</div>' +
+        '<div class="notice-item-meta">' + n.dept + ' · ' + n.date + '</div>' +
+        '<div class="notice-item-req">' + n.desc + '</div>' +
+      '</div>' +
+    '</div>';
+  });
+  html += '<div class="notice-card-foot">' +
+    '<span class="notice-card-unread-tip">当前您还有 6306 条通知公告未读</span>' +
+    '<button class="notice-more-btn" onclick="event.stopPropagation();expandNoticeList()">查看更多</button>' +
+  '</div>';
+  html += '</div>';
+  return html;
+}
+
+/* 将卡片 reply 注入华创/华创830版本的"通知公告"入口 */
+(function initNoticeCardReply() {
+  var cardReply = buildNoticeCardReply();
+  ['huaChuang', 'huaChuang830'].forEach(function(v) {
+    var cfg = WORKBENCH_CONFIGS[v];
+    if (!cfg || !cfg.composerActions) return;
+    cfg.composerActions.forEach(function(a) {
+      if (a.name === '通知公告') a.reply = cardReply;
+    });
+  });
+})();
+
+/* 点击卡片条目：浏览器新标签页打开通知公告详情（图二形态） */
+function openNoticeDetail(id) {
+  var n = null;
+  for (var i = 0; i < NOTICE_ITEMS.length; i++) { if (NOTICE_ITEMS[i].id === id) { n = NOTICE_ITEMS[i]; break; } }
+  if (!n) return;
+  var w = window.open('', '_blank');
+  if (!w) { showToast('浏览器拦截了弹出窗口，请允许弹出后重试'); return; }
+  w.document.write(buildNoticeDetailHtml(n));
+  w.document.close();
+}
+
+/* 生成通知公告详情页完整 HTML（文档查看器） */
+function buildNoticeDetailHtml(n) {
+  var paras = n.body.map(function(p) { return '<p>' + p + '</p>'; }).join('');
+  return '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + n.title + '</title><style>' +
+  '*{box-sizing:border-box}' +
+  'body{margin:0;background:#eef1f6;font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}' +
+  '.hd{background:#fff;padding:14px 24px 0;border-bottom:1px solid #e4e8ee;flex-shrink:0}' +
+  '.hd-row{display:flex;align-items:center;gap:16px}' +
+  '.hd-title{font-size:17px;font-weight:700;color:#1f2940;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}' +
+  '.hd-close{border:1px solid #dce1e8;background:#fff;color:#5a6478;font-size:12px;padding:6px 14px;border-radius:8px;cursor:pointer;flex-shrink:0}' +
+  '.hd-close:hover{border-color:#c5d0f0;color:#3464e8;background:#f4f7ff}' +
+  '.tabs{display:flex;gap:2px;background:#fff;padding:0 20px;flex-shrink:0}' +
+  '.ntb-tab{padding:10px 16px;font-size:14px;color:#5a6478;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;user-select:none}' +
+  '.ntb-tab:hover{color:#3464e8}' +
+  '.ntb-tab.active{color:#3464e8;border-bottom-color:#3464e8;font-weight:600}' +
+  '.toolbar{display:flex;align-items:center;gap:8px;background:#414757;padding:7px 20px;color:#cdd3de;flex-shrink:0}' +
+  '.tb-ic{border:0;background:transparent;color:#cdd3de;cursor:pointer;font-size:14px;padding:4px 8px;border-radius:6px;line-height:1}' +
+  '.tb-ic:hover{background:rgba(255,255,255,.14);color:#fff}' +
+  '.tb-page{font-size:12px;min-width:48px;text-align:center}' +
+  '.tb-zoom{border:1px solid rgba(255,255,255,.28);background:transparent;color:#cdd3de;font-size:12px;border-radius:6px;padding:4px 8px;outline:none;cursor:pointer}' +
+  '.tb-zoom option{color:#333}' +
+  '.tb-close{margin-left:auto;border:1px solid rgba(255,255,255,.28);background:transparent;color:#cdd3de;font-size:12px;cursor:pointer;padding:5px 12px;border-radius:6px}' +
+  '.tb-close:hover{background:rgba(255,255,255,.14);color:#fff}' +
+  '.stage{flex:1;overflow:auto;padding:24px;display:flex;justify-content:center;background:#eef1f6}' +
+  '.paper{background:#fff;width:794px;min-height:1000px;padding:72px 84px;box-shadow:0 6px 24px rgba(30,45,80,.12);border-radius:2px;transform-origin:top center;flex-shrink:0}' +
+  '.red-co{color:#d01919;font-size:42px;font-weight:700;text-align:center;font-family:"SimSun","STSong",serif;letter-spacing:2px}' +
+  '.red-no{color:#d01919;font-size:18px;text-align:center;font-family:"SimSun",serif;margin-top:10px}' +
+  '.red-line{height:3px;background:#d01919;margin:18px 0 36px;border-radius:1px}' +
+  '.doc-title{font-size:22px;font-weight:700;color:#1f2940;text-align:center;margin:0 0 30px;line-height:1.6;font-family:"SimSun",serif}' +
+  '.paper p{font-size:16px;line-height:2.1;color:#222;text-indent:2em;margin:0 0 12px;font-family:"FangSong","SimSun",serif}' +
+  '.doc-sign{margin-top:44px;text-align:right;font-family:"FangSong",serif}' +
+  '.doc-sign .sign-name{font-size:16px;color:#222;margin-bottom:6px}' +
+  '.doc-sign .sign-date{font-size:16px;color:#222}' +
+  '.page-no{text-align:center;color:#9aa2b5;font-size:13px;margin-top:40px;font-family:"SimSun",serif}' +
+  '.ntb-panel{display:none;width:794px;margin:0 auto;background:#fff;box-shadow:0 6px 24px rgba(30,45,80,.12);border-radius:2px;padding:28px 36px;flex-shrink:0}' +
+  '.ntb-panel h3{font-size:14px;color:#1f2940;margin:0 0 16px}' +
+  '.prop-table{width:100%;border-collapse:collapse}' +
+  '.prop-table td{border:1px solid #e7eaf1;padding:10px 14px;font-size:13px;color:#3a4560}' +
+  '.prop-table td.k{background:#f9fafc;color:#7c879e;width:140px}' +
+  '.empty-tip{padding:64px 0;text-align:center;color:#9aa2b8;font-size:13px}' +
+  '.log-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px dashed #eef0f4;font-size:13px;color:#5a6478}' +
+  '.log-item:last-child{border-bottom:0}' +
+  '.log-time{color:#9aa2b5;flex-shrink:0;min-width:140px}' +
+  '</style></head><body>' +
+  '<div class="hd"><div class="hd-row"><div class="hd-title">' + n.title + '</div><button class="hd-close" onclick="window.close()">关闭</button></div>' +
+  '<div class="tabs">' +
+  '<div class="ntb-tab active" data-p="ntb-main">文档正文</div>' +
+  '<div class="ntb-tab" data-p="ntb-attach">文档附件(0)</div>' +
+  '<div class="ntb-tab" data-p="ntb-prop">文档属性</div>' +
+  '<div class="ntb-tab" data-p="ntb-share">文档共享</div>' +
+  '<div class="ntb-tab" data-p="ntb-log">文档日志</div>' +
+  '</div></div>' +
+  '<div class="toolbar">' +
+  '<button class="tb-ic" title="搜索">⌕</button>' +
+  '<button class="tb-ic" title="上一页">↑</button><button class="tb-ic" title="下一页">↓</button>' +
+  '<span class="tb-page">1 / 3</span>' +
+  '<button class="tb-ic" title="缩小" onclick="zoomBy(-0.1)">−</button><button class="tb-ic" title="放大" onclick="zoomBy(0.1)">＋</button>' +
+  '<select class="tb-zoom" id="ntbZoom"><option value="auto">自动缩放</option><option value="50">50%</option><option value="75">75%</option><option value="100">100%</option><option value="125">125%</option><option value="150">150%</option></select>' +
+  '<button class="tb-close" onclick="window.close()">✕ 关闭</button>' +
+  '</div>' +
+  '<div class="stage" id="stage">' +
+  '<div class="paper" id="paper">' +
+  '<div class="red-co">华创证券有限责任公司文件</div>' +
+  '<div class="red-no">' + n.docNo + '</div>' +
+  '<div class="red-line"></div>' +
+  '<div class="doc-title">' + n.title + '</div>' +
+  paras +
+  '<div class="doc-sign"><div class="sign-name">华创证券有限责任公司</div><div class="sign-date">' + n.signDate + '</div></div>' +
+  '<div class="page-no">— 1 —</div>' +
+  '</div>' +
+  '<div class="ntb-panel" id="ntb-attach"><h3>文档附件</h3><div class="empty-tip">暂无附件</div></div>' +
+  '<div class="ntb-panel" id="ntb-prop"><h3>文档属性</h3><table class="prop-table">' +
+  '<tr><td class="k">文档标题</td><td>' + n.title + '</td></tr>' +
+  '<tr><td class="k">类型</td><td>' + n.type + '</td></tr>' +
+  '<tr><td class="k">所有者</td><td>' + n.owner + '</td></tr>' +
+  '<tr><td class="k">文件类型</td><td>' + n.fileType + '</td></tr>' +
+  '<tr><td class="k">落实主体</td><td>' + n.implement + '</td></tr>' +
+  '<tr><td class="k">落实要求</td><td>' + n.require + '</td></tr>' +
+  '<tr><td class="k">修改日期</td><td>' + n.date + '</td></tr>' +
+  '<tr><td class="k">目录</td><td>' + n.dir + '</td></tr>' +
+  '<tr><td class="k">附件数</td><td>' + n.attach + '</td></tr>' +
+  '<tr><td class="k">状态</td><td>' + n.status + '</td></tr>' +
+  '<tr><td class="k">创建日期</td><td>' + n.created + '</td></tr>' +
+  '<tr><td class="k">回复数</td><td>' + n.replies + '</td></tr>' +
+  '</table></div>' +
+  '<div class="ntb-panel" id="ntb-share"><h3>文档共享</h3><table class="prop-table">' +
+  '<tr><td class="k">共享范围</td><td>仅自己可见</td></tr>' +
+  '<tr><td class="k">外部链接</td><td>未开启</td></tr>' +
+  '<tr><td class="k">下载权限</td><td>关闭</td></tr>' +
+  '</table></div>' +
+  '<div class="ntb-panel" id="ntb-log"><h3>文档日志</h3>' +
+  '<div class="log-item"><span class="log-time">' + n.date + ' 09:00</span><span>' + n.owner + ' 发布了文档《' + n.title + '》</span></div>' +
+  '<div class="log-item"><span class="log-time">' + n.date + ' 09:02</span><span>系统推送到通知公告目录</span></div>' +
+  '<div class="log-item"><span class="log-time">' + n.date + ' 09:05</span><span>通知公告同步至工作台</span></div>' +
+  '</div>' +
+  '</div>' +
+  '<script>' +
+  'var zoomLevel = 1;' +
+  'function zoomBy(d) { zoomLevel = Math.min(2, Math.max(0.4, zoomLevel + d)); document.getElementById("paper").style.zoom = zoomLevel; }' +
+  'document.querySelectorAll(".ntb-tab").forEach(function(t) {' +
+  '  t.onclick = function() {' +
+  '    document.querySelectorAll(".ntb-tab").forEach(function(x) { x.classList.toggle("active", x === t); });' +
+  '    ["ntb-main","ntb-attach","ntb-prop","ntb-share","ntb-log"].forEach(function(p) {' +
+  '      var el = document.getElementById(p === "ntb-main" ? "paper" : p);' +
+  '      if (el) el.style.display = (t.dataset.p === p) ? "block" : "none";' +
+  '    });' +
+  '    document.getElementById("stage").scrollTop = 0;' +
+  '  };' +
+  '});' +
+  'document.getElementById("ntbZoom").onchange = function() {' +
+  '  var paper = document.getElementById("paper");' +
+  '  if (this.value === "auto") { zoomLevel = 1; paper.style.zoom = 1; }' +
+  '  else { zoomLevel = parseFloat(this.value) / 100; paper.style.zoom = zoomLevel; }' +
+  '};' +
+  '<\/script>' +
+  '</body></html>';
+}
+
+/* 确保右侧面板存在"通知公告" Tab（带关闭按钮） */
+function ensureNoticeListTab() {
+  var tab = document.querySelector('#rightTabs .right-tab[data-view="notice"]');
+  if (!tab) {
+    tab = document.createElement('div');
+    tab.className = 'right-tab';
+    tab.dataset.view = 'notice';
+    tab.innerHTML = '通知公告<span class="right-tab-close" onclick="event.stopPropagation();closeNoticeList()" title="关闭">×</span>';
+    tab.onclick = function() { expandNoticeList(); };
+    document.getElementById('rightTabs').appendChild(tab);
+  }
+  return tab;
+}
+
+/* 点击"查看更多"：右侧面板展开覆盖中栏+右栏，展示完整通知公告列表（图三形态） */
+function expandNoticeList() {
+  if (currentVersion !== 'huaChuang' && currentVersion !== 'huaChuang830') {
+    showToast('通知公告列表仅在华创版本可用');
+    return;
+  }
+  ensureNoticeListTab();
+  renderNoticeListView();
+  switchRightTab('notice');
+  document.querySelector('.app').classList.add('notice-list-expanded');
+}
+
+/* 关闭通知公告列表：移除 Tab 与视图并收起面板 */
+function closeNoticeList(switchBack) {
+  var app = document.querySelector('.app');
+  if (app) app.classList.remove('notice-list-expanded');
+  var tab = document.querySelector('#rightTabs .right-tab[data-view="notice"]');
+  if (tab && tab.parentNode) tab.parentNode.removeChild(tab);
+  var view = document.getElementById('noticeListView');
+  if (view && view.parentNode) view.parentNode.removeChild(view);
+  if (switchBack !== false) switchRightTab('dir');
+}
+
+/* 渲染通知公告完整列表视图（图三形态） */
+function renderNoticeListView() {
+  var view = document.getElementById('noticeListView');
+  if (!view) {
+    view = document.createElement('div');
+    view.className = 'right-view notice-list-view';
+    view.id = 'noticeListView';
+    document.getElementById('rightViews').appendChild(view);
+  }
+  var docIcon = '<span class="notice-doc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>';
+  var rows = NOTICE_ITEMS.map(function(n) {
+    return '<tr class="' + (n.unread ? 'notice-row-unread' : 'notice-row-read') + '" onclick="openNoticeDetail(' + n.id + ')" title="点击查看通知详情">' +
+      '<td class="nt-check"><input type="checkbox" onclick="event.stopPropagation()"></td>' +
+      '<td>' + n.type + '</td>' +
+      '<td><div class="notice-doc-cell"><span class="notice-table-dot"></span>' + docIcon + '<span class="notice-doc-name">' + n.title + '</span></div></td>' +
+      '<td>' + n.owner + '</td>' +
+      '<td>' + n.fileType + '</td>' +
+      '<td>' + n.implement + '</td>' +
+      '<td>' + n.require + '</td>' +
+      '<td>' + n.date + '</td>' +
+      '<td>' + n.dir + '</td>' +
+      '<td>' + n.attach + '</td>' +
+      '<td>' + n.status + '</td>' +
+      '<td>' + n.created + '</td>' +
+      '<td>' + n.replies + '</td>' +
+    '</tr>';
+  }).join('');
+  view.innerHTML =
+    '<div class="notice-list-header">' +
+      '<div class="notice-list-header-left">📢 通知公告</div>' +
+      '<div class="notice-list-header-right">' +
+        '<button class="notice-mark-read-btn" onclick="markNoticeRead()">标记为已读</button>' +
+        '<div class="notice-list-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="noticeSearchInput" placeholder="搜索通知公告" oninput="filterNoticeList()"></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="notice-table-wrap"><table class="notice-table">' +
+      '<thead><tr><th class="nt-check"><input type="checkbox"></th><th>类型</th><th>文档</th><th>所有者</th><th>文件类型</th><th>落实主体</th><th>落实要求</th><th>修改日期</th><th>目录</th><th>附件数</th><th>状态</th><th>创建日期</th><th>回复数</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody>' +
+    '</table></div>' +
+    '<div class="notice-list-footer">' +
+      '<span class="notice-list-total">共 6929 条</span>' +
+      '<div class="notice-pagination">' +
+        '<span class="notice-page-btn" title="上一页">‹</span>' +
+        '<span class="notice-page-btn active">1</span>' +
+        '<span class="notice-page-btn" onclick="showToast(\'第 2 页（原型演示）\')">2</span>' +
+        '<span class="notice-page-btn" onclick="showToast(\'第 3 页（原型演示）\')">3</span>' +
+        '<span class="notice-page-btn" onclick="showToast(\'第 4 页（原型演示）\')">…</span>' +
+        '<span class="notice-page-btn" onclick="showToast(\'第 10 页（原型演示）\')">10</span>' +
+        '<span class="notice-page-btn" title="下一页">›</span>' +
+        '<span class="notice-jump">跳至 <input id="noticeJumpInput" onkeydown="if(event.key===\'Enter\'){showToast(\'第 \'+this.value+\' 页（原型演示）\')}"> 页</span>' +
+      '</div>' +
+    '</div>';
+}
+
+/* 列表搜索过滤 */
+function filterNoticeList() {
+  var kw = (document.getElementById('noticeSearchInput').value || '').trim().toLowerCase();
+  var rows = document.querySelectorAll('#noticeListView tbody tr');
+  rows.forEach(function(r) {
+    var name = r.querySelector('.notice-doc-name');
+    var txt = name ? name.textContent.toLowerCase() : '';
+    r.style.display = (!kw || txt.indexOf(kw) >= 0) ? '' : 'none';
+  });
+}
+
+/* 标记全部已读 */
+function markNoticeRead() {
+  NOTICE_ITEMS.forEach(function(n) { n.unread = false; });
+  renderNoticeListView();
+  showToast('已将全部通知公告标记为已读');
+}
+
 // 标准版/酒交版初始展示的原子模型
 const DEFAULT_ATOM_MODELS = [
   {name:'资管产品模型', desc:'定义资产管理产品的稳定评价维度，涵盖时间、产品投向、监管、产品结构和收益波动五大主题。', positioning:'用于对资管产品进行多维度画像与稳定评价，为产品推荐、风险识别和投资决策提供原子能力支撑。', dimensions:[{title:'时间', desc:'产品合同存续期和开放申赎安排'},{title:'产品投向', desc:'资产配置比例和穿透后底层持仓'},{title:'监管', desc:'产品形式、产品类型和风险等级'},{title:'产品结构', desc:'产品层级结构（F单层/MOM/FOF/嵌套）'},{title:'收益波动', desc:'预期收益基准和产品回撤控制'}], dataSource:{tag:'图库', name:'agentcorpus-discovery', text:'业务对象：资管产品稳定评价维度真实数据示例 -- 按资管产品模型的五个客观维度（时间、产品投向、监管、产品结构、收益波动）从资管开发库产品基础信息视图匹配真实产品数据。\n\n数据覆盖：产品基础信息来自 ziguan_dev.V_I_PROD_BASEINFO_HCZQ_S（产品基础信息视图，MYSQL，domain=ziguan_dev）。关键字段：PRODNAME（产品全称）、SPECIALFUNDCODE（产品编码）、FUNDRAISETYPE（产品类型，SPECL1V1=单一，SPECL1VN=集合）、SPECLFUNDCLASS（运作方式，封闭式/开放式）、RISKLEVEL（产品风险等级R1-R5）、CONTRACTSTARTDATE/CONTRACTENDDATE（合同存续期限）、OPENARRANGEMENTS（开放安排）、INVESTSCOPE（投资范围）、INVESTMENTRATIO（投资比例）、PRODUCTSTRATEGY（投资类型）、MOMORFOF（产品层级结构，MOM/FOF/否）、PERFORMANCEBENCHDESC（业绩比较基准描述），证据等级 SYSTEM_DEFINED。\n\n表关系：单表场景，无关联关系。\n\n取数步骤：步骤1 资管产品真实数据示例，domain=ziguan_dev，方言=MYSQL，涉及表=V_I_PROD_BASEINFO_HCZQ_S，无关联，过滤条件=RISKLEVEL 非空，聚合维度=无，聚合指标=无，输出字段=[PRODNAME, SPECIALFUNDCODE, FUNDRAISETYPE, SPECLFUNDCLASS, RISKLEVEL, CONTRACTSTARTDATE, CONTRACTENDDATE, OPENARRANGEMENTS, INVESTSCOPE, INVESTMENTRATIO, PRODUCTSTRATEGY, MOMORFOF, PERFORMANCEBENCHDESC]，输出粒度=每行代表一个资管产品，下游流向=示例卡片展示。\n\n跨域关联键映射：单域场景，省略。'}},
@@ -1784,8 +2129,11 @@ function findAtomModelByName(name) {
 function switchRightTab(view) {
   var tabs = document.querySelectorAll('#rightTabs .right-tab');
   var views = document.querySelectorAll('#rightViews .right-view');
+  var targetId = view === 'dir' ? 'dirView' : (view === 'notice' ? 'noticeListView' : 'atomDetailView');
   tabs.forEach(function(t) { t.classList.toggle('active', t.dataset.view === view); });
-  views.forEach(function(v) { v.classList.toggle('active', v.id === (view === 'dir' ? 'dirView' : 'atomDetailView')); });
+  views.forEach(function(v) { v.classList.toggle('active', v.id === targetId); });
+  /* 切离通知公告列表时收起面板展开状态并移除 Tab */
+  if (view !== 'notice') closeNoticeList(false);
 }
 
 function ensureAtomDetailTab() {
@@ -2342,6 +2690,9 @@ function initHuaChuangDemo() {
   if (mp) { mp.textContent = '● AI 对话'; mp.style.background = '#eaf0ff'; mp.style.color = '#3464e8'; }
   var pb = $('peopleBar');
   if (pb) pb.innerHTML = '<button class="invite" onclick="openMembersModal()">邀请</button>';
+  // 华创版本演示会话非@智能体开启：通知公告/待办事项入口保持显示
+  agentExclusiveChat = false;
+  renderComposerActions(WORKBENCH_CONFIGS[currentVersion]);
 }
 
 function renderNav(cfg) {
@@ -2609,6 +2960,9 @@ function toggleSupportCenterExpand(e) {
   bar.classList.toggle('expanded');
 }
 
+/* 用户主动操作序号：用于取消过期的延时跳转任务，避免覆盖用户后续操作 */
+var uiOpSeq = 0;
+
 function selectSupportCenter(el, name) {
   document.querySelectorAll('.sc-card').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
@@ -2617,13 +2971,20 @@ function selectSupportCenter(el, name) {
     const bar = $('supportCenterBar');
     if (bar) bar.classList.remove('expanded');
     showToast('已切换至 ' + name + '，正在跳转新会话...');
-    setTimeout(() => { startNewChat(); showAgentPrompts(name); }, 600);
+    // 若 600ms 内用户主动开启了新会话/切换了会话/发送了消息，则取消本次延时跳转
+    var seq = uiOpSeq;
+    setTimeout(() => {
+      if (seq !== uiOpSeq) return;
+      startNewChat(); showAgentPrompts(name);
+    }, 600);
   } else {
     showAgentPrompts(name);
     showToast('已切换至 ' + name);
   }
 }
 
+/* 当前会话是否由@智能体开启（此类会话不展示通知公告/待办事项入口） */
+let agentExclusiveChat = false;
 let newChatSelectedAgent = null;
 function showAgentPrompts(agentName) {
   const cfg = WORKBENCH_CONFIGS[currentVersion];
@@ -2631,6 +2992,11 @@ function showAgentPrompts(agentName) {
   const agent = centers.find(c => c.name === agentName);
   if (!agent || !agent.prompts) return;
   newChatSelectedAgent = agentName;
+  // 选中对应智能体卡片（新会话重置默认不选中后，此处恢复/切换高亮）
+  document.querySelectorAll('.sc-card').forEach(c => {
+    const nameEl = c.querySelector('.sc-name');
+    c.classList.toggle('active', !!(nameEl && nameEl.textContent === agentName));
+  });
   const title = $('newChatTitle');
   if (title) title.textContent = '我是' + agentName + '，今天有什么工作要处理？';
   const promptsEl = $('newChatPrompts');
@@ -2643,14 +3009,20 @@ function showAgentPrompts(agentName) {
   input.value = '@' + agentName + ' ';
   updateSendBtn();
   input.focus();
+  // 新会话已选智能体：通知公告/待办事项入口仍显示，发送进入会话后才隐藏
+  renderComposerActions(WORKBENCH_CONFIGS[currentVersion]);
 }
 
 function resetNewChatView() {
   newChatSelectedAgent = null;
+  // 新会话默认不选中任何智能体：清除顶部业务支持中心的高亮状态
+  document.querySelectorAll('.sc-card').forEach(c => c.classList.remove('active'));
   const title = $('newChatTitle');
   if (title) title.textContent = '今天有什么工作要处理？';
   const promptsEl = $('newChatPrompts');
   if (promptsEl) { promptsEl.innerHTML = ''; promptsEl.classList.remove('show'); }
+  // 新会话未选智能体：恢复通知公告/待办事项入口
+  renderComposerActions(WORKBENCH_CONFIGS[currentVersion]);
 }
 
 function usePrompt(el) {
@@ -2682,6 +3054,10 @@ function showPlaceholderPrompts(el) {
 function renderComposerActions(cfg) {
   const el = $('composerActions');
   if (!el) return;
+  /* @智能体场景不展示通知公告/待办事项入口：仅会话由@智能体开启时隐藏，新会话界面（含已选智能体）均显示 */
+  const agentExclusive = agentExclusiveChat;
+  if (agentExclusive) { el.style.display = 'none'; return; }
+  el.style.display = '';
   /* 兼容旧配置：如明确隐藏则清空 */
   if (cfg.hideComposerActions) { el.innerHTML = ''; return; }
 
@@ -3475,6 +3851,7 @@ function viewFolderFiles(folderId) {
 function switchSessionById(id) {
   const chat = findChat(id);
   if (!chat) return;
+  uiOpSeq++;
   activeChatId = id;
   resetOverlayViews();
   renderLeftPanel();
@@ -3482,6 +3859,8 @@ function switchSessionById(id) {
   const title = chat.title;
   sessionMode = mode;
   sessionTitle.textContent = title;
+  // @智能体开启的会话：不展示通知公告/待办事项入口
+  agentExclusiveChat = !!chat.agentChat;
   // 切换会话时重新加载右侧面板成果物
   refreshDeliverablesForSession(id);
   if (mode === 'solo') {
@@ -3517,6 +3896,8 @@ function switchSessionById(id) {
   composer.classList.toggle('ai-on', aiOn);
   // 切回会话视图
   $('chatMain').classList.remove('new-chat-mode');
+  // 已进入会话：按会话开启方式决定通知公告/待办事项入口显隐
+  renderComposerActions(WORKBENCH_CONFIGS[currentVersion]);
 }
 
 function toggleFolder(folderId) {
@@ -3593,6 +3974,7 @@ function scrollToFolder(folderId) {
 
 function startNewChat(folderId) {
   folderId = folderId || '';
+  uiOpSeq++;
   activeChatId = '';
   resetOverlayViews();
   renderLeftPanel();
@@ -3601,6 +3983,7 @@ function startNewChat(folderId) {
   clearUploads();
   // 显示新会话视图
   $('chatMain').classList.add('new-chat-mode');
+  agentExclusiveChat = false;
   resetNewChatView();
   // 新会话默认 solo + AI，若指定 folderId 则自动带入该文件夹
   selectWorkspaceForNewChat(folderId);
@@ -3860,9 +4243,10 @@ function renderSkillTags() {
     '</span>';
 }
 
-function startNewChatFromComposer(title) {
+function startNewChatFromComposer(title, startedWithAgent) {
   const id = 'chat-' + Date.now();
-  const chat = { id, title, mode: 'solo', time: '刚刚' };
+  // agentChat：标记会话是否由@智能体开启（此类会话不展示通知公告/待办事项入口）
+  const chat = { id, title, mode: 'solo', time: '刚刚', agentChat: !!startedWithAgent };
   let folderId = newChatFolderId;
   // 标准版本未选择文件夹时，默认放入"默认"文件夹
   if (!folderId) {
@@ -3880,6 +4264,8 @@ function startNewChatFromComposer(title) {
   switchSessionById(id);
   // 切回会话视图
   $('chatMain').classList.remove('new-chat-mode');
+  // 已进入会话：按会话开启方式决定通知公告/待办事项入口显隐
+  renderComposerActions(WORKBENCH_CONFIGS[currentVersion]);
 }
 
 document.addEventListener('click', function(e) {
@@ -4083,6 +4469,10 @@ function getAgentNames() {
   Object.values(WORKBENCH_CONFIGS).forEach(function(cfg) {
     if (cfg.aiName && agents.indexOf(cfg.aiName) < 0) agents.push(cfg.aiName);
     if (cfg.atAgentDisplay && agents.indexOf(cfg.atAgentDisplay) < 0) agents.push(cfg.atAgentDisplay);
+    // 业务支持中心也属于可@的智能体
+    (cfg.supportCenters || []).forEach(function(c) {
+      if (agents.indexOf(c.name) < 0) agents.push(c.name);
+    });
   });
   return agents;
 }
@@ -4425,14 +4815,14 @@ function generateChatTitle(text) {
 function sendMessage() {
   let text = input.value.trim();
   if (!text && !quoteData && !uploadedFiles.length) return;
+  uiOpSeq++;
 
-  // 新会话界面：发送后创建会话并切换
-  if (!activeChatId && text) {
-    startNewChatFromComposer(generateChatTitle(text));
-  }
-
-  const isSolo = sessionMode === 'solo';
   const hasAtAgent = hasAgentMention(text);
+  // 新会话界面：发送后创建会话并切换（无论 activeChatId 状态，只要处于新会话界面都需切换）；@智能体发送的会话标记 agentChat
+  if (text && (!activeChatId || $('chatMain').classList.contains('new-chat-mode'))) {
+    startNewChatFromComposer(generateChatTitle(text), hasAtAgent);
+  }
+  const isSolo = sessionMode === 'solo';
   const willAI = isSolo || aiOn || hasAtAgent || (quoteData?.aiProcess);
 
   // 选择正确的消息区
@@ -4457,14 +4847,14 @@ function sendMessage() {
       var action = cfg.composerActions.find(function(a) { return a.prompt === text; });
       if (action && action.reply) {
         customReply = action.reply;
-        // 华创版：根据 action 名称查找关联的原子模型
+        // 华创版：根据 action 名称查找关联的原子模型（通知公告无关联配置）
         if (ATOM_MODELS_BY_ACTION[action.name]) {
           atomModels = ATOM_MODELS_BY_ACTION[action.name];
         }
       }
     }
-    // 华创版自由对话：使用默认原子模型
-    if (!atomModels && currentVersion === 'huaChuang') {
+    // 华创版自由对话：使用默认原子模型（chip 入口类消息不注入默认模型）
+    if (!atomModels && !customReply && currentVersion === 'huaChuang') {
       atomModels = HUACHUANG_DEFAULT_ATOM_MODELS;
     }
     setTimeout(() => {
