@@ -756,35 +756,155 @@
     .main.app-center-mode .messages,
     .main.app-center-mode #soloMessages,
     .main.app-center-mode .new-chat-center,
-    .main.app-center-mode .toast,
     .main.app-center-mode .auto-status,
     .main.app-center-mode .composer-wrap{display:none!important}
     .main.app-center-mode #appCenterView{display:flex}
+    .main.app-center-mode .toast{bottom:24px}
     .app.app-center-active{grid-template-columns:290px 1fr}
     .app.app-center-active .right{display:none}
     .app-center-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px 12px;background:#fff;border-bottom:1px solid #eef0f5;flex-shrink:0}
-    .app-center-back{display:flex;align-items:center;gap:6px;border:0;background:transparent;color:#5a6478;font-size:13px;cursor:pointer;padding:6px 10px;border-radius:8px;transition:.15s;font-weight:600}
-    .app-center-back:hover{background:#f0f3fa;color:#3464e8}
-    .app-center-back svg{width:16px;height:16px}
     .app-center-title{font-size:18px;font-weight:800;color:#1f2940}
     .app-center-search{display:flex;align-items:center;gap:6px;background:#f4f6fb;border:1px solid #e8ebf0;border-radius:8px;padding:0 10px;width:200px;transition:.15s}
     .app-center-search:focus-within{border-color:#3464e8;background:#fff;box-shadow:0 0 0 2px rgba(52,100,232,.1)}
     .app-center-search svg{width:14px;height:14px;color:#8a93a8;flex-shrink:0}
     .app-center-search input{flex:1;border:0;background:transparent;font-size:13px;color:#1f2940;padding:7px 0;outline:none;font-family:inherit}
     .app-center-search input::placeholder{color:#b0b8c9}
-    .app-center-tabs{display:flex;gap:4px;padding:12px 24px;background:#fff;border-bottom:1px solid #eef0f5;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
-    .app-center-tabs::-webkit-scrollbar{display:none}
-    .app-center-tab{white-space:nowrap;padding:7px 14px;font-size:13px;color:#7c879e;cursor:pointer;border-radius:8px;transition:.15s;font-weight:600;flex-shrink:0}
-    .app-center-tab:hover{background:#f0f3fa;color:#3464e8}
-    .app-center-tab.active{background:#eaf0ff;color:#3464e8}
-    .app-center-grid{flex:1;overflow-y:auto;padding:20px 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px;align-content:start}
+    /* 部门导航：全部应用板块的固定头部（位于滚动容器之外，结构上杜绝穿模）；白底通栏+下分隔线，与上方"我的应用"板块清晰分区 */
+    .app-center-nav{display:flex;gap:22px;align-items:center;padding:10px 24px;background:#fff;border-bottom:1px solid #e8ebf2;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+    .app-center-nav::-webkit-scrollbar{display:none}
+    .app-center-nav-item{position:relative;flex-shrink:0;font-size:13.5px;color:#5b667c;cursor:pointer;padding:4px 0;font-weight:600;transition:.15s}
+    .app-center-nav-item:hover{color:#3464e8}
+    .app-center-nav-item.active{color:#3464e8}
+    .app-center-nav-item.active::after{content:'';position:absolute;left:50%;transform:translateX(-50%);bottom:-2px;width:20px;height:3px;border-radius:2px;background:#3464e8}
+    /* 我的应用板块：默认展开；向下滚动时收起让位（导航栏顶到最上），滚回顶部时再展开 */
+    .app-center-myapps{background:#fff;padding:16px 24px 18px;flex-shrink:0;margin-bottom:8px;overflow:hidden;max-height:420px;transition:max-height .25s ease,padding .25s ease,margin-bottom .25s ease}
+    .app-center-myapps.collapsed{max-height:0;padding-top:0;padding-bottom:0;margin-bottom:0}
+    .app-center-body{position:relative;flex:1;min-height:0;display:flex;flex-direction:column}
+    .app-center-grid{flex:1;overflow-y:auto;padding:20px 24px;display:block}
     .app-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px 14px;border-radius:12px;background:#fff;border:1px solid #eef0f5;cursor:pointer;transition:.15s;position:relative}
     .app-card:hover{border-color:#c5d0f0;box-shadow:0 4px 14px rgba(42,61,109,.08);transform:translateY(-1px)}
     .app-card-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;letter-spacing:-.5px}
     .app-card-name{font-size:12px;font-weight:600;color:#3a4560;text-align:center;line-height:1.3;word-break:break-all}
     .app-card-badge{position:absolute;top:8px;right:8px;min-width:16px;height:16px;border-radius:10px;background:#e34;color:#fff;font-size:9px;font-weight:700;display:grid;place-items:center;padding:0 4px}
-    .app-card-ai-tag{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;color:#3464e8;background:#eaf0ff;border-radius:4px;padding:1px 4px;letter-spacing:.5px}
     .app-center-empty{text-align:center;padding:40px 10px;color:#9aa2b8;font-size:13px}
+    /* 应用中心-管理模式 */
+    #appCenterView{position:relative}
+    .app-center-manage-btn{border:1px solid #dce1ea;background:#fff;color:#3464e8;font-size:13px;font-weight:600;padding:7px 16px;border-radius:8px;cursor:pointer;transition:.15s;font-family:inherit}
+    .app-center-manage-btn:hover{background:#eaf0ff;border-color:#b9c9f5}
+    .app-center-manage-actions{display:flex;gap:8px}
+    .app-center-btn{border:1px solid #dce1ea;background:#fff;color:#5a6478;font-size:13px;font-weight:600;padding:7px 16px;border-radius:8px;cursor:pointer;transition:.15s;font-family:inherit}
+    .app-center-btn:hover{background:#f0f3fa}
+    .app-center-btn.save{background:#3464e8;border-color:#3464e8;color:#fff}
+    .app-center-btn.save:hover{background:#2b53c9}
+    .app-manage-hint{font-size:11px;color:#9aa2b8;font-weight:400;margin-left:6px}
+    .app-manage-section-title{font-size:14px;font-weight:700;color:#1f2940;padding:4px 0 12px;display:flex;align-items:center;gap:8px}
+    .app-center-grid .app-manage-section-title{margin-top:20px}
+    .app-center-grid .app-manage-section-title:first-child{margin-top:0}
+    .app-manage-section-title::before{content:'';width:4px;height:14px;border-radius:2px;background:#3464e8;flex-shrink:0}
+    .app-manage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px;align-content:start}
+    .app-manage-empty{grid-column:1/-1;text-align:center;padding:24px 10px;color:#9aa2b8;font-size:13px;border:1px dashed #e3e7ef;border-radius:12px}
+    .app-card-minus{position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:#f78c2a;color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center;line-height:1;z-index:1}
+    .app-card-add{position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:#3464e8;color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center;line-height:1;z-index:1}
+    .app-card.dragging{opacity:.4}
+    /* 替换弹层（我的应用已满时） */
+    .app-replace-mask{position:absolute;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:50}
+    .app-replace-mask.show{display:flex}
+    .app-replace-panel{width:500px;max-width:90%;max-height:82%;overflow-y:auto;background:#fff;border-radius:16px;padding:20px 22px}
+    .app-replace-title{font-size:15px;font-weight:700;color:#1f2940}
+    .app-replace-sub{font-size:12px;color:#7c879e;padding:6px 0 14px}
+    /* 应用仿真页（应用内浏览器，对齐app端 InAppBrowser/SimViews） */
+    .app-browser-mask{position:absolute;inset:0;z-index:60;background:#f0f2f5;display:none;flex-direction:column;overflow:hidden}
+    .app-browser-mask.show{display:flex;animation:appBrowserIn .22s ease}
+    @keyframes appBrowserIn{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
+    .ab-topbar{flex-shrink:0;display:flex;align-items:center;gap:10px;height:48px;padding:0 16px;color:#fff}
+    .ab-back{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;cursor:pointer;background:rgba(255,255,255,.16);transition:.15s}
+    .ab-back:hover{background:rgba(255,255,255,.3)}
+    .ab-back svg{width:16px;height:16px}
+    .ab-logo{width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0}
+    .ab-title{flex:1;min-width:0;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ab-user{font-size:11px;background:rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;flex-shrink:0}
+    .ab-body{flex:1;overflow-y:auto;padding:16px 20px 20px}
+    .ab-banner{border-radius:12px;padding:14px 18px;color:#fff}
+    .ab-banner .t1{font-size:14px;font-weight:700}
+    .ab-banner .t2{font-size:11.5px;opacity:.85;padding-top:4px}
+    .ab-funcs{margin-top:14px;background:#fff;border-radius:12px;padding:16px 8px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .ab-func{display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer}
+    .ab-func-ico{position:relative;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700}
+    .ab-func-badge{position:absolute;top:-5px;right:-6px;min-width:15px;height:15px;border-radius:8px;background:#e34;color:#fff;font-size:9px;font-weight:700;display:grid;place-items:center;padding:0 4px}
+    .ab-func-name{font-size:11.5px;color:#5b667c}
+    .ab-card{margin-top:14px;background:#fff;border-radius:12px;padding:14px 16px}
+    .ab-card-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:10px}
+    .ab-card-title{font-size:13px;font-weight:700;color:#1f2940}
+    .ab-card-more{font-size:11px;color:#9aa2b8;cursor:pointer}
+    .ab-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid #f2f4f8;cursor:pointer}
+    .ab-row:hover .ab-row-title{color:#3464e8}
+    .ab-tag{flex-shrink:0;font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;margin-top:2px}
+    .ab-row-main{flex:1;min-width:0}
+    .ab-row-title{display:block;font-size:12.5px;color:#3a4560;line-height:1.5;transition:.15s}
+    .ab-row-time{display:block;font-size:10.5px;color:#9aa2b8;padding-top:3px}
+    /* OA审批 */
+    .ab-oa-head{flex-shrink:0;background:linear-gradient(120deg,#35b6f2,#2f8ef0);padding:10px 16px 12px;color:#fff}
+    .ab-oa-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700}
+    .ab-oa-search{margin-top:10px;height:34px;border-radius:8px;background:rgba(255,255,255,.25);display:flex;align-items:center;gap:8px;padding:0 12px;font-size:12px;color:rgba(255,255,255,.9)}
+    .ab-oa-search svg{width:14px;height:14px;flex-shrink:0}
+    .ab-oa-row{display:flex;align-items:center;gap:12px;background:#fff;padding:12px 16px;border-bottom:1px solid #f2f4f8;cursor:pointer}
+    .ab-oa-row:hover{background:#f8fafc}
+    .ab-oa-ico{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:700;flex-shrink:0}
+    .ab-oa-main{flex:1;min-width:0}
+    .ab-oa-line{display:flex;align-items:baseline}
+    .ab-oa-name{flex:1;font-size:13.5px;color:#1f2940;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ab-oa-date{flex-shrink:0;font-size:10.5px;color:#9aa2b8;padding-left:10px}
+    .ab-oa-sub{font-size:11.5px;color:#9aa2b8;padding-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ab-oa-foot{flex-shrink:0;display:flex;gap:12px;padding:12px 16px;background:#f5f6f7;border-top:1px solid #eef0f5}
+    .ab-oa-foot button{flex:1;height:38px;border-radius:8px;background:#fff;border:1px solid #e3e7ef;font-size:12px;color:#3a4560;cursor:pointer;transition:.15s;font-family:inherit}
+    .ab-oa-foot button:hover{border-color:#2f8ef0;color:#2f8ef0}
+    /* 智能费控 */
+    .ab-fk-grid4{background:#fff;border-radius:12px;display:grid;grid-template-columns:repeat(4,1fr);padding:16px 0}
+    .ab-fk-cell{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#3a4560;cursor:pointer}
+    .ab-fk-num{height:26px;display:flex;align-items:center;font-size:20px;font-weight:600;color:#e34}
+    .ab-fk-ico{height:26px;display:flex;align-items:center;font-size:17px;font-weight:700}
+    .ab-fk-apps{margin-top:14px;background:#fff;border-radius:12px;display:grid;grid-template-columns:repeat(3,1fr);padding:20px 0}
+    .ab-fk-app{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
+    .ab-fk-app-ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff;font-size:17px;font-weight:700}
+    .ab-fk-app-name{font-size:12px;color:#1f2940;text-align:center}
+    .ab-fk-foot{flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;background:#fff;border-top:1px solid #eef0f5;padding:8px 0 10px}
+    .ab-fk-foot>div{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;cursor:pointer}
+    .ab-fk-foot .ico{font-size:17px;font-weight:700;line-height:1}
+    /* 通知公告 */
+    .ab-gray-head{flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;height:46px;background:#f2f2f2}
+    .ab-gray-head .ab-back{position:absolute;left:12px;background:transparent;color:#1f2940}
+    .ab-gray-head .ab-back:hover{background:#e3e7ef}
+    .ab-gray-head .t{font-size:15px;font-weight:700;color:#1f2940}
+    .ab-tz-tabs{flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-between;background:#fff;padding:0 16px;border-bottom:1px solid #eef0f5}
+    .ab-tz-tab{display:flex;flex-direction:column;align-items:center;padding-top:10px;font-size:13px;color:#3464e8}
+    .ab-tz-tab::after{content:'';width:52px;height:3px;border-radius:2px;background:#3464e8;margin-top:6px}
+    .ab-tz-more{font-size:12px;color:#9aa2b8;padding-bottom:8px}
+    .ab-tz-search{flex-shrink:0;background:#fff;padding:10px 16px}
+    .ab-tz-search>div{height:34px;border-radius:8px;background:#ececec;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:12px;color:#9aa2b8}
+    .ab-tz-search svg{width:14px;height:14px;flex-shrink:0}
+    .ab-tz-row{display:flex;gap:12px;background:#fff;padding:14px 16px;border-bottom:1px solid #f2f4f8;cursor:pointer}
+    .ab-tz-row:hover .ab-tz-title{color:#3464e8}
+    .ab-tz-ico{position:relative;width:46px;height:46px;border-radius:10px;background:#69808f;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700;flex-shrink:0}
+    .ab-tz-ico::after{content:'';position:absolute;top:-4px;right:-4px;width:9px;height:9px;border-radius:50%;background:#f78c2a}
+    .ab-tz-title{display:block;font-size:13px;color:#1f2940;line-height:1.5;transition:.15s}
+    .ab-tz-meta{display:block;font-size:11.5px;color:#9aa2b8;padding-top:6px}
+    /* OA邮箱 */
+    .ab-mail-search{flex-shrink:0;background:#fff;padding:10px 16px;border-bottom:1px solid #f2f4f8}
+    .ab-mail-search>div{height:34px;border-radius:8px;background:#ececec;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:12px;color:#9aa2b8}
+    .ab-mail-search svg{width:14px;height:14px;flex-shrink:0}
+    .ab-mail-row{display:flex;align-items:center;gap:10px;background:#fff;padding:12px 16px;border-bottom:1px solid #f2f4f8;cursor:pointer}
+    .ab-mail-row:hover{background:#f8fafc}
+    .ab-mail-av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px;flex-shrink:0}
+    .ab-mail-main{flex:1;min-width:0}
+    .ab-mail-line{display:flex;align-items:center;gap:6px}
+    .ab-mail-dot{width:7px;height:7px;border-radius:50%;background:#5aa2e8;flex-shrink:0}
+    .ab-mail-name{flex:1;font-size:13px;font-weight:700;color:#1f2940;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ab-mail-clip{flex-shrink:0;font-size:11px;color:#5b667c}
+    .ab-mail-date{flex-shrink:0;font-size:12px;color:#3a4560}
+    .ab-mail-sub{display:block;font-size:12px;font-weight:600;color:#1f2940;padding-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ab-mail-foot{flex-shrink:0;display:flex;align-items:center;height:44px;background:#fff;border-top:1px solid #e3e7ef;padding:0 16px}
+    .ab-mail-foot .mid{flex:1;text-align:center;font-size:13px;color:#1f2940}
+    .ab-mail-foot .side{font-size:12px;color:#5b667c;cursor:pointer}
 
     /* ===== 通知公告卡片（AI 回复内，华创/华创830） ===== */
     .notice-card{margin:2px 0 4px;border:1px solid #e7eaf1;border-radius:12px;background:#fafbfd;overflow:hidden;max-width:560px}
@@ -1060,18 +1180,30 @@
     <!-- 应用中心视图 -->
     <div id="appCenterView">
       <div class="app-center-header">
-        <button class="app-center-back" onclick="closeAppCenter()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-          返回会话
-        </button>
         <span class="app-center-title">应用中心</span>
-        <div class="app-center-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="appSearchInput" placeholder="搜索应用" oninput="filterAppCenter()">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="app-center-search" id="appSearchBox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="appSearchInput" placeholder="搜索应用" oninput="filterAppCenter()">
+          </div>
+          <div id="appCenterManageBox"></div>
         </div>
       </div>
-      <div class="app-center-tabs" id="appCenterTabs"></div>
-      <div class="app-center-grid" id="appCenterGrid"></div>
+      <div class="app-center-body">
+        <div class="app-center-myapps" id="appCenterMyApps"></div>
+        <div id="appCenterNavBox"></div>
+        <div class="app-center-grid" id="appCenterGrid" onscroll="appGridScroll()"></div>
+      </div>
+      <!-- 替换弹层：我的应用已满（最多9个）时触发 -->
+      <div class="app-replace-mask" id="appReplaceMask" onclick="closeAppReplace()">
+        <div class="app-replace-panel" onclick="event.stopPropagation()">
+          <div class="app-replace-title">我的应用已满（最多9个）</div>
+          <div class="app-replace-sub" id="appReplaceSub"></div>
+          <div class="app-manage-grid" id="appReplaceGrid"></div>
+        </div>
+      </div>
+      <!-- 应用仿真页（应用内浏览器，对齐app端） -->
+      <div class="app-browser-mask" id="appBrowserMask"></div>
     </div>
 <header class="header"><div><span class="title" id="sessionTitle">630版本迭代</span> <span class="mode-pill" id="modePill">● 多人协作</span></div><div class="people" id="peopleBar"><span class="avatar a1">陈斌</span><span class="avatar a2">施展</span><span class="avatar a3">宋贤</span><button class="invite" onclick="openMembersModal()">邀请</button></div></header>
 
@@ -1728,8 +1860,8 @@ const WORKBENCH_CONFIGS = {
     label:'华创830', title:'华创证券AI', subtitle:'智能协作系统',
     aiName:'华创证券 AI', atAgentDisplay:'当前会话所属智能体', aiAvatar:'data:image/png;base64,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', brandLogo:'data:image/png;base64,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',
     navButtons: [
-      {name:'任务',icon:'task'},{name:'异常提醒',icon:'alert'},
-      {name:'成果物',icon:'deliver'}
+      {name:'任务',icon:'task'},{name:'应用',icon:'app'},
+      {name:'异常提醒',icon:'alert'},{name:'成果物',icon:'deliver'}
     ],
     navFlat: true,
     supportCenters: [
@@ -2213,52 +2345,113 @@ const alertData = [
   {id:'alert-4',level:'low',title:'零售客户活跃度异常下降提醒',desc:'本月零售高净值客户活跃度环比下降 18%，主要集中在华南区域，建议排查原因并制定挽回方案。',source:'零售业务数据平台',time:'2小时前',detail:'统计周期：2026年7月\n下降幅度：-18%（环比）\n影响区域：华南区域\n涉及客户数：约 320 人\n\n初步分析可能与近期 APP 改版后部分功能入口调整有关。建议零售金融部联合产品部排查用户体验问题，并针对性开展客户回访。',handler:'零售业务助理',status:'未处理'}
 ];
 
-/* ========== 应用中心数据 ========== */
-var APP_CATEGORIES = ['全部','办公协同','客户管理','研发管理','产品管理','人力与行政','其他'];
-var APP_LIST = [
-  // 办公协同
-  {name:'办公OA',icon:'OA',color:'#4369f5',category:'办公协同'},
-  {name:'OA审批',icon:'审',color:'#2ecc71',category:'办公协同',badge:77},
-  {name:'OA邮箱',icon:'邮',color:'#4369f5',category:'办公协同',ai:true},
-  {name:'智能费控',icon:'¥',color:'#f0a030',category:'办公协同',ai:true},
-  {name:'一点触发全体响应',icon:'响',color:'#e34',category:'办公协同'},
-  // 客户管理
-  {name:'CRM5.0',icon:'CRM',color:'#4369f5',category:'客户管理'},
-  {name:'机构CRM',icon:'CRM',color:'#e3875d',category:'客户管理'},
-  {name:'客户团队作战管理',icon:'队',color:'#4369f5',category:'客户管理'},
-  {name:'信用客户管理',icon:'客',color:'#4369f5',category:'客户管理'},
-  // 研发管理
-  {name:'自研需求申请',icon:'需',color:'#4369f5',category:'研发管理'},
-  {name:'易信需求申请',icon:'需',color:'#16a085',category:'研发管理'},
-  {name:'研发中心项目管理',icon:'项',color:'#7654e8',category:'研发管理'},
-  // 产品管理
-  {name:'基金产品库',icon:'基',color:'#4369f5',category:'产品管理'},
-  {name:'资管产品生命周期系统',icon:'资',color:'#e34',category:'产品管理'},
-  {name:'合同管理系统',icon:'合',color:'#4369f5',category:'产品管理'},
-  // 人力与行政
-  {name:'智能人事系统',icon:'人',color:'#4369f5',category:'人力与行政'},
-  {name:'角色中心',icon:'角',color:'#2ecc71',category:'人力与行政'},
-  {name:'事项模板配置',icon:'模',color:'#b89a5a',category:'人力与行政'},
-  // 其他
-  {name:'群聊看板',icon:'群',color:'#f0a030',category:'其他'},
-  {name:'差旅服务智能体',icon:'差',color:'#16a085',category:'其他'},
-  {name:'任务中心',icon:'任',color:'#7654e8',category:'其他',badge:10},
-  {name:'AI服务中心',icon:'AI',color:'#4369f5',category:'其他'},
-  {name:'帖子中心',icon:'帖',color:'#5dade8',category:'其他'},
-  {name:'投顾大赛',icon:'赛',color:'#f0a030',category:'其他'},
-  {name:'易语知',icon:'易',color:'#f0a030',category:'其他'},
-  {name:'反馈处理',icon:'反',color:'#95a5a6',category:'其他'},
-  {name:'设置',icon:'设',color:'#7654e8',category:'其他'}
+/* ========== 应用中心数据（与app端完整版 quickLinks.ts 一致） ========== */
+var APP_DEPTS = [
+  { name:'公司管理', items:[
+    {name:'合同管理系统',icon:'合',color:'#4b9fe8'},
+    {name:'智能人事系统',icon:'人',color:'#6c5ce7'},
+    {name:'移动考勤',icon:'勤',color:'#4b9fe8',badge:1}
+  ]},
+  { name:'日常办公', items:[
+    {name:'正式发文',icon:'文',color:'#e8434f'},
+    {name:'差旅服务智能体',icon:'差',color:'#12b8c6'},
+    {name:'通知公告',icon:'通',color:'#6c5ce7',badge:2},
+    {name:'智能费控',icon:'¥',color:'#f78c2a'},
+    {name:'自研需求申请',icon:'需',color:'#4b9fe8'},
+    {name:'易信需求申请',icon:'需',color:'#16ad69'},
+    {name:'机构CRM',icon:'CRM',color:'#f78c2a'},
+    {name:'ETF投顾大赛',icon:'赛',color:'#f78c2a'},
+    {name:'日程',icon:'程',color:'#4b9fe8'},
+    {name:'AI服务中心',icon:'AI',color:'#4b6bfb'},
+    {name:'帖子中心',icon:'帖',color:'#4b9fe8'},
+    {name:'客户团队作战管理',icon:'队',color:'#12b8c6'},
+    {name:'角色中心',icon:'角',color:'#16ad69'},
+    {name:'任务中心',icon:'任',color:'#6c5ce7',badge:3},
+    {name:'一点触发全体响应',icon:'响',color:'#e8434f'},
+    {name:'OA邮箱',icon:'邮',color:'#4b9fe8',badge:5},
+    {name:'OA审批',icon:'审',color:'#16ad69',badge:2}
+  ]},
+  { name:'投资银行部', items:[
+    {name:'投行协同作业平台',icon:'投',color:'#f78c2a'}
+  ]},
+  { name:'研究所', items:[
+    {name:'基金产品库',icon:'基',color:'#4b9fe8'}
+  ]},
+  { name:'财富管理部', items:[
+    {name:'CRMS5.0',icon:'CRM',color:'#34495e'},
+    {name:'金智云',icon:'金',color:'#e8434f'}
+  ]},
+  { name:'科技研发中心', items:[
+    {name:'研发中心项目管理',icon:'项',color:'#6c5ce7'}
+  ]},
+  { name:'资管业务部', items:[
+    {name:'资管信评系统',icon:'评',color:'#4b9fe8'},
+    {name:'资管产品生命周期系统',icon:'资',color:'#f78c2a'}
+  ]},
+  { name:'信用交易部', items:[
+    {name:'信用客户管理',icon:'客',color:'#4b9fe8'}
+  ]},
+  { name:'培训中心', items:[] },
+  { name:'计划财务部', items:[] },
+  { name:'人力资源部', items:[] }
 ];
-var appCenterCurrentCategory = '全部';
+var APP_LIST = APP_DEPTS.reduce(function(acc, d) { return acc.concat(d.items); }, []);
+/* 首页默认展示（与app端 DEFAULT_QUICK_IDS 一致） */
+var APP_DEFAULT_MY = ['OA邮箱','OA审批','通知公告','智能费控','日程','任务中心','合同管理系统','移动考勤','AI服务中心'];
+
+/* ========== 应用管理状态（参考app端管理模式） ========== */
+var appManageMode = false;
+var appSavedList = APP_DEFAULT_MY.slice(); // 我的应用（最多9个）
+var appDraftList = [];
+var appPendingAdd = null;
+var appDragName = null;
 
 /* ========== 应用中心交互函数 ========== */
 function openAppCenter() {
   $('chatMain').classList.add('app-center-mode');
+  $('chatMain').classList.remove('new-chat-mode'); // 从新会话欢迎页进入时，避免两种模式叠加（业务支持中心悬浮条会残留在应用中心顶部）
   document.querySelector('.app').classList.add('app-center-active');
-  appCenterCurrentCategory = '全部';
   var si = $('appSearchInput'); if (si) si.value = '';
-  renderAppCenterTabs();
+  closeAppBrowser(); // 仿真页开着时点"应用"，关闭仿真页回到应用列表
+  if (appManageMode) exitAppManage(false); // 每次打开默认呈现模式
+  renderAppManageBox();
+  renderAppGrid();
+}
+
+function renderAppManageBox() {
+  var box = $('appCenterManageBox');
+  if (!box) return;
+  if (appManageMode) {
+    box.innerHTML = '<div class="app-center-manage-actions">' +
+      '<button class="app-center-btn" onclick="exitAppManage(false)">取消</button>' +
+      '<button class="app-center-btn save" onclick="exitAppManage(true)">保存</button>' +
+      '</div>';
+  } else {
+    box.innerHTML = '<button class="app-center-manage-btn" onclick="toggleAppManage()">管理</button>';
+  }
+}
+
+function toggleAppManage() {
+  appManageMode = true;
+  appDraftList = appSavedList.slice();
+  appPendingAdd = null;
+  appDragName = null;
+  var sb = $('appSearchBox'); if (sb) sb.style.display = 'none';
+  renderAppManageBox();
+  renderAppGrid();
+}
+
+function exitAppManage(save) {
+  if (save) {
+    appSavedList = appDraftList.slice();
+    showToast('已保存');
+  }
+  appManageMode = false;
+  appPendingAdd = null;
+  appDragName = null;
+  var sb = $('appSearchBox'); if (sb) sb.style.display = '';
+  var mask = $('appReplaceMask'); if (mask) mask.classList.remove('show');
+  renderAppManageBox();
   renderAppGrid();
 }
 
@@ -2267,9 +2460,10 @@ function closeAppCenter() {
   document.querySelector('.app').classList.remove('app-center-active');
 }
 
-/* 关闭所有覆盖层视图（应用中心、消息通知面板），确保能切回会话 */
+/* 关闭所有覆盖层视图（应用中心、应用仿真页、消息通知面板），确保能切回会话 */
 function resetOverlayViews() {
   closeAppCenter();
+  closeAppBrowser();
   const chatMain = $('chatMain');
   const notifView = $('notifView');
   if (notifView) {
@@ -2279,55 +2473,397 @@ function resetOverlayViews() {
   if (chatMain) chatMain.classList.remove('notif-view-open');
 }
 
-function renderAppCenterTabs() {
-  var el = $('appCenterTabs');
-  if (!el) return;
-  el.innerHTML = APP_CATEGORIES.map(function(cat) {
-    return '<span class="app-center-tab' + (cat === appCenterCurrentCategory ? ' active' : '') + '" onclick="selectAppCategory(\'' + cat + '\')">' + cat + '</span>';
-  }).join('');
-}
-
-function selectAppCategory(cat) {
-  appCenterCurrentCategory = cat;
-  renderAppCenterTabs();
-  renderAppGrid();
-}
-
 function filterAppCenter() {
   renderAppGrid();
+}
+
+function findApp(name) {
+  return APP_LIST.find(function(a) { return a.name === name; });
+}
+
+/* 单个应用卡片。opts：dimmed/dragging/minus/plus/noBadge/dataApp/draggable/onclick(回调函数名，null表示不可点) */
+function appCardHtml(a, opts) {
+  opts = opts || {};
+  var cls = 'app-card' + (opts.dimmed ? ' dimmed' : '') + (opts.dragging ? ' dragging' : '');
+  var attrs = '';
+  if (opts.dataApp) attrs += ' data-app="' + a.name + '"';
+  if (opts.draggable) attrs += ' draggable="true" ondragstart="appDragStart(\'' + a.name + '\')" ondragover="appDragOver(event,\'' + a.name + '\')"';
+  var click;
+  if (opts.onclick === undefined) click = ' onclick="openApp(\'' + a.name + '\')"';
+  else if (opts.onclick) click = ' onclick="' + opts.onclick + '(\'' + a.name + '\')"';
+  else click = '';
+  var mark = '';
+  if (opts.minus) mark = '<span class="app-card-minus">−</span>';
+  else if (opts.plus) mark = '<span class="app-card-add">+</span>';
+  return '<div class="' + cls + '"' + attrs + click + '>' +
+    mark +
+    (!opts.noBadge && a.badge ? '<span class="app-card-badge">' + a.badge + '</span>' : '') +
+    '<span class="app-card-icon" style="background:' + a.color + '">' + a.icon + '</span>' +
+    '<span class="app-card-name">' + a.name + '</span>' +
+  '</div>';
 }
 
 function renderAppGrid() {
   var el = $('appCenterGrid');
   if (!el) return;
+  var myBox = $('appCenterMyApps');
+  var navBox = $('appCenterNavBox');
   var keyword = $('appSearchInput') ? $('appSearchInput').value.trim().toLowerCase() : '';
-  var filtered = APP_LIST.filter(function(a) {
-    var matchCat = appCenterCurrentCategory === '全部' || a.category === appCenterCurrentCategory;
-    var matchKeyword = !keyword || a.name.toLowerCase().indexOf(keyword) >= 0;
-    return matchCat && matchKeyword;
+  function matchKw(a) { return !keyword || a.name.toLowerCase().indexOf(keyword) >= 0; }
+  if (appManageMode) {
+    renderManageGrid(el, myBox, navBox);
+  } else {
+    /* 呈现模式："我的应用"与部门导航固定不滚动，仅下方分类板块滚动，结构上杜绝穿模 */
+    if (myBox) {
+      var myApps = appSavedList.map(findApp).filter(Boolean).filter(matchKw);
+      myBox.innerHTML = myApps.length ?
+        '<div class="app-manage-section-title">我的应用</div>' +
+        '<div class="app-manage-grid">' + myApps.map(function(a) { return appCardHtml(a); }).join('') + '</div>' : '';
+      myBox.style.display = myApps.length ? '' : 'none';
+    }
+    if (navBox) navBox.innerHTML = appNavHtml();
+    var html = '';
+    APP_DEPTS.forEach(function(d) {
+      var apps = d.items.filter(matchKw);
+      if (!apps.length) return;
+      html += '<div class="app-manage-section-title" data-sec="' + d.name + '" id="app-sec-' + d.name + '">' + d.name + '</div>' +
+        '<div class="app-manage-grid">' + apps.map(function(a) { return appCardHtml(a); }).join('') + '</div>';
+    });
+    if (!html) html = '<div class="app-center-empty">未找到匹配的应用</div>';
+    el.innerHTML = html;
+  }
+  /* 底部留白：保证末尾短板块也能滚到顶部，滚动条可拖到底 */
+  var pad = Math.max(0, el.clientHeight - 180);
+  el.style.paddingBottom = pad + 'px';
+  /* 处于顶部时确保"我的应用"展开，避免残留收起态 */
+  if (myBox && el.scrollTop <= 4) myBox.classList.remove('collapsed');
+}
+
+/* 部门导航：固定在"我的应用"下方不滚动；点击滚动、滚动同步高亮（带迟滞防抖） */
+var appNavActive = '公司管理';
+var appNavLock = 0;
+function appNavHtml() {
+  return '<div class="app-center-nav">' + APP_DEPTS.filter(function(d) { return d.items.length; }).map(function(d) {
+    return '<span data-nav="' + d.name + '" class="app-center-nav-item' + (appNavActive === d.name ? ' active' : '') + '" onclick="appNavClick(\'' + d.name + '\')">' + d.name + '</span>';
+  }).join('') + '</div>';
+}
+function appNavSetActive(name) {
+  appNavActive = name;
+  var box = $('appCenterNavBox');
+  if (!box) return;
+  box.querySelectorAll('.app-center-nav-item').forEach(function(it) {
+    it.classList.toggle('active', it.getAttribute('data-nav') === name);
   });
-  if (!filtered.length) {
-    el.innerHTML = '<div class="app-center-empty">未找到匹配的应用</div>';
+}
+function appNavClick(name) {
+  appNavSetActive(name);
+  var sec = $('app-sec-' + name);
+  var grid = $('appCenterGrid');
+  if (sec && grid) {
+    appNavLock = Date.now() + 500;
+    var gr = grid.getBoundingClientRect();
+    var target = grid.scrollTop + (sec.getBoundingClientRect().top - gr.top) - 8;
+    grid.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+  }
+}
+function appGridScroll() {
+  var grid = $('appCenterGrid');
+  /* 我的应用收起/展开：下滚让位、滚回顶部恢复（带迟滞防抖动） */
+  var myBox = $('appCenterMyApps');
+  if (grid && myBox && myBox.style.display !== 'none') {
+    if (grid.scrollTop > 60) myBox.classList.add('collapsed');
+    else if (grid.scrollTop <= 4) myBox.classList.remove('collapsed');
+  }
+  if (Date.now() < appNavLock) return;
+  var secs = grid.querySelectorAll('[data-sec]');
+  if (!secs.length) return;
+  var gr = grid.getBoundingClientRect();
+  var vTop = gr.top + 4;
+  var vBot = gr.bottom;
+  var atBottom = grid.scrollTop > 4 && grid.scrollTop + grid.clientHeight >= grid.scrollHeight - 4;
+  var tops = [];
+  secs.forEach(function(s) {
+    tops.push({ name: s.getAttribute('data-sec'), top: s.getBoundingClientRect().top });
+  });
+  var cur = null, i;
+  if (atBottom) {
+    /* 触底：末尾板块太短滚不到顶部，高亮最后一个可见标题 */
+    for (i = 0; i < tops.length; i++) if (tops[i].top < vBot - 4) cur = tops[i].name;
+  } else {
+    /* 高亮"标题越过判定线(顶边下40px)的最后一个板块"；滚回顶部时自然回到第一个板块 */
+    var line = vTop + 40;
+    for (i = 0; i < tops.length; i++) if (tops[i].top <= line) cur = tops[i].name;
+    if (!cur && tops.length) cur = tops[0].name;
+  }
+  if (cur && cur !== appNavActive) appNavSetActive(cur);
+}
+
+/* 管理模式：我的应用（− 移除 / 拖拽排序） + 全部应用（+ 添加 / ✓ 已添加） */
+function renderManageGrid(el, myBox, navBox) {
+  /* "我的应用"与部门导航固定不滚动，仅下方部门列表滚动 */
+  if (myBox) {
+    var myApps = appDraftList.map(findApp).filter(Boolean);
+    var myHtml = '<div class="app-manage-section-title">我的应用<span class="app-manage-hint">拖动可调整位置 · 最多添加9个</span></div>';
+    if (!myApps.length) {
+      myHtml += '<div class="app-manage-grid"><div class="app-manage-empty">暂未添加应用，从下方列表添加</div></div>';
+    } else {
+      myHtml += '<div class="app-manage-grid">' + myApps.map(function(a) {
+        return appCardHtml(a, {
+          minus: true, noBadge: true, dataApp: true, draggable: true, onclick: 'appRemove'
+        });
+      }).join('') + '</div>';
+    }
+    myBox.innerHTML = myHtml;
+    myBox.style.display = '';
+  }
+  if (navBox) navBox.innerHTML = appNavHtml();
+  var html = '';
+  APP_DEPTS.forEach(function(d) {
+    if (!d.items.length) return;
+    html += '<div class="app-manage-section-title" data-sec="' + d.name + '" id="app-sec-' + d.name + '">' + d.name + '</div>' +
+      '<div class="app-manage-grid">' + d.items.map(function(a) {
+        var added = appDraftList.indexOf(a.name) >= 0;
+        return appCardHtml(a, {
+          noBadge: true, plus: !added,
+          onclick: added ? null : 'appAdd'
+        });
+      }).join('') + '</div>';
+  });
+  el.innerHTML = html;
+}
+
+/* 管理模式：移除 / 添加 / 排序 / 替换 */
+function appRemove(name) {
+  appDraftList = appDraftList.filter(function(n) { return n !== name; });
+  renderAppGrid();
+}
+
+function appAdd(name) {
+  if (appDraftList.indexOf(name) >= 0) return;
+  if (appDraftList.length >= 9) {
+    appPendingAdd = name;
+    openAppReplace();
     return;
   }
-  el.innerHTML = filtered.map(function(a) {
-    return '<div class="app-card" onclick="openApp(\'' + a.name + '\')">' +
-      (a.ai ? '<span class="app-card-ai-tag">AI</span>' : '') +
-      (a.badge ? '<span class="app-card-badge">' + a.badge + '</span>' : '') +
-      '<span class="app-card-icon" style="background:' + a.color + '">' + a.icon + '</span>' +
-      '<span class="app-card-name">' + a.name + '</span>' +
-    '</div>';
+  appDraftList.push(name);
+  renderAppGrid();
+}
+
+function appDragStart(name) {
+  appDragName = name;
+}
+
+/* 拖拽排序：直接移动 DOM 节点（重渲染会中断拖拽），同步更新顺序数组 */
+function appDragOver(e, name) {
+  e.preventDefault();
+  if (!appDragName || appDragName === name) return;
+  var from = appDraftList.indexOf(appDragName);
+  var to = appDraftList.indexOf(name);
+  if (from < 0 || to < 0 || from === to) return;
+  appDraftList.splice(from, 1);
+  appDraftList.splice(to, 0, appDragName);
+  var dragEl = document.querySelector('[data-app="' + appDragName + '"]');
+  var overEl = e.currentTarget;
+  if (dragEl && overEl && dragEl !== overEl) {
+    if (from < to) overEl.after(dragEl);
+    else overEl.before(dragEl);
+  }
+}
+
+window.addEventListener('dragend', function() {
+  appDragName = null;
+});
+
+/* 替换弹层：我的应用已满9个时，选择其中一个替换 */
+function openAppReplace() {
+  var a = findApp(appPendingAdd);
+  if (!a) return;
+  $('appReplaceSub').textContent = '选择其中一个替换为「' + a.name + '」';
+  var grid = $('appReplaceGrid');
+  grid.innerHTML = appDraftList.map(findApp).filter(Boolean).map(function(x) {
+    return appCardHtml(x, { minus: true, noBadge: true, onclick: 'appReplace' });
   }).join('');
+  $('appReplaceMask').classList.add('show');
+}
+
+function appReplace(oldName) {
+  if (!appPendingAdd) return;
+  var newName = appPendingAdd;
+  appDraftList = appDraftList.map(function(n) { return n === oldName ? newName : n; });
+  appPendingAdd = null;
+  var mask = $('appReplaceMask'); if (mask) mask.classList.remove('show');
+  showToast('已替换为「' + newName + '」');
+  renderAppGrid();
+}
+
+function closeAppReplace() {
+  appPendingAdd = null;
+  var mask = $('appReplaceMask'); if (mask) mask.classList.remove('show');
+}
+
+/* ========== 应用仿真页（对齐app端 InAppBrowser/SimViews） ========== */
+var AB_USER = '宋贤群';
+var AB_BACK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
+var AB_SEARCH_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
+
+var AB_OA_ROWS = [
+  { i: '流', c: '#f78c2a', t: 'OA流程审批' },
+  { i: '异', c: '#f78c2a', t: '异构流程审批' },
+  { i: '合', c: '#4b9fe8', t: '合规与法律', s: '合规审查流程（标题名称:关于华创易信隐私政策…', d: '2026-02-10' },
+  { i: '行', c: '#4b9fe8', t: '行政办公', s: '司务请示流程（总部）（标题:基金公社股市行情…', d: '2025-02-13' },
+  { i: '系', c: '#4b9fe8', t: '系统工作流', s: '会议取消:华创易信系统培训-陈逸夫-2024-07-15', d: '2025-01-26' },
+  { i: '人', c: '#4b9fe8', t: '人事管理', s: '人力资源部用印申请流程-宋贤群-2024-12-02（…', d: '2024-12-20' },
+  { i: '财', c: '#4b9fe8', t: '财务管理', s: '1.费用性财务开支申请流程-宋贤群（金额:8007.0…', d: '2024-08-06' },
+  { i: '资', c: '#4b9fe8', t: '资产管理', s: '集合立项流程（产品名称:华创稳惠1号集合资产…', d: '2018-09-29' }
+];
+var AB_TZ_ROWS = [
+  { t: '关于开展2026年基金从业人员后续职业培训的通知', w: '王思璐', d: '2026-08-24 15:05:55' },
+  { t: '关于发布《华创证券企业文化建设期刊（第31期）》的通知', w: '张惠嘉', d: '2026-08-21 09:19:42' },
+  { t: '关于组织营业机构参与沪深证券交易所相关业务测试的通知', w: '滕伟', d: '2026-08-20 20:24:10' },
+  { t: '关于参加博时智选量化多因子股票型证券投资基金产品运作说明会的通知', w: '柴金鸽', d: '2026-08-20 09:01:41' },
+  { t: '关于参加泓湖泓福均衡配置1期私募基金产品运营说明会的通知', w: '柴金鸽', d: '2026-08-18 15:38:17' },
+  { t: '关于更新开放式可交易型指数投资基金申赎清单的通知', w: '杨奕文', d: '2026-08-18 15:29:38' },
+  { t: '关于开展2026年9月期货从业人员资格专场考试报名的通知', w: '张万禄', d: '2026-08-18 14:59:09' }
+];
+var AB_MAIL_ROWS = [
+  { n: '刘晓玲', av: '晓玲', ac: '#d48ab8', s: '员工行为管理工作提示邮件', d: '2026-08-24', u: 1 },
+  { n: '刘晓玲', av: '晓玲', ac: '#d48ab8', s: '员工行为管理工作提示邮件', d: '2026-07-23', u: 1 },
+  { n: '刘晓玲', av: '晓玲', ac: '#d48ab8', s: '员工行为管理工作提示邮件', d: '2026-06-26', u: 1 },
+  { n: '邓立昭', av: '立昭', ac: '#64a4e8', s: '关于预定火车票方式调整的通知', d: '2026-06-05', u: 1, c: 1 },
+  { n: '王蕊', av: '王蕊', ac: '#d48ab8', s: '员工行为管理工作提示邮件', d: '2026-05-25', u: 1, c: 1 },
+  { n: '王蕊', av: '王蕊', ac: '#d48ab8', s: '员工行为管理工作提示邮件', d: '2026-04-24', u: 1 },
+  { n: '王蕊', s: '关于开展国家安全相关知识培训的通知', d: '2026-04-15', u: 1 },
+  { n: '余晓璇', s: '关于办理2025年度个人所得税汇算清缴的通知', d: '2026-04-01', u: 1 },
+  { n: '王蕊', s: '员工行为管理工作提示邮件', d: '2026-03-23', u: 1 },
+  { n: '王蕊', s: '员工行为管理工作提示邮件', d: '2026-02-24', u: 1 },
+  { n: '王蕊', s: '员工行为管理工作提示邮件', d: '2026-01-23' }
+];
+
+function abViewOa() {
+  return '<div class="ab-oa-head">' +
+    '<div class="ab-oa-title"><span class="ab-back" onclick="closeAppBrowser()">' + AB_BACK_SVG + '</span>OA审批</div>' +
+    '<div class="ab-oa-search">' + AB_SEARCH_SVG + '<span style="flex:1">搜索</span><span>筛选</span></div>' +
+  '</div>' +
+  '<div class="ab-body" style="padding:0">' +
+    AB_OA_ROWS.map(function(r) {
+      return '<div class="ab-oa-row"><span class="ab-oa-ico" style="background:' + r.c + '">' + r.i + '</span>' +
+        '<span class="ab-oa-main"><span class="ab-oa-line"><span class="ab-oa-name">' + r.t + '</span>' + (r.d ? '<span class="ab-oa-date">' + r.d + '</span>' : '') + '</span>' +
+        (r.s ? '<span class="ab-oa-sub">' + r.s + '</span>' : '') + '</span></div>';
+    }).join('') +
+    '<div style="padding:22px 0;text-align:center;font-size:11px;color:#9aa2b8">没有更多了</div>' +
+  '</div>' +
+  '<div class="ab-oa-foot"><button onclick="showToast(\'分享给我的流程\')">分享给我的流程</button><button onclick="showToast(\'我分享的流程\')">我分享的流程</button></div>';
+}
+
+function abViewFk() {
+  return '<div class="ab-oa-head" style="background:linear-gradient(120deg,#58a8f0,#3d8ce8);padding:10px 16px">' +
+    '<div class="ab-oa-title"><span class="ab-back" onclick="closeAppBrowser()">' + AB_BACK_SVG + '</span>智能费控</div>' +
+  '</div>' +
+  '<div class="ab-body">' +
+    '<div class="ab-fk-grid4">' +
+      '<div class="ab-fk-cell"><span class="ab-fk-num">0</span>待处理</div>' +
+      '<div class="ab-fk-cell"><span class="ab-fk-ico" style="color:#5a5ff0">发</span>我发起</div>' +
+      '<div class="ab-fk-cell"><span class="ab-fk-ico" style="color:#4b9fe8">参</span>我参与</div>' +
+      '<div class="ab-fk-cell"><span class="ab-fk-ico" style="color:#7ecbf5">抄</span>抄送我</div>' +
+    '</div>' +
+    '<div class="ab-fk-apps">' +
+      '<div class="ab-fk-app"><span class="ab-fk-app-ico" style="background:#45b8c4">差</span><span class="ab-fk-app-name">差旅服务</span></div>' +
+      '<div class="ab-fk-app"><span class="ab-fk-app-ico" style="background:#e8724c">报</span><span class="ab-fk-app-name">费用报销(对私支付)</span></div>' +
+      '<div class="ab-fk-app"><span class="ab-fk-app-ico" style="background:#ef9a42">餐</span><span class="ab-fk-app-name">餐费报销</span></div>' +
+    '</div>' +
+  '</div>' +
+  '<div class="ab-fk-foot">' +
+    '<div onclick="showToast(\'发起申请\')"><span class="ico" style="color:#4a90e2">＋</span>发起申请</div>' +
+    '<div onclick="showToast(\'事项中心\')"><span class="ico" style="color:#1f2940">事</span>事项中心</div>' +
+  '</div>';
+}
+
+function abViewTz() {
+  return '<div class="ab-gray-head"><span class="ab-back" onclick="closeAppBrowser()">' + AB_BACK_SVG + '</span><span class="t">通知公告</span></div>' +
+  '<div class="ab-tz-tabs"><span class="ab-tz-tab">通知公告</span><span class="ab-tz-more">更多 ›</span></div>' +
+  '<div class="ab-tz-search"><div>' + AB_SEARCH_SVG + '请输入关键字</div></div>' +
+  '<div class="ab-body" style="padding:0">' +
+    AB_TZ_ROWS.map(function(r) {
+      return '<div class="ab-tz-row"><span class="ab-tz-ico">PDF</span><span style="flex:1;min-width:0">' +
+        '<span class="ab-tz-title">' + r.t + '</span><span class="ab-tz-meta">' + r.w + '&emsp;' + r.d + '</span></span></div>';
+    }).join('') +
+  '</div>';
+}
+
+function abViewMail() {
+  return '<div class="ab-gray-head"><span class="ab-back" onclick="closeAppBrowser()">' + AB_BACK_SVG + '</span><span class="t">邮件</span></div>' +
+  '<div class="ab-mail-search"><div>' + AB_SEARCH_SVG + '<span style="flex:1">请输入关键字</span><span>筛选</span><span style="color:#c3c9d6">|</span><span>更多</span></div></div>' +
+  '<div class="ab-body" style="padding:0">' +
+    AB_MAIL_ROWS.map(function(m) {
+      return '<div class="ab-mail-row">' +
+        (m.av ? '<span class="ab-mail-av" style="background:' + m.ac + '">' + m.av + '</span>' : '') +
+        '<span class="ab-mail-main"><span class="ab-mail-line">' +
+        (m.u ? '<span class="ab-mail-dot"></span>' : '') +
+        '<span class="ab-mail-name">' + m.n + '</span>' +
+        (m.c ? '<span class="ab-mail-clip">附件</span>' : '') +
+        '<span class="ab-mail-date">' + m.d + '</span></span>' +
+        '<span class="ab-mail-sub">' + m.s + '</span></span></div>';
+    }).join('') +
+  '</div>' +
+  '<div class="ab-mail-foot"><span class="side" onclick="showToast(\'菜单\')">菜单</span><span class="mid">收件箱</span><span class="side" onclick="showToast(\'写邮件\')">写邮件</span></div>';
+}
+
+/* 通用门户：顶栏/欢迎横幅/功能宫格/最新动态 */
+function abViewGeneric(a) {
+  var funcs = [
+    { n: '我的待办', i: '待', b: 3 },
+    { n: '通知公告', i: '通', b: 5 },
+    { n: '我的申请', i: '申', b: 0 },
+    { n: '报表中心', i: '表', b: 0 }
+  ];
+  var rows = [
+    { tag: '待办', tc: '#f78c2a', bg: '#fff4e8', t: '您有一条昨日提交的审批流程待处理', d: '今天 09:24' },
+    { tag: '通知', tc: '#3464e8', bg: '#eef3fe', t: '关于年终系统统一巡检的安排通知', d: '昨天 17:40' },
+    { tag: '系统', tc: '#7c879e', bg: '#f2f4f8', t: '您的登录密码将于 7 天后过期，请及时修改', d: '周一 08:00' }
+  ];
+  return '<div class="ab-topbar" style="background:' + a.color + '">' +
+    '<span class="ab-back" onclick="closeAppBrowser()">' + AB_BACK_SVG + '</span>' +
+    '<span class="ab-logo">' + a.icon + '</span>' +
+    '<span class="ab-title">' + a.name + '</span>' +
+    '<span class="ab-user">' + AB_USER + '</span>' +
+  '</div>' +
+  '<div class="ab-body">' +
+    '<div class="ab-banner" style="background:linear-gradient(120deg,' + a.color + ',' + a.color + 'b3)">' +
+      '<div class="t1">您好，' + AB_USER + '</div>' +
+      '<div class="t2">今天是 2026年8月25日 星期二 · 您有 3 条待办待处理</div>' +
+    '</div>' +
+    '<div class="ab-funcs">' + funcs.map(function(f) {
+      return '<div class="ab-func" onclick="closeAppBrowser()"><span class="ab-func-ico" style="background:' + a.color + '">' + f.i +
+        (f.b ? '<span class="ab-func-badge">' + f.b + '</span>' : '') + '</span><span class="ab-func-name">' + f.n + '</span></div>';
+    }).join('') + '</div>' +
+    '<div class="ab-card"><div class="ab-card-head"><span class="ab-card-title">最新动态</span><span class="ab-card-more">更多 ›</span></div>' +
+      rows.map(function(r) {
+        return '<div class="ab-row"><span class="ab-tag" style="color:' + r.tc + ';background:' + r.bg + '">' + r.tag + '</span>' +
+          '<span class="ab-row-main"><span class="ab-row-title">' + r.t + '</span><span class="ab-row-time">' + r.d + '</span></span></div>';
+      }).join('') +
+    '</div>' +
+  '</div>';
 }
 
 function openApp(name) {
-  var app = APP_LIST.find(function(a) { return a.name === name; });
-  if (app && app.ai) {
-    closeAppCenter();
-    composerAction(name);
-    return;
-  }
-  showToast('正在打开：' + name);
+  if (appManageMode) return;
+  var a = findApp(name);
+  if (!a) return;
+  var mask = $('appBrowserMask');
+  var html;
+  if (name === 'OA审批') html = abViewOa();
+  else if (name === '智能费控') html = abViewFk();
+  else if (name === '通知公告') html = abViewTz();
+  else if (name === 'OA邮箱') html = abViewMail();
+  else html = abViewGeneric(a);
+  mask.innerHTML = html;
+  mask.classList.add('show');
+}
+
+function closeAppBrowser() {
+  var mask = $('appBrowserMask');
+  mask.classList.remove('show');
+  mask.innerHTML = '';
 }
 
 let leftData = {
@@ -2746,6 +3282,8 @@ function navAction(name) {
 
 /* ========== 异常提醒处理 ========== */
 function handleAlertEntry() {
+  // 关闭应用中心/应用仿真页/通知面板，切回会话视图
+  resetOverlayViews();
   // 确保处于会话状态
   if (!activeChatId) {
     startNewChatFromComposer('异常提醒');
